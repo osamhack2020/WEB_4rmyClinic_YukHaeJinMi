@@ -44,11 +44,13 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'graphene_django',
     'django_filters',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -141,5 +143,10 @@ REST_FRAMEWORK = {
 }
 GRAPHENE = {
     'SCHEMA' : 'schema.schema',
-    'SCHEMA_OUTPUT': '../client/schema.json',
+    'SCHEMA_OUTPUT': '../../client/schema.json',
 }
+
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+]
