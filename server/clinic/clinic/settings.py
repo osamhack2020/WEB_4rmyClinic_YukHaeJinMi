@@ -146,6 +146,7 @@ GRAPHENE = {
     'SCHEMA_OUTPUT': '../../client/schema.json',
 }
 
+# CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
