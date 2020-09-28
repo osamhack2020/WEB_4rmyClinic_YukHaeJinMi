@@ -16,7 +16,7 @@ import os
 
 env = environ.Env(
     DEBUG=(bool, False),
-    ALLOWED_HOSTS=(str, "http://clientaddress.app") # TODO
+    ALLOWED_HOSTS=(str, "*")
 )
 environ.Env.read_env()
 
@@ -27,7 +27,7 @@ ROOT_DIR = os.path.dirname(BASE_DIR)
 SECRET_KEY = env('SECRET_KEY')
 DEBUG = env('DEBUG')
 AH = env('ALLOWED_HOSTS')
-ALLOWED_HOSTS = ["*"] if AH is None else [AH]
+ALLOWED_HOSTS = [AH] if AH is None else [AH]
 
 
 # Application definition
