@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import environ
+import os
 
 env = environ.Env(
     DEBUG=(bool, False),
@@ -20,11 +21,13 @@ env = environ.Env(
 environ.Env.read_env()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+ROOT_DIR = os.path.dirname(BASE_DIR)
 
 # get value from env
 SECRET_KEY = env('SECRET_KEY')
 DEBUG = env('DEBUG')
-ALLOWED_HOSTS = env('ALLOWED_HOSTS')
+AH = env('ALLOWED_HOSTS')
+ALLOWED_HOSTS = ["*"] if AH is None else [AH]
 
 
 # Application definition
@@ -40,6 +43,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'graphene_django',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -128,6 +132,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(ROOT_DIR, 'static')
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_ACCESS': (

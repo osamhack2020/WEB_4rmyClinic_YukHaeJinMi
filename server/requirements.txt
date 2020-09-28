@@ -4,6 +4,7 @@ bcrypt==3.2.0
 cffi==1.14.3
 Django==3.1.1
 django-environ==0.4.5
+django-filter==2.3.0
 djangorestframework==3.11.1
 djangorestframework-simplejwt==4.4.0
 graphene==2.1.8
@@ -19,3 +20,4 @@ singledispatch==3.4.0.3
 six==1.15.0
 sqlparse==0.3.1
 Unidecode==1.1.1
+uWSGI==2.0.19.1

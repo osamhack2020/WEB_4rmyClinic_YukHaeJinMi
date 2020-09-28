@@ -117,7 +117,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-**/.env
+# **/.env # cooperation(w) vs security(l)
 .venv
 env/
 venv/
@@ -149,3 +149,5 @@ dmypy.json
 # End of https://www.toptal.com/developers/gitignore/api/django
 
 .vscode
+gql/migrations/*initial.py
+gql/migrations/*auto*.py
