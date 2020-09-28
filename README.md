@@ -1,5 +1,7 @@
 # OSAM 두軍두軍 상담소
 
+> **마스터 브랜치에 업데이트가 있다면 `git pull origin master` !!**
+
 ## Project Structure
 ```bash
 /server # 서버 배포를 위한 파일(ex Dockerfile / sh script) 등이 위치하게 됩니다.
@@ -7,9 +9,6 @@
 
 /client # React App
 ```
-
-**`.gitignore` 파일 내부에는 package 관련 파일/폴더 & 기타 쓸모없는 파일/폴더 & Security 관련 위험이 있는 파일이 포함되어 있습니다.<br/>이들은 Github에 업로드 되지 않기 때문에, 이 repository 자체를 clone 한다고 해서 바로 실행할 수 없습니다.**
-<br/><br/>
 
 ## 초기 개발환경 세팅 방법
 ```bash
@@ -33,7 +32,7 @@ cd server/clinic
 # ./manage.py createsuperuser # admin 계정이 필요한 경우
 # ./manage.py loaddata fixture.json # 곧 가짜 data를 만들어서 제공할 계획입니다.
 ```
-
+* (20.09.29.) env 파일을 추가해 놓았고, makemigrations, migrate 하고 실행하면 서버가 실행되겠습니다.
 <br/><br/>
 
 ## Client setting 방법
