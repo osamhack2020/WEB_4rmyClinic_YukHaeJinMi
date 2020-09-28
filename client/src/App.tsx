@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.scss';
-import logo from './logo2.png';
+import logo from './assets/logo2.png';
 import {
   BrowserRouter as Router,
   Switch,
@@ -8,7 +8,7 @@ import {
   Link
 } from 'react-router-dom';
 
-import { Main, NotFound, Post, Profile, SignIn, SignUp , About } from './Routes';
+import { Main, NotFound, Post, Profile, SignIn, SignUp, About } from './Routes';
 
 function App() {
   return (
@@ -17,7 +17,7 @@ function App() {
         <div className="menu-wrapper">
           <div className="header-logo">
             <Link to="/">
-              <img src={logo} alt = "logo" className = "logo"/>
+              <img src={logo} alt="logo" className="logo" />
             </Link>
           </div>
           <div className="menu-holder">
