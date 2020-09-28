@@ -34,7 +34,6 @@ function App() {
           <div className="clear"></div>
         </div>
       </header>
-
       <Switch>
         <Route exact path="/" render={(props) => <Main {...props} />} />
         <Route path="/post/:id" render={(props) => <Post {...props} />} />
