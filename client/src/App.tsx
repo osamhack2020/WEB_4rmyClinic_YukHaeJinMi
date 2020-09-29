@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.scss';
-import logo from './assets/logo2.png';
+
+import logo from './img/logo2.png';
 import {
   BrowserRouter as Router,
   Switch,
@@ -17,6 +18,7 @@ function App() {
         <div className="menu-wrapper">
           <div className="header-logo">
             <Link to="/">
+              <img src={logo} alt = "logo"/>
               <img src={logo} alt="logo" className="logo" />
             </Link>
           </div>
@@ -27,11 +29,13 @@ function App() {
                 <Link to="/About">About</Link>
                 <Link to="/">Counseler</Link>
                 <Link to="/post/:id">Community</Link>
-                <Link to="/profile/:id">profile</Link>
+                <Link to="/profile/:id">Profile</Link>
               </ul>
             </nav>
           </div>
-          <div className="clear"></div>
+          <div className="header-btn">
+            <Link to="/signup">로그인 하기</Link>
+          </div>
         </div>
       </header>
       <Switch>
