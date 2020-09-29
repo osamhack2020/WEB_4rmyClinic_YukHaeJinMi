@@ -1,0 +1,3 @@
+clinic/gql/migrations/00**.py
+clinic/gql/migrations/__pycache__/*
+clinic/clinic/__pycache__

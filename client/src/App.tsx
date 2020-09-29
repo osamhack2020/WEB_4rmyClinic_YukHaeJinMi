@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.scss';
+
 import logo from './img/logo2.png';
 import {
   BrowserRouter as Router,
@@ -8,7 +9,7 @@ import {
   Link
 } from 'react-router-dom';
 
-import { Main, NotFound, Post, Profile, SignIn, SignUp , About } from './Routes';
+import { Main, NotFound, Post, Profile, SignIn, SignUp, About } from './Routes';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <div className="header-logo">
             <Link to="/">
               <img src={logo} alt = "logo"/>
+              <img src={logo} alt="logo" className="logo" />
             </Link>
           </div>
           <div className="menu-holder">
@@ -36,7 +38,6 @@ function App() {
           </div>
         </div>
       </header>
-
       <Switch>
         <Route exact path="/" render={(props) => <Main {...props} />} />
         <Route path="/post/:id" render={(props) => <Post {...props} />} />

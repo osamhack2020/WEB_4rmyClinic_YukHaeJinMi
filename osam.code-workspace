@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"name": "server(DJANGO)",
+			"path": "server"
+		},
+		{
+			"name": "client(REACT)",
+			"path": "client"
+		}
+	],
+	"settings": {
+		"git.ignoreLimitWarning": true
+	}
+}

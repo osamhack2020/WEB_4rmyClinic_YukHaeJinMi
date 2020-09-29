@@ -12,19 +12,22 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import environ
+import os
 
 env = environ.Env(
     DEBUG=(bool, False),
-    ALLOWED_HOSTS=(str, "http://clientaddress.app") # TODO
+    ALLOWED_HOSTS=(str, "*")
 )
 environ.Env.read_env()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+ROOT_DIR = os.path.dirname(BASE_DIR)
 
 # get value from env
 SECRET_KEY = env('SECRET_KEY')
 DEBUG = env('DEBUG')
-ALLOWED_HOSTS = env('ALLOWED_HOSTS')
+AH = env('ALLOWED_HOSTS')
+ALLOWED_HOSTS = [AH] if AH is None else [AH]
 
 
 # Application definition
@@ -40,11 +43,14 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'graphene_django',
+    'django_filters',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -128,6 +134,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(ROOT_DIR, 'static')
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_ACCESS': (
@@ -136,5 +143,11 @@ REST_FRAMEWORK = {
 }
 GRAPHENE = {
     'SCHEMA' : 'schema.schema',
-    'SCHEMA_OUTPUT': '../client/schema.json',
+    'SCHEMA_OUTPUT': '../../client/schema.json',
 }
+
+# CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+]

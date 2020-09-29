@@ -20,10 +20,12 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 from graphene_django.views import GraphQLView
+from .settings import STATIC_URL, STATIC_ROOT
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('graphql/', GraphQLView.as_view(graphiql=True))
-]
+] + static(STATIC_URL, document_root=STATIC_ROOT)

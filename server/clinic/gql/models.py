@@ -36,7 +36,7 @@ class User(AbstractBaseUser):
   RANK_CHOICES = [
     ('pvt', "이병"), ('pfc', "일병"), ('cpl', "상병"), ('sgt', "병장"),
     ('ssg', "하사"), ('sfc', "중사"), ('msg', "상사"), ('sma', "원사"),
-    ('cwo', "준위"), ('2lt', "소위"), ('lt', "중위"), ('cpt', "대위"),
+    ('cwo', "준위"), ('slt', "소위"), ('lt', "중위"), ('cpt', "대위"), # 2lt -> slt : second lieutenant
     ('maj', "소령"), ('lcl', "중령"), ('col', "대령"), ('bg', "준장"),
     ('mg', "소장"), ('lg', "중장"), ('gen', "대장"), ('non', "해당사항없음")
   ]
