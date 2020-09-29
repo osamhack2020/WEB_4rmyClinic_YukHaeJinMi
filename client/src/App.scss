@@ -1,42 +1,21 @@
-header {
-  width: 100%;
-  height: 100px;
-}
+@import 'scss/header.scss';
+@import 'scss/Main.scss';
+
+
 footer {
   background-color: plum;
   width: 100%;
   height: 100px;
 }
-.logo{
-  width : 100px;
-}
-nav{
-  text-align: center;
-  margin-top: 10px;
-  ul a{
-    margin-right:15px;
-  }
-  ul{
-    padding: 20px 0;
-  }
+
+body {
+  font-family: "Poppins", sans-serif;
+  font-weight: normal;
+  font-style: normal;
 }
 
-.menu-holder{
-  text-align: center;
-  max-width :80%;
-}
-.header-logo{
-  margin-top: 20px;
-}
-.clear{
-  clear:both;
-}
-.menu-wrapper{
-  width:90%;
-  margin-bottom: 30px;
-  margin-left: auto;
-  margin-right: auto;
-  display:flex;
-  flex-direction: row;
-  justify-content: space-between;
+a {
+  color: #505F98;
+  text-decoration: none;
+  background-color: transparent;
 }

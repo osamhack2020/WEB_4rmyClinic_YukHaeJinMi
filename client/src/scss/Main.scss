@@ -1,0 +1,50 @@
+.main-container{
+	padding:0 40px;
+	margin: 100px auto;
+
+	.row{
+		display :flex;
+		justify-content: space-between;
+		flex-wrap: wrap;
+		padding:0 40px;
+		margin: 0 auto;
+
+		.col-txt{
+			max-width: 36%;
+			padding: 0 40px 0 150px;
+
+			a{
+				font-size: 17px;
+				padding: 10px 50px;
+				background: #111B47;
+				border-radius: 8px;
+				color: white;
+			}
+
+			p{
+				padding:0 0 50px;
+			}
+		}
+
+		.col-img{
+			max-width: 85%;
+			padding-left: 50px;
+			padding-right: 200px;
+		}
+	}
+}
+
+.background-vector{
+	z-index:-1;
+	position : absolute;
+	top: -250px;
+	left: -100px;
+	img{
+		width:140%;
+	}
+}
+
+.Main{
+	position: relative;
+	height:3000px;
+}
