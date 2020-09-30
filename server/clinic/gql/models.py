@@ -75,13 +75,21 @@ class Tag(models.Model):
   posts = models.ManyToManyField(Post)
   name = models.CharField(max_length=20, blank=False)
 
+  def __str__(self):
+    return self.name
+
 class Comment(models.Model):
   user = models.ForeignKey(User, on_delete=models.CASCADE)
   post = models.ForeignKey(Post, on_delete=models.CASCADE)
   content = models.TextField(blank=False)
   created = models.DateField(default=timezone.now)
   is_private = models.BooleanField(default=False)
+  def __str__(self):
+    return self.content
 
 class Like(models.Model):
   user = models.ForeignKey(User, on_delete=models.CASCADE)
   post = models.ForeignKey(Post, on_delete=models.CASCADE)
+
+  def __str__(self):
+    return "user"+user.pk+" - post"+post.pk
