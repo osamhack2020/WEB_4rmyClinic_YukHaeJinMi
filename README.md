@@ -29,9 +29,10 @@ pip install -r ./server/requirements.txt
 cd server/clinic
 ./manage.py makemigrations
 ./manage.py migrate
-# ./manage.py createsuperuser # admin 계정이 필요한 경우
-# ./manage.py loaddata fixture.json # 곧 가짜 data를 만들어서 제공할 계획입니다.
+./manage.py loaddata fixture.json
 ```
+> root 계정 : root@ro.ot / root
+
 * (20.09.29.) env 파일을 추가해 놓았고, makemigrations, migrate 하고 실행하면 서버가 실행되겠습니다.
 <br/><br/>
 
