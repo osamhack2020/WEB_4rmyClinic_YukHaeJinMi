@@ -12,10 +12,13 @@ COPY deploy.env ./clinic/.env
 COPY clinic/gql ./gql
 COPY clinic/manage.py ./
 COPY clinic/schema.py ./
-# RUN ["python", "--vesrion"]
+
 RUN python manage.py makemigrations
 RUN python manage.py migrate
 RUN python manage.py collectstatic
-# RUN ["python", "manage.py","loaddata", "./ingredients/fixtures/ingredients.json"]
+# for dev - fake data
+COPY clinic/fixture.json ./
+RUN python manage.py loaddata fixture.json
+
 RUN ls -lah
 CMD uwsgi --http :$PORT --module clinic.wsgi --static-map /static=/static
