@@ -1,3 +1,5 @@
-const ROOT = process.env.BACKEND ? process.env.BACKEND : "https://clinic-af2szzytra-an.a.run.app";
-export const GRAPHQL_ENDPOINT = ROOT + "/graphql";
-export const AUTH_ENDPOINT = ROOT + "/auth/token";
+const ROOT = "https://clinic-af2szzytra-an.a.run.app";
+// const ROOT = "http://localhost:8000"
+
+export const GRAPHQL_ENDPOINT = ROOT + "/graphql/";
+export const AUTH_ENDPOINT = ROOT + "/auth/token/";

@@ -1,14 +1,17 @@
 import React from 'react';
 import { RouteComponentProps } from "react-router";
 import { Link } from 'react-router-dom';
-import bgsvg from '../img/Main_background.svg';
-import counselsvg from '../img/counsel_img.svg';
+import bgsvg from '../assets/Main_background.svg';
+import counselsvg from '../assets/counsel_img.svg';
+import { QueryRenderer, graphql } from "react-relay";
+import environment from "../_lib/environment";
+import { MainQuery } from "./__generated__/MainQuery.graphql";
 
 export function Main(props: RouteComponentProps) {
   return (
     <div className="Main">
       <div className="background-vector">
-        <img src={bgsvg} alt="backgorund_vector"/>
+        <img src={bgsvg} alt="backgorund_vector" />
       </div>
       <div className="main-container">
         <div className="row">
@@ -18,10 +21,34 @@ export function Main(props: RouteComponentProps) {
             <Link to="/About">더 알아보기</Link>
           </div>
           <div className="col-img">
-            <img src={counselsvg} alt="main-img"/>
+            <img src={counselsvg} alt="main-img" />
           </div>
         </div>
       </div>
+      <QueryRenderer<MainQuery>
+        environment={environment}
+        variables={{}}
+        query={graphql`
+          query MainQuery {
+            recentPosts {
+              edges {
+                post: node {
+                  id
+                  title
+                  created
+                  author: user {
+                    email
+                  }
+                }
+              }
+            }
+          }
+        `}
+        render={({ props, error, retry }) => {
+          const posts = props?.recentPosts?.edges;
+          return posts?.map((e) => <div key={e?.post?.id}>{e?.post?.title} - {e?.post?.author.email} {e?.post?.created}</div>)
+        }}
+      />
     </div>
   )
 }

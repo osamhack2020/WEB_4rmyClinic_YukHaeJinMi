@@ -10,16 +10,18 @@ import { GRAPHQL_ENDPOINT } from "./endpoint";
 
 const fetchQuery: FetchFunction = async (operation, variables): Promise<GraphQLResponse> => {
   try {
-    console.log(`operationKind : ${operation.operationKind}\n${operation.text}`)
+    console.log(`operationKind : ${operation.operationKind}\n${operation.text}`);
+    const body = JSON.stringify({
+      operationName: operation.name,
+      query: operation.text,
+      variables,
+    });
     const response = await fetch(GRAPHQL_ENDPOINT, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        query: operation.text,
-        variables,
-      }),
+      body
     });
     const json = await response.json();
     console.log("fetch res : ", json);
