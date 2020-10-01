@@ -1,6 +1,5 @@
 header {
   width: 100%;
-  height: 150px;
 }
 
 
@@ -13,7 +12,7 @@ header {
 	}
 
 	&-btn{
-		margin-top: 30px;
+		margin: auto 0;
 		a{
 			font-size: 17px;
 			padding: 10px 50px;
@@ -26,8 +25,7 @@ header {
 
 .menu {
   &-wrapper {
-	width: 90%;
-	margin-bottom: 30px;
+	width: 90%;	
 	margin-left: auto;
 	margin-right: auto;
 	display: flex;
@@ -41,7 +39,7 @@ header {
 
   &-container {
 	text-align: center;
-	margin-top: 10px;
+	margin: auto 0;
 	ul {
 	  padding: 20px 0;
 	  a {

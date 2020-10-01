@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 
-import logo from '../assets/logo2.png';
+import logo from '../assets/logo2_bgremoved.png';
 
 type HeaderProps = {
   userSignedId?: boolean,
