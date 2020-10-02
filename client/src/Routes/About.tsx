@@ -5,6 +5,7 @@ import item1 from '../assets/item1.svg';
 import item2 from '../assets/item2.svg';
 import item3 from '../assets/item3.svg';
 import item4 from '../assets/item4.svg';
+import '../scss/About.scss';
 
 export function About(props: RouteComponentProps) {
   return (
@@ -16,7 +17,7 @@ export function About(props: RouteComponentProps) {
               <h1 className="p-t">고민에 맞는 맞춤형 상담을 제공합니다</h1>
               <p className="p-b">앞이 속에서 장식하는 지혜는 인간은 불어 같지 얼음이 이상, 봄바람이다. 할지라도 길지 물방아 사막이다. 가치를 봄날의 이상, 수 소담스러운 때문이다. 청춘의 이상의 힘차게 생명을 같은 끓는 그러므로 황금시대다. 심장은 청춘이 구하기 능히 보는 주며, 우리 말이다. 위하여 남는 피는 것이다. 하였으며, 있는 군영과 꽃이 수 무엇을 있다. 구할 그들에게 그들은 인생에 피다. 것이 같이 하여도 청춘은 지혜는 인간은 어디 있으랴? 사람은 목숨이 살 온갖 이것이다</p>
             </div>
-            <div className="row2">  
+            <div className="row2">
               <div className="itemitem">
                 <div className="icon"></div>
                 <h3 className="bigtext">community</h3>
@@ -34,12 +35,12 @@ export function About(props: RouteComponentProps) {
           </div>
           <div className="blank"></div>
           <div className="item-img">
-            <img src={item1} alt="item1"/>
+            <img src={item1} alt="item1" />
           </div>
         </div>
         <div className="item-container">
           <div className="item-img">
-            <img src={item2} alt="item2"/>
+            <img src={item2} alt="item2" />
           </div>
           <div className="blank"></div>
           <div className="item-p">
@@ -49,7 +50,7 @@ export function About(props: RouteComponentProps) {
         </div>
         <div className="item-container">
           <div className="item-img">
-            <img src={item3} alt="item3"/>
+            <img src={item3} alt="item3" />
           </div>
           <div className="blank"></div>
           <div className="item-p">
@@ -59,7 +60,7 @@ export function About(props: RouteComponentProps) {
         </div>
         <div className="item-container">
           <div className="item-img">
-            <img src={item4} alt="item4"/>
+            <img src={item4} alt="item4" />
           </div>
           <div className="blank"></div>
           <div className="item-p">

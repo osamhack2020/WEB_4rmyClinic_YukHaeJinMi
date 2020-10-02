@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-
+import '../scss/header.scss';
 import logo from '../assets/logo2_bgremoved.png';
 
 type HeaderProps = {
