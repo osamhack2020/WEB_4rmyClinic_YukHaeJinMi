@@ -26,6 +26,7 @@ function Card(props: CardProps) {
 export default createFragmentContainer(Card, {
 	card: graphql`
 		fragment Card_card on PostNode {
+			id
 			title
 			content
 			author: user {
