@@ -1,0 +1,50 @@
+.footer-row{
+	display:flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	height: 210px;
+	
+	.col1{
+		display:flex;
+		width :90%;
+		margin:0 auto;
+		justify-content: space-between;
+
+		.copyright{
+			margin-top: 37px;
+			font-weight: 500;
+			font-size: 14px;
+			line-height: 24px;
+			color: #939EA4;
+		}
+
+		img{
+			width: 120px;
+		}
+
+		.blank{
+			width: 407px;
+		}
+	}
+
+	.col2{
+		height : 50px;
+		width:90%;
+		margin: 10px auto;
+		.footer-container{
+			text-align: center;	
+			ul {	
+				a {
+				margin-right: 20px;
+				}
+			}
+			
+		}
+	}
+
+
+}
+
+.footer{
+	background: #E7ECFF;
+}

@@ -7,7 +7,8 @@ import counselsvg from '../assets/counsel_img.svg';
 import { QueryRenderer, graphql } from "react-relay";
 import environment from "../_lib/environment";
 import { MainQuery } from "./__generated__/MainQuery.graphql";
-import Card from '../Components/Card';
+import CardContainer from "../Components/CardContainer";
+import "../scss/Main.scss";
 
 export function Main(props: RouteComponentProps) {
   return (
@@ -31,37 +32,25 @@ export function Main(props: RouteComponentProps) {
             </div>
           </div>
         </div>
-        <div className="card-container">
+        {/* <div className="card-container">
           <Card title="안녕하세요" body="고민이 있습니다.." id="익명의 호국이21"/>
           <Card title="전공이 너무 어려워요" body="비전공자가 저보다 더 잘하네요"/>
           <Card title="탈모고민" body="자라나라 머리머리"/>
           <Card title="이준영바보" body="ㅂㅂㅂㄱㄹㅇㅍㅌ"/>
           <Card title="최후의 보루" body="킹소대장 그는 그저 빛"/>
           <Card title="추석" body="즐거운 추석 되십쇼"/>
-        </div>
+        </div> */}
       </div>
       <QueryRenderer<MainQuery>
         environment={environment}
         variables={{}}
         query={graphql`
           query MainQuery {
-            recentPosts {
-              edges {
-                post: node {
-                  id
-                  title
-                  created
-                  author: user {
-                    email
-                  }
-                }
-              }
-            }
+            ...CardContainer_cards
           }
         `}
         render={({ props, error, retry }) => {
-          const posts = props?.recentPosts?.edges;
-          return posts?.map((e) => <div key={e?.post?.id}>{e?.post?.title} - {e?.post?.author.email} {e?.post?.created}</div>)
+          return props && <CardContainer cards={props} />
         }}
       />
     </div>
