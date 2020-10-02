@@ -27,7 +27,7 @@
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject",
-    "relay": "relay-compiler --language typescript --src ./src --schema ./schema.json"
+    "relay": "relay-compiler --language typescript --src ./src --schema ./schema.graphql"
   },
   "eslintConfig": {
     "extends": "react-app"

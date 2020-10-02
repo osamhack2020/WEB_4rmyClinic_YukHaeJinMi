@@ -143,7 +143,7 @@ REST_FRAMEWORK = {
 }
 GRAPHENE = {
     'SCHEMA' : 'schema.schema',
-    'SCHEMA_OUTPUT': '../../client/schema.json',
+    'SCHEMA_OUTPUT': '../../client/schema.graphql',
 }
 
 # CORS_ORIGIN_ALLOW_ALL = True
