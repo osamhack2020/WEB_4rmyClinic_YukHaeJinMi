@@ -11,11 +11,13 @@ import {
 
 import { Main, NotFound, Post, Profile, SignIn, SignUp, About } from './Routes';
 import Header from "./Components/Header";
+import Footer from "./Components/Footer";
 
 function App() {
   return (
     <Router>
       <Header />
+      
       <Switch>
         <Route exact path="/" render={(props) => <Main {...props} />} />
         <Route path="/post/:id" render={(props) => <Post {...props} />} />
@@ -26,7 +28,7 @@ function App() {
         <Route path="*" render={(props) => <NotFound {...props} />} />
       </Switch>
 
-      <footer>footer</footer>
+      <Footer />
     </Router>
   );
 }
