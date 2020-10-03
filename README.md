@@ -5,15 +5,16 @@
 
 
 * [Project Structure](#Project Structure)
-* [Server setting 방법](##Server setting 방법)
-* [Client setting 방법](##Client setting 방법)
-* [honeycombo.tk github login 방법](##honeycombo.tk)
+* [Server setting 방법](#Server setting 방법)
+* [Client setting 방법](#Client setting 방법)
+* [honeycombo.tk github login 방법](#honeycombo.tk)
 
 
 
 <br/><br/>
 
-## Project Structure
+# Project Structure
+
 ```bash
 /server # 서버 배포를 위한 파일(ex Dockerfile / sh script) 등이 위치하게 됩니다.
 /server/client # Django 서버
@@ -22,6 +23,7 @@
 ```
 
 ## 초기 개발환경 세팅 방법
+
 ```bash
 git clone https://github.com/yukhaejinmi/osam
 git checkout -b <task_name>
@@ -33,7 +35,8 @@ git push origin <task_name>
 * 마스터 브랜치에 merge 된 작업이 생기면, 자신이 작업하던 브랜치에 `git pull origin master` 명령어를 통해서 업데이트 된 사항을 바로바로 반영해주셔야 merge conflict를 많이 줄일 수 있을 것 같습니다.
 <br/><br/>
 
-## Server setting 방법
+# Server setting 방법
+
 > using python(3.8.5)
 ```bash
 pip install -r ./server/requirements.txt
@@ -47,7 +50,8 @@ cd server/clinic
 * (20.09.29.) env 파일을 추가해 놓았고, makemigrations, migrate 하고 실행하면 서버가 실행되겠습니다.
 <br/><br/>
 
-## Client setting 방법
+# Client setting 방법
+
 * package 설치
 ```bash
 npm install # 혹은 yarn
@@ -64,7 +68,7 @@ npm install # 혹은 yarn
 
 <br/><br/>
 
-## honeycombo.tk github login 방법
+# honeycombo.tk github login 방법
 
 >  [참고](https://github.com/cdr/code-server/issues/1883)
 
