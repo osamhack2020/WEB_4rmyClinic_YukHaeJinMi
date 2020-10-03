@@ -5,9 +5,9 @@
 
 
 * [Project Structure](#Project-Structure)
-* [Server setting 방법](#Server setting 방법)
-* [Client setting 방법](#Client setting 방법)
-* [honeycombo.tk github login 방법](#honeycombo.tk)
+* [Server setting 방법](#Server-setting-방법)
+* [Client setting 방법](#Client-setting-방법)
+* [honeycombo.tk github login 방법](#honeycombo.tk-github-login-방법)
 
 
 
