@@ -12,6 +12,11 @@ import "../scss/Main.scss";
 
 export function Profile(props: RouteComponentProps) {
 	return (
+		<div>
+		<table>
+		<th>이메일</th>
+		<th>소속</th>
+		<th>계급</th>
 		<QueryRenderer<ProfileQuery>
 			environment={environment}
 			variables={{}}
@@ -31,20 +36,15 @@ export function Profile(props: RouteComponentProps) {
 			render={({ props, error, retry }) => {
 				const users = props?.allUsers?.edges;
 				return users?.map((e) =>
-					<div>
-						<table>
-							<th>이메일</th>
-							<th>소속</th>
-							<th>계급</th>
-							<tr>
-								<td>{e?.user?.email}</td>
-								<td>{e?.user?.division}</td>
-								<td>{e?.user?.rank}</td>
-							</tr>
-						</table>
-					</div>
+					<tr>
+						<td>{e?.user?.email}</td>
+						<td>{e?.user?.division}</td>
+						<td>{e?.user?.rank}</td>
+					</tr>
 				)
 			}}
 		/>
+		</table>
+		</div>
 	)
 }
