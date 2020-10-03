@@ -7,7 +7,6 @@
 * [Project Structure](#Project-Structure)
 * [Server setting 방법](#Server-setting-방법)
 * [Client setting 방법](#Client-setting-방법)
-* [honeycombo.tk github login 방법](#honeycombotk-github-login-방법)
 
 
 
@@ -67,8 +66,3 @@ npm install # 혹은 yarn
 
 
 <br/><br/>
-
-# honeycombo.tk github login 방법
-
->  [참고](https://github.com/cdr/code-server/issues/1883)
-
