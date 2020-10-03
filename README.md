@@ -2,6 +2,17 @@
 
 > **마스터 브랜치에 업데이트가 있다면 `git pull origin master` !!**
 
+
+
+* [Project Structure](#Project Structure)
+* [Server setting 방법](##Server setting 방법)
+* [Client setting 방법](##Client setting 방법)
+* [honeycombo.tk github login 방법](##honeycombo.tk)
+
+
+
+<br/><br/>
+
 ## Project Structure
 ```bash
 /server # 서버 배포를 위한 파일(ex Dockerfile / sh script) 등이 위치하게 됩니다.
@@ -48,3 +59,12 @@ npm install # 혹은 yarn
 1. `npm start`
 2. `npm run relay -- --watch`
 - watchman 설치가 필요합니다. [참고](https://facebook.github.io/watchman/docs/install.html)
+
+
+
+<br/><br/>
+
+## honeycombo.tk github login 방법
+
+>  [참고](https://github.com/cdr/code-server/issues/1883)
+
