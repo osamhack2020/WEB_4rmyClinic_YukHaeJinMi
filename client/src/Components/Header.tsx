@@ -30,7 +30,7 @@ export default function Header(props: HeaderProps) {
           </nav>
         </div>
         <div className="header-btn">
-          <Link to="/signup">로그인 하기</Link>
+          <Link to="/signin">로그인 하기</Link>
         </div>
       </div>
     </header>

@@ -1,0 +1,21 @@
+.signup{
+    display:flex;
+    justify-content: center;
+    width: 80%;
+    margin:100px auto;
+
+    .logo{
+        margin:auto 0;
+    }
+
+    .blank{
+        width:200px
+    }
+    .form-container{
+        
+        form{
+            display:flex;
+            flex-direction: column;
+        }
+    }   
+}
