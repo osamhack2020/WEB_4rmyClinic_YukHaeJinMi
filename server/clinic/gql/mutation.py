@@ -12,6 +12,7 @@ class UserEdge(ObjectType):
 class CreateUser(relay.ClientIDMutation):
 	ok = Boolean()
 	user_edge = Field(UserEdge)
+	token = String()
 
 	class Input:
 		email = String(required=True)
@@ -25,15 +26,23 @@ class CreateUser(relay.ClientIDMutation):
 	def mutate(cls, root, info, input):
 		if input.password == input.password_repeat:
 			try:
-				_user = User()
-				_user.email = input.email
-				_user.division = input.division
-				_user.rank = input.rank
-				_user.set_password(input.password)
-				_user.save()
-				_user_edge = UserEdge(
-					cursor = offset_to_cursor(User.objects.count()), node=_user)
-				return CreateUser(user_edge=_user_edge, ok=True)
+				userAlreadyExists = User.object.filter(email=input.email).exists()
+				if not userAlreadyExists:
+					_user = User()
+					_user.email = input.email
+					_user.division = input.division
+					_user.rank = input.rank
+					_user.set_password(input.password)
+					_user.save()
+					_user_edge = UserEdge(
+						cursor = offset_to_cursor(User.objects.count()), node=_user)
+
+					# TODO : request /api/token & get token
+
+					return CreateUser(user_edge=_user_edge, ok=True, token="")
+
+				raise Exception("user {email} already exists".format(email=input.email))
+			
 			except Exception as err:
 				print("CreateUser error : ", err)
 				return CreateUser(user_edge=None, ok=False)

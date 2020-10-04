@@ -1,9 +1,5 @@
-<<<<<<< HEAD
-const ROOT = "http://49.50.164.155:8080";
-=======
-const ROOT = "http://49.50.164.155:8080"
->>>>>>> 368af2ca6dc4869152c2cce240d30d269de007ce
-// const ROOT = "http://localhost:8000"
+console.log("endpoint.ts : ", process.env.REACT_APP_DEV_SERVER);
+const ROOT = process.env.REACT_APP_DEV_SERVER ? process.env.REACT_APP_DEV_SERVER : "https://clinic-af2szzytra-an.a.run.app";
 
 export const GRAPHQL_ENDPOINT = ROOT + "/graphql/";
 export const AUTH_ENDPOINT = ROOT + "/auth/token/";

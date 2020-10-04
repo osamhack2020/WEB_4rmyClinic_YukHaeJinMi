@@ -1,5 +1,6 @@
 schema {
   query: Query
+  mutation: Mutation
 }
 
 type CommentNode implements Node {
@@ -21,6 +22,21 @@ type CommentNodeEdge {
   cursor: String!
 }
 
+input CreateUserInput {
+  email: String!
+  password: String!
+  passwordRepeat: String!
+  division: String!
+  rank: String!
+  clientMutationId: String
+}
+
+type CreateUserPayload {
+  ok: Boolean
+  userEdge: UserEdge
+  clientMutationId: String
+}
+
 scalar Date
 
 scalar DateTime
@@ -39,6 +55,10 @@ type LikeNodeConnection {
 type LikeNodeEdge {
   node: LikeNode
   cursor: String!
+}
+
+type Mutation {
+  createUser(input: CreateUserInput!): CreateUserPayload
 }
 
 interface Node {
@@ -106,6 +126,11 @@ enum UserDivision {
   ROKM
   MND
   CIVIL
+}
+
+type UserEdge {
+  node: UserNode
+  cursor: String
 }
 
 type UserNode implements Node {
