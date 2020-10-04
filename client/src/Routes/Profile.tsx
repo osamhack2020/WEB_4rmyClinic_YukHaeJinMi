@@ -12,18 +12,14 @@ import "../scss/Main.scss";
 
 export function Profile(props: RouteComponentProps) {
 	return (
-		<div>
-			<table>
-				<th>이메일</th>
-				<th>소속</th>
-				<th>계급</th>
-				<QueryRenderer<ProfileQuery>
-					environment={environment}
-					variables={{}}
-					query={graphql`
+		<QueryRenderer<ProfileQuery>
+			environment={environment}
+			variables={{}}
+			query={graphql`
   			query ProfileQuery {
   				allUsers {
   					edges {
+							cursor
   						user: node {
   							email
   							division
@@ -33,18 +29,31 @@ export function Profile(props: RouteComponentProps) {
   				}
   			}
   			` }
-					render={({ props, error, retry }) => {
-						const users = props?.allUsers?.edges;
-						return users?.map((e) =>
-							<tr>
-								<td>{e?.user?.email}</td>
-								<td>{e?.user?.division}</td>
-								<td>{e?.user?.rank}</td>
-							</tr>
-						)
-					}}
-				/>
-			</table>
-		</div>
+			render={({ props, error, retry }) => {
+				const users = props?.allUsers?.edges;
+				return (
+					<div>
+						<table>
+							<thead>
+								<tr>
+									<th>이메일</th>
+									<th>소속</th>
+									<th>계급</th>
+								</tr>
+							</thead>
+							<tbody>
+								{users?.map((e) =>
+									<tr key={e?.cursor}>
+										<td>{e?.user?.email}</td>
+										<td>{e?.user?.division}</td>
+										<td>{e?.user?.rank}</td>
+									</tr>
+								)}
+							</tbody>
+						</table>
+					</div>
+				)
+			}}
+		/>
 	)
 }
