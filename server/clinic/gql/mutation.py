@@ -1,4 +1,5 @@
 from graphene import relay, ObjectType, AbstractType, String, Boolean, ID, Field, DateTime, Int, Float, InputObjectType
+from graphql import GraphQLError
 from graphene_django.types import DjangoObjectType
 from graphene_django.filter import DjangoFilterConnectionField
 from graphql_relay.connection.arrayconnection import offset_to_cursor
@@ -10,7 +11,6 @@ class UserEdge(ObjectType):
 	cursor = String()
 
 class CreateUser(relay.ClientIDMutation):
-	ok = Boolean()
 	user_edge = Field(UserEdge)
 	token = String()
 
@@ -26,7 +26,7 @@ class CreateUser(relay.ClientIDMutation):
 	def mutate(cls, root, info, input):
 		if input.password == input.password_repeat:
 			try:
-				userAlreadyExists = User.object.filter(email=input.email).exists()
+				userAlreadyExists = User.objects.filter(email=input.email).exists()
 				if not userAlreadyExists:
 					_user = User()
 					_user.email = input.email
@@ -39,16 +39,14 @@ class CreateUser(relay.ClientIDMutation):
 
 					# TODO : request /api/token & get token
 
-					return CreateUser(user_edge=_user_edge, ok=True, token="")
+					return CreateUser(user_edge=_user_edge, token="")
 
-				raise Exception("user {email} already exists".format(email=input.email))
+				raise GraphQLError("user {email} already exists".format(email=input.email))
 			
 			except Exception as err:
-				print("CreateUser error : ", err)
-				return CreateUser(user_edge=None, ok=False)
+				raise GraphQLError("CreateUser error : {err}".format(err=err))
 		else:
-			print("CreateUser error : Password Incorrect")
-			return CreateUser(user_edge=None, ok=False)
+			raise GraphQLError("CreateUser error : Password Incorrect")
 
 
 class Mutation(AbstractType):
