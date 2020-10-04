@@ -27,7 +27,7 @@ ROOT_DIR = os.path.dirname(BASE_DIR)
 SECRET_KEY = env('SECRET_KEY')
 DEBUG = env('DEBUG')
 AH = env('ALLOWED_HOSTS')
-ALLOWED_HOSTS = [AH] if AH is None else [AH]
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -149,7 +149,7 @@ GRAPHENE = {
 # CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000',
+    'http://49.50.164.155:8000',
 ]
 CORS_ALLOWED_ORIGIN_REGEXES = [
     r'^https:\/\/.*\.online\.visualstudio\.com'

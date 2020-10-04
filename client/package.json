@@ -54,5 +54,5 @@
     "relay-compiler-language-typescript": "^13.0.1",
     "relay-config": "^10.0.1"
   },
-  "proxy": "https://clinic-af2szzytra-an.a.run.app"
+  "proxy": "http://49.50.164.155:8080"
 }
