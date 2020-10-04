@@ -14,7 +14,7 @@ function CardContainer(props: CardContainerProps) {
   const { cards } = props;
   return (
     <div className="card-container">
-      {cards.recentPosts?.edges.map(e => { return e?.card && <Card card={e.card} /> })}
+      {cards.recentPosts?.edges.map(e => { return e?.card && <Card key={e.cursor} card={e.card} /> })}
     </div>
   )
 }
@@ -28,6 +28,7 @@ export default createPaginationContainer(CardContainer, {
     ) {
       recentPosts(first: $count, after: $cursor) @connection(key: "CardContainer_recentPosts") {
         edges {
+          cursor
           card: node {
             ...Card_card
           }

@@ -1,3 +1,5 @@
+@import 'mixin';
+
 header {
   width: 100%;
 }
@@ -50,7 +52,7 @@ header {
   }
 }
 
-@media screen and (max-width:800px){
+@include mobile{
 	.header-logo{
 		display:none;
 	}
