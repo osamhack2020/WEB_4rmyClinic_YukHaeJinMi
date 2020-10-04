@@ -53,4 +53,16 @@ header {
 	.header-logo{
 		display:none;
 	}
+	.header-btn{
+		a{
+			font-size: 12px;
+			padding: 10px 10px;
+			background: #111B47;
+			border-radius: 20px;
+			color: white;
+		}
+	}
+	header{
+		background: #E7ECFF;
+	}
 }
