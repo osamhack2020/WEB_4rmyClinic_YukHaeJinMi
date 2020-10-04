@@ -1,38 +1,54 @@
 import React, { useState } from 'react';
-import { RouteComponentProps } from "react-router";
+import { RouteComponentProps, useHistory } from "react-router";
+// import { Link } from 'react-router-dom';
+// import bgsvg from '../assets/Main_background.svg';
+// import bgsvg2 from '../assets/Rectangle.svg';
+// import counselsvg from '../assets/counsel_img.svg';
+// import { QueryRenderer, graphql, commitMutation } from "react-relay";
+// import environment from "../_lib/environment";
+// import { MainQuery } from "./__generated__/MainQuery.graphql";
+// import CardContainer from "../Components/CardContainer";
+// import { SignUpMutation } from "./__generated__/SignUpMutation.graphql"
+import "../scss/Main.scss";
+import { createUser } from "../_lib/mutations/createUser";
 // import logo from '../assets/logo2_bgremoved.png';
-import '../scss/Sign.scss';
 
 type SignUpState = {
   name: string;
   email: string;
   password: string;
-  password_repeat: string;
+  passwordRepeat: string;
   phone: string;
   division: string;
   rank: string;
 }
 
+
 function SignUp(props: RouteComponentProps) {
   const [state, set] = useState<SignUpState>({
-    name: '', email: '', password: '', password_repeat: '',
+    name: '', email: '', password: '', passwordRepeat: '',
     phone: '', division: '', rank: ''
   });
+  const [hasError, setError] = useState<boolean>(false);
+  const history = useHistory();
 
-  const handleSubmit = () => {
-    if (state.password !== state.password_repeat) {
+  const handleSubmit = async () => {
+    if (state.password !== state.passwordRepeat) {
       alert('비밀번호가 일치하지 않습니다.');
     }
     else {
-      alert('이름: ' + state.name +
-        '\n이메일: ' + state.email +
-        '\n전화번호: ' + state.phone +
-        '\n소속: ' + state.division +
-        '\n계급 : ' + state.rank);
+      const successed = await createUser({ ...state }); // TODO : or return token
+      if (successed) {
+        history.push("/"); // TODO : redirect Main or somewhere
+      } else {
+        setError(true);
+      }
+
     }
   }
   const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { value } = target;
+    console.log(target.name, value);
     set({ ...state, [target.name]: value })
   }
 
@@ -61,8 +77,8 @@ function SignUp(props: RouteComponentProps) {
           </div>
           <div className="box">
             <label>비밀번호 재입력</label>
-            <input className="box-input" type="password" name="password_repeat"
-              value={state.password_repeat} onChange={handleChange} />
+            <input className="box-input" type="password" name="passwordRepeat"
+              value={state.passwordRepeat} onChange={handleChange} />
           </div>
           <div className="box">
             <label>전화번호</label>
@@ -85,33 +101,33 @@ function SignUp(props: RouteComponentProps) {
             <label htmlFor="rank">계급</label>
             <select name="rank" value={state.rank} onChange={handleChange}>
               <option value="">계급선택</option>
-              <option value="민간인">민간인</option>
-              <option value="군무원">군무원</option>
-              <option value="훈련병">훈련병</option>
-              <option value="이등병">이등병</option>
-              <option value="일등병">일등병</option>
-              <option value="상등병">상등병</option>
-              <option value="병장">병장</option>
-              <option value="하사">하사</option>
-              <option value="중사">중사</option>
-              <option value="상사">상사</option>
-              <option value="원사">원사</option>
-              <option value="준위">준위</option>
-              <option value="소위">소위</option>
-              <option value="중위">중위</option>
-              <option value="대위">대위</option>
-              <option value="소령">소령</option>
-              <option value="중령">중령</option>
-              <option value="대령">대령</option>
-              <option value="준장">준장</option>
-              <option value="소장">소장</option>
-              <option value="중장">중장</option>
-              <option value="대장">대장</option>
-              <option value="원수">원수</option>
-              <option value="국방부장관">국방부장관</option>
+              <option value="non">민간인/군무원</option>
+              <option value="pvt">이병</option>
+              <option value="pfc">일병</option>
+              <option value="cpl">상병</option>
+              <option value="sgt">병장</option>
+              <option value="ssg">하사</option>
+              <option value="sfc">중사</option>
+              <option value="msg">상사</option>
+              <option value="sma">원사</option>
+              <option value="cwo">준위</option>
+              <option value="slt">소위</option>
+              <option value="lt">중위</option>
+              <option value="cpt">대위</option>
+              <option value="maj">소령</option>
+              <option value="lcl">중령</option>
+              <option value="col">대령</option>
+              <option value="bg">준장</option>
+              <option value="mg">소장</option>
+              <option value="lg">중장</option>
+              <option value="gen">대장</option>
+              {/* <option value="원수">원수</option>
+              <option value="국방부장관">국방부장관</option> */}
             </select>
           </div>
           <input className="box-btn blue" type='submit' value='회원가입하기' onClick={handleSubmit} />
+
+          {hasError && <p>회원가입 도중 에러가 발생했습니다.</p>}
         </div>
       </div>
     </div>

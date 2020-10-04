@@ -32,8 +32,8 @@ input CreateUserInput {
 }
 
 type CreateUserPayload {
-  ok: Boolean
   userEdge: UserEdge
+  token: String
   clientMutationId: String
 }
 
