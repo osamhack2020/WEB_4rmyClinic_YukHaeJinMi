@@ -1,0 +1,70 @@
+@import "mixin";
+
+.root {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.sign{
+    display:flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 500px;
+    margin: auto;
+
+    .logo{
+        width: 200px;
+        height: 200px;
+        // margin:auto 0;
+    }
+
+    .blank{
+        width:200px;
+        height:20px;
+    }
+    &-form {
+        width: 100%;
+    }
+}
+
+.box {
+    margin-bottom: 16px;
+    &-input {
+        width: 100%;
+        height: 50px;
+        padding: 5px;
+        border: 1px solid #AAAAAA;
+        box-sizing: border-box;
+        border-radius: 5px;
+    }
+    &-btn {
+        background: #04C45C;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        width: 100%;
+        height: 50px;
+        color: white;
+        &.blue {
+            background: #1565D8;
+        }
+        margin-top: 65px;
+        margin-bottom: 65px;
+    } 
+    label {
+        font-size: 16px;
+        // line-height: 19px;
+        color: #4A5568;
+        display: block;
+    }
+}
+
+@include mobile {
+    .sign {
+        width: 80%;
+    }
+}
+@include desktop {
+    
+}
