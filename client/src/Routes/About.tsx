@@ -11,7 +11,7 @@ export function About(props: RouteComponentProps) {
   return (
     <div>
       <div className="about-row">
-        <div className="item-container">
+        <div className="item-container first">
           <div className="item-p">
             <div className="row1">
               <h1 className="p-t">고민에 맞는 맞춤형 상담을 제공합니다</h1>
