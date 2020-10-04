@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import environ
+import datetime
 import os
 
 env = environ.Env(
@@ -138,6 +139,11 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_ACCESS': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     )
+}
+JWT_AUTH = {
+    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(days=1),
+    'JWT_ALLOW_REFRESH': True,
+    'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=7),
 }
 GRAPHENE = {
     'SCHEMA' : 'schema.schema',
