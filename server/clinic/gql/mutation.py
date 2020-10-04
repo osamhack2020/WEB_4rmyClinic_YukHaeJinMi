@@ -6,6 +6,10 @@ from graphql_relay.connection.arrayconnection import offset_to_cursor
 from .models import User, Post, Comment, Like, Tag
 from .query import UserNode, PostNode, CommentNode, LikeNode, TagNode
 
+# from rest_framework_simplejwt.tokens import RefreshToken
+from .jwt import TokenSerializer
+import requests
+
 class UserEdge(ObjectType):
 	node = Field(UserNode)
 	cursor = String()
@@ -13,6 +17,7 @@ class UserEdge(ObjectType):
 class CreateUser(relay.ClientIDMutation):
 	user_edge = Field(UserEdge)
 	token = String()
+	refresh_token = String()
 
 	class Input:
 		email = String(required=True)
@@ -36,10 +41,10 @@ class CreateUser(relay.ClientIDMutation):
 					_user.save()
 					_user_edge = UserEdge(
 						cursor = offset_to_cursor(User.objects.count()), node=_user)
-
-					# TODO : request /api/token & get token
-
-					return CreateUser(user_edge=_user_edge, token="")
+					
+					# token 발급
+					tokens = TokenSerializer.get_token(_user)
+					return CreateUser(user_edge=_user_edge, token=str(tokens.access_token), refresh_token = str(tokens))
 
 				raise GraphQLError("user {email} already exists".format(email=input.email))
 			

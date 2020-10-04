@@ -26,9 +26,7 @@ ROOT_DIR = os.path.dirname(BASE_DIR)
 # get value from env
 SECRET_KEY = env('SECRET_KEY')
 DEBUG = env('DEBUG')
-AH = env('ALLOWED_HOSTS')
-ALLOWED_HOSTS = ['*']
-
+ALLOWED_HOSTS = [env('ALLOWED_HOSTS')]
 
 # Application definition
 

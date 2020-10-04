@@ -28,8 +28,10 @@ from gql.template import render_graphql
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # === maybe not needed ===
     path('api/token/', csrf_exempt(TokenObtainPairView.as_view()), name='token_obtain_pair'),
     path('api/token/refresh/', csrf_exempt(TokenRefreshView.as_view()), name='token_refresh'),
+    # === maybe not needed ===
     path('graphql/', csrf_exempt(GraphQLView.as_view(graphiql=True))),
     path('playground/', csrf_exempt(render_graphql)),
 
