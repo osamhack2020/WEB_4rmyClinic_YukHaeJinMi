@@ -1,7 +1,16 @@
 import React, { useState } from 'react';
 import { RouteComponentProps } from "react-router";
+import { Link } from 'react-router-dom';
+import bgsvg from '../assets/Main_background.svg';
+import bgsvg2 from '../assets/Rectangle.svg';
+import counselsvg from '../assets/counsel_img.svg';
+import { QueryRenderer, graphql, commitMutation } from "react-relay";
+import environment from "../_lib/environment";
+import { MainQuery } from "./__generated__/MainQuery.graphql";
+import CardContainer from "../Components/CardContainer";
+import { SignUpMutation } from "./__generated__/SignUpMutation.graphql"
+import "../scss/Main.scss";
 // import logo from '../assets/logo2_bgremoved.png';
-import '../scss/Sign.scss';
 
 type SignUpState = {
   name: string;
@@ -12,6 +21,54 @@ type SignUpState = {
   division: string;
   rank: string;
 }
+
+const variables = {
+    // 1 
+    createUserInput: {
+      userEdge: {
+        node: {
+          email: String,
+          password: String,
+          passwordRepeat: String,
+          division: String,
+          rank: String,
+        }
+      },
+      clientMutationId: ""
+    },
+    // 2
+    /*
+    signinUserInput: {
+      email: {
+        email,
+        password
+      },
+      clientMutationId: ""
+    }*/
+  }
+
+const mutation = graphql`
+mutation SignUpMutation($email: String!, $password: String!, $passwordRepeat: String!,
+                        $division: String!, $rank: String!) {
+  createUser(input: {email: $email, password: $password, passwordRepeat: $passwordRepeat, 
+                     division: $division, rank: $rank}) {
+    userEdge{
+      node{
+        email
+        division
+        rank
+      }
+    }
+  }
+}`
+commitMutation(
+  environment,
+  {
+    mutation,
+    variables,
+  }
+)
+
 
 function SignUp(props: RouteComponentProps) {
   const [state, set] = useState<SignUpState>({
@@ -29,6 +86,7 @@ function SignUp(props: RouteComponentProps) {
         '\n전화번호: ' + state.phone +
         '\n소속: ' + state.division +
         '\n계급 : ' + state.rank);
+      //commitMutation(state.email, state.password, state.password_repeat, state.division, state.rank)
     }
   }
   const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
