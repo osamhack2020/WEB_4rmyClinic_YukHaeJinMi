@@ -25,26 +25,27 @@ header {
 
 .menu {
   &-wrapper {
-	width: 90%;	
-	margin-left: auto;
-	margin-right: auto;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
+		width: 90%;	
+		margin-left: auto;
+		margin-right: auto;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
   }
 
   &-holder {
-	text-align: center;
+		text-align: center;
   }
 
   &-container {
-	text-align: center;
-	margin: auto 0;
-	ul {
-	  padding: 20px 0;
-	  a {
-		margin-right: 20px;
-	  }
-	}
+		text-align: center;
+		margin: auto 0;
+		ul {
+			padding: 20px 0;
+			a {
+				margin-right: 20px;
+			}
+		}
   }
 }
