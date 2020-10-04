@@ -24,6 +24,7 @@
   "scripts": {
     "postinstall": "cd ../server/clinic && ./manage.py graphql_schema",
     "start": "react-app-rewired start",
+    "dev": "export $(cat .env.endpoint | xargs) && react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject",
@@ -53,6 +54,5 @@
     "relay-compiler": "^10.0.1",
     "relay-compiler-language-typescript": "^13.0.1",
     "relay-config": "^10.0.1"
-  },
-  "proxy": "https://clinic-af2szzytra-an.a.run.app"
+  }
 }
