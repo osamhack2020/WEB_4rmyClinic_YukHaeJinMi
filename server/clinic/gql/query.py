@@ -8,6 +8,11 @@ class UserNode(DjangoObjectType):
     model = User
     interfaces = (relay.Node,)
     exclude = ("is_admin", "password", "is_active")
+    filter_fields = {
+      'email': ['icontains'],
+      'division': ['icontains'],
+      'rank': ['icontains'],
+    }
 
 class PostNode(DjangoObjectType):
   class Meta:
@@ -18,7 +23,6 @@ class PostNode(DjangoObjectType):
       'title': ['icontains'],
       'content': ['icontains'],
     }
-
 
 class CommentNode(DjangoObjectType):
   class Meta:
@@ -42,3 +46,4 @@ class Query(ObjectType):
   tag = relay.Node.Field(TagNode)
 
   recent_posts = DjangoFilterConnectionField(PostNode)
+  all_users = DjangoFilterConnectionField(UserNode)

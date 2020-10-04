@@ -150,7 +150,11 @@ GRAPHENE = {
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
     'http://49.50.164.155:8000',
+<<<<<<< HEAD
 ]
 CORS_ALLOWED_ORIGIN_REGEXES = [
     r'^https:\/\/.*\.online\.visualstudio\.com'
+=======
+    # "http://localhost:3000",
+>>>>>>> 368af2ca6dc4869152c2cce240d30d269de007ce
 ]

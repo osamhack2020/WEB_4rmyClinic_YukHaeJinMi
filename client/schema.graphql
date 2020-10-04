@@ -80,6 +80,7 @@ type Query {
   post(id: ID!): PostNode
   tag(id: ID!): TagNode
   recentPosts(before: String, after: String, first: Int, last: Int, created_Gte: Date, created_Lte: Date, title_Icontains: String, content_Icontains: String): PostNodeConnection
+  allUsers(before: String, after: String, first: Int, last: Int, email_Icontains: String, division_Icontains: String, rank_Icontains: String): UserNodeConnection
 }
 
 type TagNode implements Node {
@@ -117,6 +118,16 @@ type UserNode implements Node {
   postSet(before: String, after: String, first: Int, last: Int, created_Gte: Date, created_Lte: Date, title_Icontains: String, content_Icontains: String): PostNodeConnection!
   commentSet(before: String, after: String, first: Int, last: Int): CommentNodeConnection!
   likeSet(before: String, after: String, first: Int, last: Int): LikeNodeConnection!
+}
+
+type UserNodeConnection {
+  pageInfo: PageInfo!
+  edges: [UserNodeEdge]!
+}
+
+type UserNodeEdge {
+  node: UserNode
+  cursor: String!
 }
 
 enum UserRank {

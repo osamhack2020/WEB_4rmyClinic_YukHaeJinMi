@@ -3,6 +3,7 @@ import { RouteComponentProps } from "react-router";
 // import logo from '../assets/logo2_bgremoved.png';
 import '../scss/Sign.scss';
 
+<<<<<<< HEAD
 class SignUp extends React.Component<{}, { name: string, email: string, password: string, password_repeat: string, 
                                            phone: string, division: string, rank: string }> {
   constructor(props:any){
@@ -125,3 +126,13 @@ class SignUp extends React.Component<{}, { name: string, email: string, password
 }
 
 export default SignUp;
+=======
+export function SignUp(props: RouteComponentProps) {
+  return (
+  	<div>
+    <h1>로그인하기...가 아닌 회원가입 테스트 페이지다 이말이야</h1>
+    <h1>사실 SignUp이 회원가입이고 SignIn이 로그인임</h1>
+    </div>
+  )
+}
+>>>>>>> 368af2ca6dc4869152c2cce240d30d269de007ce
