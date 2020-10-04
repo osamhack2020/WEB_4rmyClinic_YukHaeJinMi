@@ -144,6 +144,9 @@ REST_FRAMEWORK = {
 GRAPHENE = {
     'SCHEMA' : 'schema.schema',
     'SCHEMA_OUTPUT': '../../client/schema.graphql',
+    'MIDDLEWARE': [
+        'gql.middleware.Auth'
+    ]
 }
 
 # CORS_ORIGIN_ALLOW_ALL = True

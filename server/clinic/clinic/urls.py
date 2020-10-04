@@ -24,9 +24,13 @@ from .settings import STATIC_URL, STATIC_ROOT
 from django.conf.urls.static import static
 from django.views.decorators.csrf import csrf_exempt
 
+from gql.template import render_graphql
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/token/', csrf_exempt(TokenObtainPairView.as_view()), name='token_obtain_pair'),
     path('api/token/refresh/', csrf_exempt(TokenRefreshView.as_view()), name='token_refresh'),
-    path('graphql/', csrf_exempt(GraphQLView.as_view(graphiql=True)))
+    path('graphql/', csrf_exempt(GraphQLView.as_view(graphiql=True))),
+    path('playground/', csrf_exempt(render_graphql)),
+
 ] + static(STATIC_URL, document_root=STATIC_ROOT)

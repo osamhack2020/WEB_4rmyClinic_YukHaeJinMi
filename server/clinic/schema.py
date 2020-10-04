@@ -1,5 +1,6 @@
 import graphene
 import gql.query
+
 # import gql.mutation
 
 class Query(gql.query.Query, graphene.ObjectType):
