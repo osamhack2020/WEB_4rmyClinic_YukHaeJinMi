@@ -14,6 +14,10 @@ class UserEdge(ObjectType):
 	node = Field(UserNode)
 	cursor = String()
 
+class PostEdge(ObjectType):
+	node = Field(PostNode)
+	cursor = String()
+
 class CreateUser(relay.ClientIDMutation):
 	user_edge = Field(UserEdge)
 	token = String()
@@ -25,7 +29,6 @@ class CreateUser(relay.ClientIDMutation):
 		password_repeat = String(required=True)
 		division = String(required=True)
 		rank = String(required=True)
-
 
 	@classmethod
 	def mutate(cls, root, info, input):
@@ -44,6 +47,7 @@ class CreateUser(relay.ClientIDMutation):
 					
 					# token 발급
 					tokens = TokenSerializer.get_token(_user)
+					print('Welcome, New User: ' + _user.email)
 					return CreateUser(user_edge=_user_edge, token=str(tokens.access_token), refresh_token = str(tokens))
 
 				raise GraphQLError("user {email} already exists".format(email=input.email))
@@ -52,7 +56,6 @@ class CreateUser(relay.ClientIDMutation):
 				raise GraphQLError("CreateUser error : {err}".format(err=err))
 		else:
 			raise GraphQLError("CreateUser error : Password Incorrect")
-
 
 class Mutation(AbstractType):
 	create_user = CreateUser.Field()

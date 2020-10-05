@@ -149,7 +149,7 @@ GRAPHENE = {
     'SCHEMA' : 'schema.schema',
     'SCHEMA_OUTPUT': '../../client/schema.graphql',
     'MIDDLEWARE': [
-        'gql.middleware.Auth'
+        'gql.middleware.Auth',
     ]
 }
 
