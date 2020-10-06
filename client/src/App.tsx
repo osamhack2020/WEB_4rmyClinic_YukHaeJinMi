@@ -12,24 +12,27 @@ import {
 import { Main, NotFound, Post, Profile, SignIn, SignUp, About } from './Routes';
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
+import AuthContextProvider from "./Components/AuthContextProvider";
 
 function App() {
   return (
-    <Router>
-      <Header />
-      
-      <Switch>
-        <Route exact path="/" render={(props) => <Main {...props} />} />
-        <Route path="/post/:id" render={(props) => <Post {...props} />} />
-        <Route path="/About" render={(props) => <About {...props} />} />
-        <Route path="/signin" render={(props) => <SignIn {...props} />} />
-        <Route path="/signup" render={(props) => <SignUp {...props} />} />
-        <Route path="/profile/:id" render={(props) => <Profile {...props} />} />
-        <Route path="*" render={(props) => <NotFound {...props} />} />
-      </Switch>
+    <AuthContextProvider>
+      <Router>
+        <Header />
 
-      <Footer />
-    </Router>
+        <Switch>
+          <Route exact path="/" render={(props) => <Main {...props} />} />
+          <Route path="/post/:id" render={(props) => <Post {...props} />} />
+          <Route path="/About" render={(props) => <About {...props} />} />
+          <Route path="/signin" render={(props) => <SignIn {...props} />} />
+          <Route path="/signup" render={(props) => <SignUp {...props} />} />
+          <Route path="/profile/:id" render={(props) => <Profile {...props} />} />
+          <Route path="*" render={(props) => <NotFound {...props} />} />
+        </Switch>
+
+        <Footer />
+      </Router>
+    </AuthContextProvider>
   );
 }
 
