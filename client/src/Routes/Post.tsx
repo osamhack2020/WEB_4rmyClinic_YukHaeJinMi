@@ -8,6 +8,7 @@ import { QueryRenderer, graphql } from "react-relay";
 import environment from "../_lib/environment";
 import { MainQuery } from "./__generated__/MainQuery.graphql";
 import CardContainer from "../Components/CardContainer";
+import { useCookies } from "react-cookie"
 import "../scss/Main.scss";
 
 type postParams = {
@@ -16,8 +17,13 @@ type postParams = {
 
 export function Post(props: RouteComponentProps) {
   const { id } = useParams<postParams>();
+  const [cookies, setCookie] = useCookies(["user"]);
   return (
   	<div className="Post">
+    <div>
+        <h1>React Cookies</h1>
+        {cookies.user && <p>{cookies.user}</p>}
+      </div>
     <QueryRenderer<MainQuery>
         environment={environment}
         variables={{}}

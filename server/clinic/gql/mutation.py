@@ -9,6 +9,7 @@ from .query import UserNode, PostNode, CommentNode, LikeNode, TagNode
 # from rest_framework_simplejwt.tokens import RefreshToken
 from .jwt import TokenSerializer
 import requests
+from django.contrib.auth import authenticate
 
 class UserEdge(ObjectType):
 	node = Field(UserNode)
@@ -57,5 +58,35 @@ class CreateUser(relay.ClientIDMutation):
 		else:
 			raise GraphQLError("CreateUser error : Password Incorrect")
 
+class UserLogin(relay.ClientIDMutation):
+	user_edge = Field(UserEdge)
+	token = String()
+	refresh_token = String()
+
+	class Input:
+		email = String(required=True)
+		password = String(required=True)
+
+	@classmethod
+	def mutate(cls, root, info, input):
+		try:
+			userExists = User.objects.filter(email=input.email).exists()
+			if userExists:
+				_user = User.objects.get(email=input.email)
+				login = authenticate(username=input.email, password=input.password)
+				if login:
+					tokens = TokenSerializer.get_token(_user)
+					_user_edge = UserEdge(
+						cursor = offset_to_cursor(User.objects.count()), node=_user)
+					return UserLogin(user_edge=_user_edge, token=str(tokens.access_token), refresh_token = str(tokens))
+				else:
+				 raise GraphQLError("Password Uncorrect")
+			else:
+				raise GraphQLError("User {email} doesn't exists".format(email=input.email))
+		except Exception as err:
+			raise GraphQLError("UserLogin error : {err}".format(err=err))
+
+
 class Mutation(AbstractType):
 	create_user = CreateUser.Field()
+	user_login = UserLogin.Field()

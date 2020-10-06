@@ -1,4 +1,4 @@
-from graphene import relay, ObjectType, String
+from graphene import relay, ObjectType, String, Field
 from graphene_django.types import DjangoObjectType
 from graphene_django.filter import DjangoFilterConnectionField
 from .models import User, Post, Comment, Like, Tag

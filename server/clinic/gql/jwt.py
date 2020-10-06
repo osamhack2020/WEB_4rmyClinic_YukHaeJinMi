@@ -1,4 +1,6 @@
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer, TokenVerifySerializer
+from rest_framework import serializers
+from .models import User
 
 class TokenSerializer(TokenObtainPairSerializer):
   @classmethod
