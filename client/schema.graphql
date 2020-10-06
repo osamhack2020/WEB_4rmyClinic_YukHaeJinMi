@@ -34,6 +34,7 @@ input CreateUserInput {
 type CreateUserPayload {
   userEdge: UserEdge
   token: String
+  refreshToken: String
   clientMutationId: String
 }
 
@@ -59,6 +60,7 @@ type LikeNodeEdge {
 
 type Mutation {
   createUser(input: CreateUserInput!): CreateUserPayload
+  userLogin(input: UserLoginInput!): UserLoginPayload
 }
 
 interface Node {
@@ -131,6 +133,19 @@ enum UserDivision {
 type UserEdge {
   node: UserNode
   cursor: String
+}
+
+input UserLoginInput {
+  email: String!
+  password: String!
+  clientMutationId: String
+}
+
+type UserLoginPayload {
+  userEdge: UserEdge
+  token: String
+  refreshToken: String
+  clientMutationId: String
 }
 
 type UserNode implements Node {

@@ -20,15 +20,11 @@ export function Post(props: RouteComponentProps) {
   const [cookies, setCookie] = useCookies(["user"]);
   return (
   	<div className="Post">
-    <div>
-        <h1>React Cookies</h1>
-        {cookies.user && <p>{cookies.user}</p>}
-      </div>
     <QueryRenderer<MainQuery>
         environment={environment}
         variables={{}}
         query={graphql`
-          query MainQuery {
+          query PostQuery {
             ...CardContainer_cards
           }
         `}
