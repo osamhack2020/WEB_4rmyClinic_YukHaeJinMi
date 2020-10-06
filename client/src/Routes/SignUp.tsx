@@ -42,6 +42,7 @@ function SignUp(props: RouteComponentProps) {
         history.push("/"); // TODO : redirect Main or somewhere
       } else {
         setError(true);
+        alert('회원가입 도중 에러가 발생했습니다.');
       }
 
     }

@@ -7,10 +7,13 @@ import { RouteComponentProps } from "react-router";
 import { QueryRenderer, graphql } from "react-relay";
 import environment from "../_lib/environment";
 import { ProfileQuery } from "./__generated__/ProfileQuery.graphql";
+import { useCookies } from "react-cookie"
+
 // import CardContainer from "../Components/CardContainer";
 import "../scss/Main.scss";
 
 export function Profile(props: RouteComponentProps) {
+	const [cookies, setCookie] = useCookies(["user"]);
 	return (
 		<QueryRenderer<ProfileQuery>
 			environment={environment}
@@ -33,6 +36,10 @@ export function Profile(props: RouteComponentProps) {
 				const users = props?.allUsers?.edges;
 				return (
 					<div>
+						<div>
+							<h1>React Cookies</h1>
+							{cookies.user && <p>{cookies.user}</p>}
+						</div>
 						<table>
 							<thead>
 								<tr>

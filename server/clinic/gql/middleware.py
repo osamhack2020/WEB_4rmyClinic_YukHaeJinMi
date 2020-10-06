@@ -6,7 +6,7 @@ class Auth(object):
     # print(info.operation)
     # operation_type = info.operation.operation
     # if operation_type == "mutation":
-    token = info.context.headers["Authorization"]
+    #token = info.context.headers["Authorization"]
     # if not isValid(token):
     #   raise GraphQLError("Auth Error")
     return next(root, info, **args)
