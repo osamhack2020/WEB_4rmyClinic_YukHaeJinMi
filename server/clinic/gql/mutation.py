@@ -5,11 +5,11 @@ from graphql import GraphQLError
 from graphene_django.types import DjangoObjectType
 from graphene_django.filter import DjangoFilterConnectionField
 from graphql_relay.connection.arrayconnection import offset_to_cursor
+import graphql_jwt
+from .auth import ObtainJSONWebToken
 
 from .models import User, Post, Comment, Like, Tag
 from .query import UserNode, PostNode, CommentNode, LikeNode, TagNode
-
-from rest.utils import generate_access_token, generate_refresh_token
 
 class UserEdge(ObjectType):
 	node = Field(UserNode)
@@ -46,9 +46,7 @@ class CreateUser(relay.ClientIDMutation):
 					_user_edge = UserEdge(
 						cursor = offset_to_cursor(User.objects.count()), node=_user)
 					
-					# token 발급
-					token = generate_access_token(_user)
-					refresh_token = generate_refresh_token(_user)
+					# token 발급 x, 다시 로그인하라고 하는 방법도 있다.
 					print('Welcome, New User: ' + _user.email)
 					return CreateUser(user_edge=_user_edge, token=token, refresh_token = refresh_token)
 
@@ -83,4 +81,10 @@ class CreateUser(relay.ClientIDMutation):
 
 class Mutation(AbstractType):
 	create_user = CreateUser.Field()
-	# login = Login.Field() 
+
+	token_auth = ObtainJSONWebToken.Field()
+	verify_token = graphql_jwt.relay.Verify.Field()
+	refresh_token = graphql_jwt.relay.Refresh.Field()
+	delete_token_cookie = graphql_jwt.relay.DeleteJSONWebTokenCookie.Field()
+	revoke_token = graphql_jwt.relay.Revoke.Field()
+	delete_refresh_token_cookie = graphql_jwt.relay.DeleteRefreshTokenCookie.Field()

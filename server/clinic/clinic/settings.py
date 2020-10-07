@@ -137,9 +137,13 @@ GRAPHENE = {
     'SCHEMA' : 'schema.schema',
     'SCHEMA_OUTPUT': '../../client/schema.graphql',
     'MIDDLEWARE': [
-        'gql.middleware.Auth',
-    ]
+        'graphql_jwt.middleware.JSONWebTokenMiddleware',
+    ],
 }
+AUTHENTICATION_BACKENDS = [
+    'graphql_jwt.backends.JSONWebTokenBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
 
 # CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
