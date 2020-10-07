@@ -1,3 +1,4 @@
+import { verify } from "crypto";
 import React, { createContext } from 'react';
 import { ReactCookieProps, withCookies } from "react-cookie";
 import { fetchToken, refreshToken, verifyToken } from '../_lib/auth';
@@ -38,22 +39,24 @@ class AuthContextProvider extends React.Component<ReactCookieProps, AuthContextS
     this.setState({ accessToken, refreshToken }, async () => {
       const verified = await this.verifyToken();
       this.setState({ verified });
-
       if (verified) this.setState({ email: "user@login.ed" }); // TODO : jwt parsing - use user's data
-      else this.setState({ accessToken: "", refreshToken: "" });
+      else this.setState({ accessToken: "", refreshToken: "", email: "" });
+      console.log("cdm : ", verified);
     });
+
   }
 
   shouldComponentUpdate = (_: ReactCookieProps, nextState: AuthContextState) => {
     return (nextState.verified !== this.state.verified) ||
-      (this.state.accessToken !== nextState.accessToken || this.state.refreshToken !== nextState.refreshToken);
+      (this.state.accessToken !== nextState.accessToken || this.state.refreshToken !== nextState.refreshToken) ||
+      (this.state.email !== nextState.email);
   }
 
-  componentDidUpdate = () => {
-    const verified = this.verifyToken();
-    if (!verified && this.state.refreshToken) this.refreshToken();
-
+  componentDidUpdate = async () => {
+    const verified = await this.verifyToken();
+    if (!verified && this.state.refreshToken) await this.refreshToken();
     if (verified) this.setState({ email: "user@login.ed" }); // TODO : jwt parsing - use user's data
+    console.log("cdu : ", verified);
   }
 
   login = async (email: string, password: string): Promise<boolean> => {
@@ -70,12 +73,6 @@ class AuthContextProvider extends React.Component<ReactCookieProps, AuthContextS
     this.setState({ accessToken: "", refreshToken: "", email: "" });
     this.removeToken();
   }
-
-  // setToken?: (accessToken: string) => void; // set token to cookie
-  // setRefreshToken?: (refreshToken: string) => void; // set refresh token to cookie
-  // getToken?: () => string; // get token from cookie
-  // getRefreshToken?: () => string; // get refresh token from cookie
-  // refreshToken?: (refreshToken: string) => void; // get refreshToken & refresh the token
 
   private removeToken = () => {
     this.props.cookies?.remove("token");
