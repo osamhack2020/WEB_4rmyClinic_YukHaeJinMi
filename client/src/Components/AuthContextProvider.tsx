@@ -1,10 +1,6 @@
 import React, { createContext } from 'react';
 import { ReactCookieProps, withCookies } from "react-cookie";
-import { authUser } from "../_lib/mutations/authUser";
-type Tokens = {
-  accessToken: string;
-  refreshToken: string;
-}
+import { authUser, removeToken } from "../_lib/mutations/auth";
 
 interface AuthContext {
   login?: (email: string, password: string) => Promise<boolean>,
@@ -40,15 +36,16 @@ class AuthContextProvider extends React.Component<ReactCookieProps, AuthContextS
     console.log("login : ", payload);
     console.log("cookie : ", this.props.cookies);
     if (payload) {
+      this.setState({ email: payload.email });
       return true;
     }
     return false;
   }
 
   logout = () => {
+    removeToken();
     this.setState({ accessToken: "", refreshToken: "", email: "" });
   }
-
 
   render() {
 

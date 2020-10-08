@@ -1,18 +1,7 @@
 import React, { useState } from 'react';
 import { RouteComponentProps, useHistory } from "react-router";
-// import { Link } from 'react-router-dom';
-// import bgsvg from '../assets/Main_background.svg';
-// import bgsvg2 from '../assets/Rectangle.svg';
-// import counselsvg from '../assets/counsel_img.svg';
-// import { QueryRenderer, graphql, commitMutation } from "react-relay";
-// import environment from "../_lib/environment";
-// import { MainQuery } from "./__generated__/MainQuery.graphql";
-// import CardContainer from "../Components/CardContainer";
-// import { SignUpMutation } from "./__generated__/SignUpMutation.graphql"
 import "../scss/Main.scss";
-import { authUser } from "../_lib/mutations/authUser";
-import { createUser } from "../_lib/mutations/createUser";
-// import logo from '../assets/logo2_bgremoved.png';
+import { authUser, createUser } from "../_lib/mutations/auth";
 
 type SignUpState = {
   name: string;

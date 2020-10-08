@@ -153,7 +153,8 @@ GRAPHQL_JWT = {
     'JWT_COOKIE_SAMESITE': 'Lax',
     'JWT_AUTH_HEADER_PREFIX': "Bearer",
     'JWT_COOKIE_NAME': 'token',
-    'JWT_REFRESH_TOKEN_COOKIE_NAME': 'refresh_token',
+    # 'JWT_REFRESH_TOKEN_COOKIE_NAME': 'refreshToken',
+    # 'JWT_LONG_RUNNING_REFRESH_TOKEN': True,
     'JWT_COOKIE_SECURE': env('JWT_COOKIE_SECURE'),
 }
 

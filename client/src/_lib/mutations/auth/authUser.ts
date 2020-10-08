@@ -1,6 +1,6 @@
 import { commitMutation, graphql } from "react-relay"
-import environment from "../environment";
-import { authUserMutation } from "./__generated__/authUserMutation.graphql";
+import environment from "../../environment";
+import { authUserMutation } from "../__generated__/authUserMutation.graphql";
 
 const mutation = graphql`
 mutation authUserMutation($email: String!, $password: String!) {

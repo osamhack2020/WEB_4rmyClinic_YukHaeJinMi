@@ -1,11 +1,11 @@
 import { commitMutation, graphql } from "react-relay"
-import environment from "../environment";
+import environment from "../../environment";
 import { createUserMutation } from "./__generated__/createUserMutation.graphql";
 
 const mutation = graphql`
-mutation verifyTokenMutation($token: String!) {
-  verifyToken(input: {token: $token}) {
-    payload
+mutation createUserMutation($email: String!, $password: String!, $passwordRepeat: String!, $division: String!, $rank: String!) {
+  createUser(input: {email: $email, password: $password, passwordRepeat: $passwordRepeat, division: $division, rank: $rank}) {
+    ok
   }
 }`;
 
