@@ -39,8 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'gql',
-    'rest_framework',
-    'rest_framework_simplejwt',
     'graphene_django',
     'django_filters',
     'corsheaders',
@@ -135,30 +133,24 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(ROOT_DIR, 'static')
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_ACCESS': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
-}
-JWT_AUTH = {
-    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(days=1),
-    'JWT_ALLOW_REFRESH': True,
-    'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=7),
-}
 GRAPHENE = {
     'SCHEMA' : 'schema.schema',
     'SCHEMA_OUTPUT': '../../client/schema.graphql',
     'MIDDLEWARE': [
-        'gql.middleware.Auth',
-    ]
+        'graphql_jwt.middleware.JSONWebTokenMiddleware',
+    ],
 }
+AUTHENTICATION_BACKENDS = [
+    'graphql_jwt.backends.JSONWebTokenBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
 
 # CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
-    'http://49.50.164.155:8000',
-    'http://34.67.127.208:3000',
-    'http://localhost:3000',
+    'http://49.50.164.155:8000', # personal server
+    'http://34.67.127.208:3000', # honeycombo.tk
+    'http://localhost:3000', # local
 ]
 CORS_ALLOWED_ORIGIN_REGEXES = [
     r'^https:\/\/.*\.online\.visualstudio\.com'

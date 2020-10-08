@@ -20,6 +20,7 @@ export function SignIn(props: RouteComponentProps) {
 
   const handleSubmit = async (loginFn: () => Promise<boolean>) => {
     const success = await loginFn();
+    console.log("handleSubmit : ", success);
     if (success) history.push("/");
     else setError(true);
   }

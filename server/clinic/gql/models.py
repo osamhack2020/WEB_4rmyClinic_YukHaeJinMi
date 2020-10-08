@@ -23,6 +23,9 @@ class UserManager(BaseUserManager):
     return user
   
 class User(AbstractBaseUser):
+  EMAIL_FIELD = 'email'
+  USERNAME_FIELD = 'email'
+  
   email = models.EmailField(verbose_name='email', max_length=255,unique=True)
   DIVISION_CHOICES = [
     ('roka', "육군"),

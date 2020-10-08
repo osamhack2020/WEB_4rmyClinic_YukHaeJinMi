@@ -15,25 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
-    TokenRefreshView,
-    TokenVerifyView,
-)
 from graphene_django.views import GraphQLView
 from .settings import STATIC_URL, STATIC_ROOT
 from django.conf.urls.static import static
 from django.views.decorators.csrf import csrf_exempt
-
 from gql.template import render_graphql
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # === maybe not needed ===
-    path('api/token/', csrf_exempt(TokenObtainPairView.as_view()), name='token_obtain_pair'),
-    path('api/token/refresh/', csrf_exempt(TokenRefreshView.as_view()), name='token_refresh'),
-    path('api/token/verify/', csrf_exempt(TokenVerifyView.as_view()), name='token_verify'),
-    # === maybe not needed ===
+
     path('graphql/', csrf_exempt(GraphQLView.as_view(graphiql=True))),
     path('playground/', csrf_exempt(render_graphql)),
 

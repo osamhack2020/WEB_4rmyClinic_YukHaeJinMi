@@ -10,6 +10,7 @@
 		}
 	],
 	"settings": {
-		"git.ignoreLimitWarning": true
+		"git.ignoreLimitWarning": true,
+		"python.pythonPath": "/Users/iseongbin/.pyenv/versions/osam/bin/python"
 	}
 }
