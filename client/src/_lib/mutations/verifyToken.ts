@@ -3,9 +3,9 @@ import environment from "../environment";
 import { createUserMutation } from "./__generated__/createUserMutation.graphql";
 
 const mutation = graphql`
-mutation createUserMutation($email: String!, $password: String!, $passwordRepeat: String!, $division: String!, $rank: String!) {
-  createUser(input: {email: $email, password: $password, passwordRepeat: $passwordRepeat, division: $division, rank: $rank}) {
-    ok
+mutation verifyTokenMutation($token: String!) {
+  verifyToken(input: {token: $token}) {
+    payload
   }
 }`;
 

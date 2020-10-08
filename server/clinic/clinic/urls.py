@@ -20,11 +20,12 @@ from .settings import STATIC_URL, STATIC_ROOT
 from django.conf.urls.static import static
 from django.views.decorators.csrf import csrf_exempt
 from gql.template import render_graphql
+from graphql_jwt.decorators import jwt_cookie
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    path('graphql/', csrf_exempt(GraphQLView.as_view(graphiql=True))),
+    path('graphql/', csrf_exempt(jwt_cookie(GraphQLView.as_view(graphiql=True)))),
     path('playground/', csrf_exempt(render_graphql)),
 
 ] + static(STATIC_URL, document_root=STATIC_ROOT)

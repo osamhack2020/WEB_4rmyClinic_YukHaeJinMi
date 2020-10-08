@@ -1,14 +1,9 @@
 import React from 'react';
-import { RouteComponentProps, useParams } from "react-router";
-import { Link } from 'react-router-dom';
-import bgsvg from '../assets/Main_background.svg';
-import bgsvg2 from '../assets/Rectangle.svg';
-import counselsvg from '../assets/counsel_img.svg';
+import { RouteComponentProps } from "react-router";
 import { QueryRenderer, graphql } from "react-relay";
 import environment from "../_lib/environment";
 import { MainQuery } from "./__generated__/MainQuery.graphql";
 import CardContainer from "../Components/CardContainer";
-import { useCookies } from "react-cookie"
 import "../scss/Main.scss";
 
 type postParams = {
@@ -16,11 +11,9 @@ type postParams = {
 }
 
 export function Post(props: RouteComponentProps) {
-  const { id } = useParams<postParams>();
-  const [cookies, setCookie] = useCookies(["user"]);
   return (
-  	<div className="Post">
-    <QueryRenderer<MainQuery>
+    <div className="Post">
+      <QueryRenderer<MainQuery>
         environment={environment}
         variables={{}}
         query={graphql`

@@ -20,7 +20,6 @@ export function SignIn(props: RouteComponentProps) {
 
   const handleSubmit = async (loginFn: () => Promise<boolean>) => {
     const success = await loginFn();
-    console.log("handleSubmit : ", success);
     if (success) history.push("/");
     else setError(true);
   }
@@ -57,9 +56,9 @@ export function SignIn(props: RouteComponentProps) {
                 onClick={() => login && handleSubmit(() => login(state.email, state.password))} />
             </div>
           </div>
+          {hasError && <p>사용자 정보가 존재하지 않거나, 이메일 - 비밀번호가 일치하지 않습니다.</p>}
 
           <p>아직 계정이 없으신가요? <Link to="/signup">회원가입 하기</Link></p>
-
         </div>
       }
     </AuthContext.Consumer>

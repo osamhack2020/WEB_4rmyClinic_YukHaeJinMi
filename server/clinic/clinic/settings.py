@@ -12,12 +12,13 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import environ
-import datetime
+from datetime import timedelta
 import os
 
 env = environ.Env(
     DEBUG=(bool, False),
-    ALLOWED_HOSTS=(str, "*")
+    ALLOWED_HOSTS=(str, "*"),
+    JWT_COOKIE_SECURE=(bool, False),
 )
 environ.Env.read_env()
 
@@ -144,6 +145,17 @@ AUTHENTICATION_BACKENDS = [
     'graphql_jwt.backends.JSONWebTokenBackend',
     'django.contrib.auth.backends.ModelBackend',
 ]
+
+GRAPHQL_JWT = {
+    'JWT_ALLOW_ARGUMENT': True,
+    'JWT_VERIFY_EXPIRATION': True,
+    'JWT_EXPIRATION_DELTA': timedelta(minutes=10),
+    'JWT_COOKIE_SAMESITE': 'Lax',
+    'JWT_AUTH_HEADER_PREFIX': "Bearer",
+    'JWT_COOKIE_NAME': 'token',
+    'JWT_REFRESH_TOKEN_COOKIE_NAME': 'refresh_token',
+    'JWT_COOKIE_SECURE': env('JWT_COOKIE_SECURE'),
+}
 
 # CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True

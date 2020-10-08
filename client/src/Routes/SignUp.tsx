@@ -10,6 +10,7 @@ import { RouteComponentProps, useHistory } from "react-router";
 // import CardContainer from "../Components/CardContainer";
 // import { SignUpMutation } from "./__generated__/SignUpMutation.graphql"
 import "../scss/Main.scss";
+import { authUser } from "../_lib/mutations/authUser";
 import { createUser } from "../_lib/mutations/createUser";
 // import logo from '../assets/logo2_bgremoved.png';
 
@@ -37,8 +38,11 @@ function SignUp(props: RouteComponentProps) {
       alert('비밀번호가 일치하지 않습니다.');
     }
     else {
-      const successed = await createUser({ ...state }); // TODO : or return token
+      const successed = await createUser({ ...state });
       if (successed) {
+        const { email, password } = state;
+        const payload = await authUser({ email, password });
+        console.log(payload); // TODO : Context로 전달
         history.push("/"); // TODO : redirect Main or somewhere
       } else {
         setError(true);
@@ -128,7 +132,7 @@ function SignUp(props: RouteComponentProps) {
           </div>
           <input className="box-btn blue" type='submit' value='회원가입하기' onClick={handleSubmit} />
 
-          {hasError && <p>회원가입 도중 에러가 발생했습니다.</p>}
+          {hasError && <p>이미 존재하는 이메일이거나, 비밀번호가 일치하지 않습니다.</p>}  {/* TODO : pre-check - if email exists */}
         </div>
       </div>
     </div>

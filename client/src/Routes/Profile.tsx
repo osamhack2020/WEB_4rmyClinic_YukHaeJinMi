@@ -1,19 +1,12 @@
 import React from 'react';
 import { RouteComponentProps } from "react-router";
-// import { Link } from 'react-router-dom';
-// import bgsvg from '../assets/Main_background.svg';
-// import bgsvg2 from '../assets/Rectangle.svg';
-// import counselsvg from '../assets/counsel_img.svg';
 import { QueryRenderer, graphql } from "react-relay";
 import environment from "../_lib/environment";
 import { ProfileQuery } from "./__generated__/ProfileQuery.graphql";
-import { useCookies } from "react-cookie"
 
-// import CardContainer from "../Components/CardContainer";
 import "../scss/Main.scss";
 
 export function Profile(props: RouteComponentProps) {
-	const [cookies, setCookie] = useCookies(["user"]);
 	return (
 		<QueryRenderer<ProfileQuery>
 			environment={environment}
@@ -38,7 +31,7 @@ export function Profile(props: RouteComponentProps) {
 					<div>
 						<div>
 							<h1>React Cookies</h1>
-							{cookies.user && <p>{cookies.user}</p>}
+							{/* {cookies.user && <p>{cookies.user}</p>} */}
 						</div>
 						<table>
 							<thead>

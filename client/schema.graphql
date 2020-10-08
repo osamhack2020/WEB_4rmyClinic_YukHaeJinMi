@@ -32,15 +32,33 @@ input CreateUserInput {
 }
 
 type CreateUserPayload {
-  userEdge: UserEdge
-  token: String
-  refreshToken: String
+  ok: Boolean
   clientMutationId: String
 }
 
 scalar Date
 
 scalar DateTime
+
+input DeleteJSONWebTokenCookieInput {
+  clientMutationId: String
+}
+
+type DeleteJSONWebTokenCookiePayload {
+  deleted: Boolean!
+  clientMutationId: String
+}
+
+input DeleteRefreshTokenCookieInput {
+  clientMutationId: String
+}
+
+type DeleteRefreshTokenCookiePayload {
+  deleted: Boolean!
+  clientMutationId: String
+}
+
+scalar GenericScalar
 
 type LikeNode implements Node {
   id: ID!
@@ -58,25 +76,32 @@ type LikeNodeEdge {
   cursor: String!
 }
 
-input LoginInput {
-  email: String!
-  password: String!
-  clientMutationId: String
-}
-
-type LoginPayload {
-  token: String
-  refreshToken: String
-  clientMutationId: String
-}
-
 type Mutation {
   createUser(input: CreateUserInput!): CreateUserPayload
-  login(input: LoginInput!): LoginPayload
+  tokenAuth(input: ObtainJSONWebTokenInput!): ObtainJSONWebTokenPayload
+  verifyToken(input: VerifyInput!): VerifyPayload
+  refreshToken(input: RefreshInput!): RefreshPayload
+  revokeToken(input: RevokeInput!): RevokePayload
+  deleteTokenCookie(input: DeleteJSONWebTokenCookieInput!): DeleteJSONWebTokenCookiePayload
+  deleteRefreshTokenCookie(input: DeleteRefreshTokenCookieInput!): DeleteRefreshTokenCookiePayload
 }
 
 interface Node {
   id: ID!
+}
+
+input ObtainJSONWebTokenInput {
+  clientMutationId: String
+  email: String!
+  password: String!
+}
+
+type ObtainJSONWebTokenPayload {
+  payload: GenericScalar!
+  refreshExpiresIn: Int!
+  user: UserNode
+  clientMutationId: String
+  token: String!
 }
 
 type PageInfo {
@@ -117,6 +142,28 @@ type Query {
   allUsers(before: String, after: String, first: Int, last: Int, email_Icontains: String, division_Icontains: String, rank_Icontains: String): UserNodeConnection
 }
 
+input RefreshInput {
+  token: String
+  clientMutationId: String
+}
+
+type RefreshPayload {
+  payload: GenericScalar!
+  refreshExpiresIn: Int!
+  clientMutationId: String
+  token: String!
+}
+
+input RevokeInput {
+  refreshToken: String
+  clientMutationId: String
+}
+
+type RevokePayload {
+  revoked: Int!
+  clientMutationId: String
+}
+
 type TagNode implements Node {
   id: ID!
   posts(before: String, after: String, first: Int, last: Int, created_Gte: Date, created_Lte: Date, title_Icontains: String, content_Icontains: String): PostNodeConnection!
@@ -140,11 +187,6 @@ enum UserDivision {
   ROKM
   MND
   CIVIL
-}
-
-type UserEdge {
-  node: UserNode
-  cursor: String
 }
 
 type UserNode implements Node {
@@ -190,4 +232,14 @@ enum UserRank {
   LG
   GEN
   NON
+}
+
+input VerifyInput {
+  token: String
+  clientMutationId: String
+}
+
+type VerifyPayload {
+  payload: GenericScalar!
+  clientMutationId: String
 }

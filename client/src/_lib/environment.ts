@@ -18,6 +18,7 @@ const fetchQuery: FetchFunction = async (operation, variables): Promise<GraphQLR
     });
     const response = await fetch(GRAPHQL_ENDPOINT, {
       method: 'POST',
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
       },

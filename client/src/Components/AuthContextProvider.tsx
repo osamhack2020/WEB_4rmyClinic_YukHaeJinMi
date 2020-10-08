@@ -1,7 +1,6 @@
-import { verify } from "crypto";
 import React, { createContext } from 'react';
 import { ReactCookieProps, withCookies } from "react-cookie";
-import { fetchToken, refreshToken, verifyToken } from '../_lib/auth';
+import { authUser } from "../_lib/mutations/authUser";
 type Tokens = {
   accessToken: string;
   refreshToken: string;
@@ -14,10 +13,10 @@ interface AuthContext {
 }
 export const AuthContext = createContext<AuthContext>({});
 
-// TODO : to make secure
-const setCookieOptions = {
-  // secure: true,
-  // httpOnly: true,
+type PayLoad = {
+  email: string,
+  exp: number,
+  origIat: number
 }
 
 type AuthContextState = {
@@ -33,37 +32,14 @@ class AuthContextProvider extends React.Component<ReactCookieProps, AuthContextS
   }
 
   componentDidMount = async () => {
-    const accessToken = this.getToken();
-    const refreshToken = this.getRefreshToken();
 
-    this.setState({ accessToken, refreshToken }, async () => {
-      const verified = await this.verifyToken();
-      this.setState({ verified });
-      if (verified) this.setState({ email: "user@login.ed" }); // TODO : jwt parsing - use user's data
-      else this.setState({ accessToken: "", refreshToken: "", email: "" });
-      console.log("cdm : ", verified);
-    });
-
-  }
-
-  shouldComponentUpdate = (_: ReactCookieProps, nextState: AuthContextState) => {
-    return (nextState.verified !== this.state.verified) ||
-      (this.state.accessToken !== nextState.accessToken || this.state.refreshToken !== nextState.refreshToken) ||
-      (this.state.email !== nextState.email);
-  }
-
-  componentDidUpdate = async () => {
-    const verified = await this.verifyToken();
-    if (!verified && this.state.refreshToken) await this.refreshToken();
-    if (verified) this.setState({ email: "user@login.ed" }); // TODO : jwt parsing - use user's data
-    console.log("cdu : ", verified);
   }
 
   login = async (email: string, password: string): Promise<boolean> => {
-    const tkn = await fetchToken(email, password);
-    if (tkn) {
-      tkn.access && this.setToken(tkn.access);
-      tkn.refresh && this.setRefreshToken(tkn.refresh);
+    const payload = await authUser({ email, password }) as PayLoad;
+    console.log("login : ", payload);
+    console.log("cookie : ", this.props.cookies);
+    if (payload) {
       return true;
     }
     return false;
@@ -71,51 +47,8 @@ class AuthContextProvider extends React.Component<ReactCookieProps, AuthContextS
 
   logout = () => {
     this.setState({ accessToken: "", refreshToken: "", email: "" });
-    this.removeToken();
   }
 
-  private removeToken = () => {
-    this.props.cookies?.remove("token");
-    this.props.cookies?.remove("refreshToken");
-  }
-
-  private setToken = (accessToken: string) => {
-    this.props.cookies?.set("token", accessToken, setCookieOptions);
-    this.setState({ accessToken });
-  }
-
-  private setRefreshToken = (refreshToken: string) => {
-    this.props.cookies?.set("refreshToken", refreshToken, setCookieOptions);
-    this.setState({ refreshToken });
-  }
-
-  private getToken = (): string => {
-    return this.props.cookies?.get("token");
-  }
-
-  private getRefreshToken = (): string => {
-    return this.props.cookies?.get("refreshToken");
-  }
-
-  private refreshToken = async () => {
-    // api request to server /api/token/refresh
-    const rtkn = this.state.refreshToken;
-    const tkn = rtkn && await refreshToken(rtkn);
-    const accessToken = tkn && tkn.access;
-    accessToken && this.setState({ accessToken });
-  }
-
-  private verifyToken = async (): Promise<boolean> => {
-    // api request to server /api/token/verify
-    // will be called when this.state.token has changed (componentDidUpdate)
-    const tkn = this.state.accessToken;
-    if (tkn) {
-      const ok = await verifyToken(tkn);
-      !ok && this.setState({ accessToken: "", refreshToken: "" });
-      return ok;
-    }
-    return false;
-  }
 
   render() {
 

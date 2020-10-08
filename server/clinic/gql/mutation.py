@@ -11,18 +11,12 @@ from .auth import ObtainJSONWebToken
 from .models import User, Post, Comment, Like, Tag
 from .query import UserNode, PostNode, CommentNode, LikeNode, TagNode
 
-class UserEdge(ObjectType):
-	node = Field(UserNode)
-	cursor = String()
-
 class PostEdge(ObjectType):
 	node = Field(PostNode)
 	cursor = String()
 
 class CreateUser(relay.ClientIDMutation):
-	user_edge = Field(UserEdge)
-	token = String()
-	refresh_token = String()
+	ok=Boolean()
 
 	class Input:
 		email = String(required=True)
@@ -43,12 +37,8 @@ class CreateUser(relay.ClientIDMutation):
 					_user.rank = input.rank
 					_user.set_password(input.password)
 					_user.save()
-					_user_edge = UserEdge(
-						cursor = offset_to_cursor(User.objects.count()), node=_user)
 					
-					# token 발급 x, 다시 로그인하라고 하는 방법도 있다.
-					print('Welcome, New User: ' + _user.email)
-					return CreateUser(user_edge=_user_edge, token=token, refresh_token = refresh_token)
+					return CreateUser(ok=True)
 
 				raise GraphQLError("user {email} already exists".format(email=input.email))
 			
@@ -57,34 +47,12 @@ class CreateUser(relay.ClientIDMutation):
 		else:
 			raise GraphQLError("CreateUser error : Password Incorrect")
 
-# class Login(relay.ClientIDMutation):
-# 	token = String()
-# 	refresh_token = String()
-
-# 	class Input:
-# 		email = String(required=True)
-# 		password = String(required=True)
-
-# 	@classmethod
-# 	def mutate(cls, root, info, input):
-# 		try:
-# 			userExists = User.objects.filter(email=input.email).exists()
-# 			if userExists:
-# 				_user = User.objects.get(email=input.email)
-# 				tokens = TokenSerializer.get_token(_user)
-# 				return Login(token=str(tokens.access_token), refresh_token = str(tokens))
-# 			else:
-# 				raise GraphQLError("User {email} doesn't exists".format(email=input.email))
-# 		except Exception as err:
-# 			raise GraphQLError("Login error : {err}".format(err=err))
-
-
 class Mutation(AbstractType):
 	create_user = CreateUser.Field()
 
 	token_auth = ObtainJSONWebToken.Field()
 	verify_token = graphql_jwt.relay.Verify.Field()
 	refresh_token = graphql_jwt.relay.Refresh.Field()
-	delete_token_cookie = graphql_jwt.relay.DeleteJSONWebTokenCookie.Field()
 	revoke_token = graphql_jwt.relay.Revoke.Field()
+	delete_token_cookie = graphql_jwt.relay.DeleteJSONWebTokenCookie.Field()
 	delete_refresh_token_cookie = graphql_jwt.relay.DeleteRefreshTokenCookie.Field()
