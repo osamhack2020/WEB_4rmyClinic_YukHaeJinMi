@@ -1,29 +1,33 @@
 import { commitMutation, graphql } from "react-relay"
 import { JWTPayLoad } from "../../../Components/AuthContextProvider";
 import environment from "../../environment";
-import { verifyTokenMutation } from "./__generated__/verifyTokenMutation.graphql";
+import { refreshTokenMutation } from "./__generated__/refreshTokenMutation.graphql";
 
-/* 오류 발생시 schema.graphql 에서 token을 주석처리해주세요.
-input VerifyInput {
-  # token: String
+/* 오류 발생시 schema.graphql 에서 refreshToken을 주석처리해주세요.
+input RefreshInput {
+  # refreshToken: String
   clientMutationId: String
 }
 */
 const mutation = graphql`
-mutation verifyTokenMutation {
-  verifyToken(input: {}) {
+mutation refreshTokenMutation {
+  refreshToken(input: {}) {
+    token
     payload
+    refreshToken
+    refreshExpiresIn
   }
 }`;
 
-export function verifyToken() {
+// type refreshTokenInput
+export function refreshToken() {
   return new Promise<JWTPayLoad>((resolve, reject) => {
-    commitMutation<verifyTokenMutation>(
+    commitMutation<refreshTokenMutation>(
       environment, {
       mutation,
       variables: {},
       onCompleted: (res, err) => {
-        const payload = res.verifyToken?.payload as JWTPayLoad;
+        const payload = res.refreshToken?.payload as JWTPayLoad;
         resolve(payload);
       },
       onError: (err) => { console.error(err); reject() },

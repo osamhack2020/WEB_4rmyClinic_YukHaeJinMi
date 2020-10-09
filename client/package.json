@@ -14,7 +14,6 @@
     "graphql": "^15.3.0",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
-    "react-cookie": "^4.0.3",
     "react-dom": "^16.13.1",
     "react-relay": "^10.0.1",
     "react-router": "^5.2.0",
@@ -23,7 +22,6 @@
     "typescript": "^3.9.7"
   },
   "scripts": {
-    "postinstall": "cd ../server/clinic && ./manage.py graphql_schema",
     "start": "react-app-rewired start",
     "dev": "export $(cat .env.endpoint | xargs) && react-app-rewired start",
     "build": "react-app-rewired build",

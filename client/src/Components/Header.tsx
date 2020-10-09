@@ -14,7 +14,7 @@ export default function Header(props: HeaderProps) {
 
   return (
     <AuthContext.Consumer>
-      {({ email, logout }) =>
+      {({ verified, email, logout }) =>
         <header>
           <div className="menu-wrapper">
             <div className="header-logo">
@@ -34,12 +34,13 @@ export default function Header(props: HeaderProps) {
               </nav>
             </div>
             <div className="header-btn">
-              {/* TODO : 현재 fake email -> 진짜 user email로 */}
-              {email ? <div>{email} <p onClick={logout}>로그아웃하기</p></div> : <Link to="/signin">로그인 하기</Link>}
+              {verified && email ? <div>{email} <p onClick={logout}>로그아웃하기</p></div> : <Link to="/signin">로그인 하기</Link>}
             </div>
-            {email && <div className="test" onClick={() => postCreate({ title: "test", content: "test" })}>
-              클릭하여 포스트 생성
-            </div>
+
+            {verified && email &&
+              <div className="test" onClick={() => postCreate({ title: "test", content: "test" })}>
+                TEST : 클릭하여 포스트 생성
+              </div>
             }
           </div>
         </header>

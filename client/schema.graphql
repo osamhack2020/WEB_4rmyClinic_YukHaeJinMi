@@ -86,9 +86,9 @@ input ObtainJSONWebTokenInput {
 type ObtainJSONWebTokenPayload {
   payload: GenericScalar!
   refreshExpiresIn: Int!
-  user: UserNode
   clientMutationId: String
   token: String!
+  refreshToken: String!
 }
 
 type PageInfo {
@@ -147,7 +147,7 @@ type Query {
 }
 
 input RefreshInput {
-  token: String
+  # refreshToken: String
   clientMutationId: String
 }
 
@@ -156,6 +156,7 @@ type RefreshPayload {
   refreshExpiresIn: Int!
   clientMutationId: String
   token: String!
+  refreshToken: String!
 }
 
 input RevokeInput {
@@ -253,7 +254,7 @@ enum UserRank {
 }
 
 input VerifyInput {
-  token: String
+  # token: String
   clientMutationId: String
 }
 
