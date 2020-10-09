@@ -61,7 +61,7 @@ class PostCreate(relay.ClientIDMutation):
 	def mutate(cls, root, info, input):
 		try:
 			_user = info.context.user
-			print(dir(info.context))
+			
 			_post = Post(user=_user, title=input.title, content=input.content)
 			if input.is_private:
 				_post.is_private = input.is_private
@@ -77,7 +77,7 @@ class Mutation(AbstractType):
 	user_create = UserCreate.Field()
 	post_create = PostCreate.Field()
 
-	token_auth = ObtainJSONWebToken.Field()
+	token_auth = graphql_jwt.relay.ObtainJSONWebToken.Field()
 	verify_token = graphql_jwt.relay.Verify.Field()
 	refresh_token = graphql_jwt.relay.Refresh.Field()
 	revoke_token = graphql_jwt.relay.Revoke.Field()
