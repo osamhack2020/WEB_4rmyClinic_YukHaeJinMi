@@ -1,6 +1,6 @@
 import React, { createContext } from 'react';
 import { ReactCookieProps, withCookies } from "react-cookie";
-import { authUser, removeToken } from "../_lib/mutations/auth";
+import { authUser, removeToken } from "../_lib/mutations";
 
 interface AuthContext {
   login?: (email: string, password: string) => Promise<boolean>,

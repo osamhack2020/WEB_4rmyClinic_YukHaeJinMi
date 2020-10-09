@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { RouteComponentProps, useHistory } from "react-router";
 import "../scss/Main.scss";
-import { authUser, createUser } from "../_lib/mutations/auth";
+import { authUser, userCreate } from "../_lib/mutations";
 
 type SignUpState = {
   name: string;
@@ -27,7 +27,7 @@ function SignUp(props: RouteComponentProps) {
       alert('비밀번호가 일치하지 않습니다.');
     }
     else {
-      const successed = await createUser({ ...state });
+      const successed = await userCreate({ ...state });
       if (successed) {
         const { email, password } = state;
         const payload = await authUser({ email, password });
