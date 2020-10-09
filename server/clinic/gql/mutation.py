@@ -6,16 +6,13 @@ from graphene_django.types import DjangoObjectType
 from graphene_django.filter import DjangoFilterConnectionField
 from graphql_relay.connection.arrayconnection import offset_to_cursor
 import graphql_jwt
+from graphql_jwt.decorators import login_required
 from .auth import ObtainJSONWebToken
 
 from .models import User, Post, Comment, Like, Tag
 from .query import UserNode, PostNode, CommentNode, LikeNode, TagNode
 
-class PostEdge(ObjectType):
-	node = Field(PostNode)
-	cursor = String()
-
-class CreateUser(relay.ClientIDMutation):
+class UserCreate(relay.ClientIDMutation):
 	ok=Boolean()
 
 	class Input:
@@ -37,8 +34,8 @@ class CreateUser(relay.ClientIDMutation):
 					_user.rank = input.rank
 					_user.set_password(input.password)
 					_user.save()
-					
-					return CreateUser(ok=True)
+
+					return UserCreate(ok=True)
 
 				raise GraphQLError("user {email} already exists".format(email=input.email))
 			
@@ -47,8 +44,38 @@ class CreateUser(relay.ClientIDMutation):
 		else:
 			raise GraphQLError("CreateUser error : Password Incorrect")
 
+class PostEdge(ObjectType):
+	node = Field(PostNode)
+	cursor = String()
+
+class PostCreate(relay.ClientIDMutation):
+	post_edge = Field(PostEdge)
+
+	class Input:
+		title = String(required=True)
+		content = String(required=True)
+		is_private = Boolean()
+	
+	@classmethod
+	@login_required
+	def mutate(cls, root, info, input):
+		try:
+			_user = info.context.user
+			print(dir(info.context))
+			_post = Post(user=_user, title=input.title, content=input.content)
+			if input.is_private:
+				_post.is_private = input.is_private
+			_post.save()
+			_post_edge = PostEdge(cursor = offset_to_cursor(Post.objects.count()), node=_post)
+			return PostCreate(post_edge=_post_edge)
+		except Exception as err:
+			raise GraphQLError("PostCreate err")
+
+		
+
 class Mutation(AbstractType):
-	create_user = CreateUser.Field()
+	user_create = UserCreate.Field()
+	post_create = PostCreate.Field()
 
 	token_auth = ObtainJSONWebToken.Field()
 	verify_token = graphql_jwt.relay.Verify.Field()
