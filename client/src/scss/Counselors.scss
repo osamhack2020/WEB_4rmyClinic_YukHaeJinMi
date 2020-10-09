@@ -1,0 +1,37 @@
+.card-container > .cscard{
+    display:flex;
+    justify-content: left;
+    flex-direction: row;
+
+	padding: 20px;
+	margin-bottom: 50px;
+	width: 399px;
+	height: 200px;
+
+	background: #FFFFFF;
+	border: 1px solid rgba(0, 0, 0, 0.08);
+	box-sizing: border-box;
+	box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.08);
+	border-radius: 7px;
+
+    .info{
+        display:flex;
+        flex-direction: column;
+
+        .name{
+            font-weight: 700;
+        }
+        .likes{
+            font-weight: 300;
+            color:gray;
+        }
+    }
+    
+    .p{
+        margin-bottom: 10px;
+    }
+    img{
+        width:30%;
+        margin-right:10px;
+    }
+}

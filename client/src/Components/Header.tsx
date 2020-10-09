@@ -26,7 +26,7 @@ export default function Header(props: HeaderProps) {
                 <ul className="menu-ul">
                   <Link to="/">Home</Link>
                   <Link to="/About">About</Link>
-                  <Link to="/">Counseler</Link>
+                  <Link to="/Counselors">Counseler</Link>
                   <Link to="/post/:id">Community</Link>
                   <Link to="/profile/:id">Profile</Link>
                 </ul>
