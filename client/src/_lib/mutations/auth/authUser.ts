@@ -1,5 +1,5 @@
 import { commitMutation, graphql } from "react-relay"
-import environment from "../../environment";
+import environment, { JWTPayLoad } from "../../environment";
 import { authUserMutation, authUserMutationVariables } from "./__generated__/authUserMutation.graphql";
 
 const mutation = graphql`
@@ -13,7 +13,7 @@ mutation authUserMutation($email: String!, $password: String!) {
 }`;
 
 export function authUser(variables: authUserMutationVariables) {
-  return new Promise((resolve, reject) => {
+  return new Promise<JWTPayLoad>((resolve, reject) => {
     commitMutation<authUserMutation>(
       environment, {
       mutation,
@@ -22,8 +22,9 @@ export function authUser(variables: authUserMutationVariables) {
         if (err) {
           reject();
         } else {
-          console.log("payload : ", res.tokenAuth?.payload);
-          resolve(res.tokenAuth?.payload);
+          // console.log("payload : ", res.tokenAuth?.payload);
+          const payload = res.tokenAuth?.payload as JWTPayLoad;
+          resolve(payload);
         }
       },
       onError: (err) => { console.error(err); reject() },

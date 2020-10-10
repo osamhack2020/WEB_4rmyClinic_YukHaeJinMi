@@ -38,3 +38,9 @@ const environment = new Environment({
 });
 
 export default environment;
+
+export type JWTPayLoad = {
+  email: string,
+  exp: number,
+  origIat: number
+}

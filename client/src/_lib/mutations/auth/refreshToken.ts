@@ -1,6 +1,5 @@
 import { commitMutation, graphql } from "react-relay"
-import { JWTPayLoad } from "../../../Components/AuthContextProvider";
-import environment from "../../environment";
+import environment, { JWTPayLoad } from "../../environment";
 import { refreshTokenMutation } from "./__generated__/refreshTokenMutation.graphql";
 
 /* 오류 발생시 schema.graphql 에서 refreshToken을 주석처리해주세요.

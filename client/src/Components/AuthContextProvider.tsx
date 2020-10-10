@@ -1,5 +1,5 @@
 import React, { createContext } from 'react';
-import { ReactCookieProps, withCookies } from "react-cookie";
+import { JWTPayLoad } from "../_lib/environment";
 import { authUser, deleteToken, deleteRefreshToken, verifyToken } from "../_lib/mutations";
 import { refreshToken } from "../_lib/mutations/auth/refreshToken";
 
@@ -11,18 +11,12 @@ interface AuthContext {
 }
 export const AuthContext = createContext<AuthContext>({});
 
-export type JWTPayLoad = {
-  email: string,
-  exp: number,
-  origIat: number
-}
-
 type AuthContextState = {
   email?: string,
   verified: boolean,
 }
-class AuthContextProvider extends React.Component<ReactCookieProps, AuthContextState> {
-  constructor(props: ReactCookieProps) {
+export default class AuthContextProvider extends React.Component<{}, AuthContextState> {
+  constructor(props: any) {
     super(props);
     this.state = { verified: false };
   }
@@ -72,5 +66,3 @@ class AuthContextProvider extends React.Component<ReactCookieProps, AuthContextS
     )
   }
 }
-
-export default withCookies(AuthContextProvider);
