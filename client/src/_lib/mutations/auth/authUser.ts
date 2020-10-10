@@ -4,7 +4,7 @@ import { authUserMutation, authUserMutationVariables } from "./__generated__/aut
 
 const mutation = graphql`
 mutation authUserMutation($email: String!, $password: String!) {
-  tokenAuth(input: {email: $email, password: $password}) {
+  authToken(input: {email: $email, password: $password}) {
     token
     refreshToken
     refreshExpiresIn
@@ -23,7 +23,7 @@ export function authUser(variables: authUserMutationVariables) {
           reject();
         } else {
           // console.log("payload : ", res.tokenAuth?.payload);
-          const payload = res.tokenAuth?.payload as JWTPayLoad;
+          const payload = res.authToken?.payload as JWTPayLoad;
           resolve(payload);
         }
       },

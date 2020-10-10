@@ -4,7 +4,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 from .forms import UserChangeForm, UserCreationForm
 from .models import User, Post, Comment, Tag
-
+from api.models import Image
 
 class UserAdmin(BaseUserAdmin):
     form = UserChangeForm
@@ -31,4 +31,5 @@ class UserAdmin(BaseUserAdmin):
 
 admin.site.register(User, UserAdmin)
 admin.site.register([Post, Comment, Tag])
+admin.site.register(Image)
 admin.site.unregister(Group)

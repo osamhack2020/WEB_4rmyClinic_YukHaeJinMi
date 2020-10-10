@@ -4,3 +4,7 @@ deploy.env
 .python-version
 **/.python-version
 .vscode
+
+# for uploaded files
+media
+media/**

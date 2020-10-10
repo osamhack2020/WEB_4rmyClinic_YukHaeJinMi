@@ -64,8 +64,9 @@ type LikeNodeEdge {
 
 type Mutation {
   userCreate(input: UserCreateInput!): UserCreatePayload
+  userProfileImgSet(input: UserProfileImgSetInput!): UserProfileImgSetPayload
   postCreate(input: PostCreateInput!): PostCreatePayload
-  tokenAuth(input: ObtainJSONWebTokenInput!): ObtainJSONWebTokenPayload
+  authToken(input: ObtainJSONWebTokenInput!): ObtainJSONWebTokenPayload
   verifyToken(input: VerifyInput!): VerifyPayload
   refreshToken(input: RefreshInput!): RefreshPayload
   revokeToken(input: RevokeInput!): RevokePayload
@@ -212,6 +213,7 @@ type UserNode implements Node {
   id: ID!
   lastLogin: DateTime
   email: String!
+  imgUri: String!
   division: UserDivision!
   rank: UserRank!
   isCounselor: Boolean!
@@ -228,6 +230,16 @@ type UserNodeConnection {
 type UserNodeEdge {
   node: UserNode
   cursor: String!
+}
+
+input UserProfileImgSetInput {
+  filename: String
+  clientMutationId: String
+}
+
+type UserProfileImgSetPayload {
+  ok: Boolean
+  clientMutationId: String
 }
 
 enum UserRank {

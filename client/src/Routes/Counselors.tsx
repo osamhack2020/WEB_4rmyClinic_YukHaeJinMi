@@ -12,7 +12,7 @@ export function Counselors(props: RouteComponentProps) {
       <div className="card-container">
         <div className="cscard">
           <img src={csimg} alt="" />
-          
+
           <div className="info">
             <div className="p name">Caption Lee</div>
             <div className="p intro">Explore your mind with physical training</div>

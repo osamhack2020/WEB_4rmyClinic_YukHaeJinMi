@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'gql',
+    'api',
     'graphene_django',
     'django_filters',
     'corsheaders',
@@ -134,6 +135,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(ROOT_DIR, 'static')
+
+MEDIA_ROOT = os.path.join(ROOT_DIR, 'media').replace('\\', '/')
+MEDIA_URL = '/media/'
 
 GRAPHENE = {
     'SCHEMA' : 'schema.schema',

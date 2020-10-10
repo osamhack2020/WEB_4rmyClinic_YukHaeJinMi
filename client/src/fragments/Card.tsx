@@ -2,6 +2,7 @@ import React from 'react';
 import { createFragmentContainer, Environment, graphql } from "react-relay";
 import { Card_card } from "./__generated__/Card_card.graphql";
 import '../scss/Card.scss';
+import { ROOT } from '../_lib/endpoint';
 
 type CardProps = {
 	relay: {
@@ -11,15 +12,20 @@ type CardProps = {
 }
 function Card(props: CardProps) {
 	const { card } = props;
+	const url = ROOT + card.author.imgUri;
+	console.log(url);
 	return (
 		<div className="card">
 			<div className="card-title">{card.title}</div>
 			<div className="card-body">{card.content}</div>
 			<div className="card-profile">
-				<div className="card-profile-img"></div> {/* TODO */}
+				{url !== ROOT
+					? <img src={url} style={{ background: "None" }} className="card-profile-img" alt="profile-img" />
+					: <div className="card-profile-img"></div>
+				}
 				<div className="card-profile-id">{card.author.email}</div> {/* TODO - email as id : nickname*/}
 			</div>
-		</div>
+		</div >
 	)
 }
 
@@ -32,7 +38,7 @@ export default createFragmentContainer(Card, {
 			author: user {
 				rank # nickname 임시사용
 				email
-				# img
+				imgUri
 			}
 		}
 	`
