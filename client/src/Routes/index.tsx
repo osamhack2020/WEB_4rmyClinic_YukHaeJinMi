@@ -6,5 +6,6 @@ import { SignIn } from './SignIn';
 import SignUp from './SignUp';
 import { About } from './About';
 import { Counselors } from './Counselors';
+import { CsAbout } from './csAbout';
 
-export { Main, NotFound, Post, Profile, SignIn, SignUp , About, Counselors };
+export { Main, NotFound, Post, Profile, SignIn, SignUp , About, Counselors, CsAbout };
