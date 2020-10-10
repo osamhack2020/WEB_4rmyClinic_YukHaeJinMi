@@ -2,6 +2,7 @@ from graphene import relay, ObjectType, String, Field
 from graphene_django.types import DjangoObjectType
 from graphene_django.filter import DjangoFilterConnectionField
 from .models import User, Post, Comment, Like, Tag
+from api.models import Image
 
 class UserNode(DjangoObjectType):
   class Meta:
@@ -44,6 +45,6 @@ class Query(ObjectType):
   user = relay.Node.Field(UserNode)
   post = relay.Node.Field(PostNode)
   tag = relay.Node.Field(TagNode)
-
+  
   recent_posts = DjangoFilterConnectionField(PostNode)
   all_users = DjangoFilterConnectionField(UserNode)

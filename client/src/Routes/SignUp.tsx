@@ -14,7 +14,7 @@ type SignUpState = {
 }
 
 
-function SignUp(props: RouteComponentProps) {
+export function SignUp(props: RouteComponentProps) {
   const [state, set] = useState<SignUpState>({
     name: '', email: '', password: '', passwordRepeat: '',
     phone: '', division: '', rank: ''
@@ -127,5 +127,3 @@ function SignUp(props: RouteComponentProps) {
     </div>
   );
 }
-
-export default SignUp;
