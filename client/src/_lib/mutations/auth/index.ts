@@ -1,6 +1,6 @@
 import { authUser } from "./authUser";
-import { removeToken } from "./removeToken";
+import { deleteToken } from "./deleteToken";
 import { verifyToken } from "./verifyToken";
+import { deleteRefreshToken } from "./deleteRefreshToken";
 
-
-export { authUser, removeToken, verifyToken };
+export { authUser, deleteToken, deleteRefreshToken, verifyToken };

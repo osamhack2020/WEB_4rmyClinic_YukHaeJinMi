@@ -26,7 +26,7 @@ export function SignIn(props: RouteComponentProps) {
 
   const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { value } = target;
-    console.log(target.name, value);
+    // console.log(target.name, value);
     set({ ...state, [target.name]: value })
   }
 

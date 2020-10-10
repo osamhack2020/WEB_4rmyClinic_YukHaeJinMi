@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'graphene_django',
     'django_filters',
     'corsheaders',
+    'graphql_jwt.refresh_token.apps.RefreshTokenConfig',
 ]
 
 MIDDLEWARE = [
@@ -149,13 +150,17 @@ AUTHENTICATION_BACKENDS = [
 GRAPHQL_JWT = {
     'JWT_ALLOW_ARGUMENT': True,
     'JWT_VERIFY_EXPIRATION': True,
-    'JWT_EXPIRATION_DELTA': timedelta(minutes=10),
-    'JWT_COOKIE_SAMESITE': 'Lax',
-    'JWT_AUTH_HEADER_PREFIX': "Bearer",
+    'JWT_EXPIRATION_DELTA': timedelta(days=1),
+    'JWT_AUTH_HEADER_PREFIX': 'Bearer',
+    'JWT_COOKIE_SAMESITE': 'None',
     'JWT_COOKIE_NAME': 'token',
-    # 'JWT_REFRESH_TOKEN_COOKIE_NAME': 'refreshToken',
-    # 'JWT_LONG_RUNNING_REFRESH_TOKEN': True,
+    'JWT_COOKIE_DOMAIN': env('JWT_COOKIE_DOMAIN', default=None),
     'JWT_COOKIE_SECURE': env('JWT_COOKIE_SECURE'),
+    'JWT_ALLOW_REFRESH': True,
+    'JWT_REFRESH_TOKEN_COOKIE_NAME': 'refresh-token',
+    'JWT_REFRESH_EXPIRATION_DELTE': timedelta(days=7),
+    'JWT_LONG_RUNNING_REFRESH_TOKEN': True,
+    'JWT_REFRESH_EXPIRED_HANDLER': lambda orig_iat, context: False,
 }
 
 # CORS_ORIGIN_ALLOW_ALL = True

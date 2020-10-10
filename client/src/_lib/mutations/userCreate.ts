@@ -1,6 +1,6 @@
 import { commitMutation, graphql } from "react-relay"
 import environment from "../environment";
-import { userCreateMutation } from "./__generated__/userCreateMutation.graphql";
+import { userCreateMutation, userCreateMutationVariables } from "./__generated__/userCreateMutation.graphql";
 
 const mutation = graphql`
 mutation userCreateMutation($email: String!, $password: String!, $passwordRepeat: String!, $division: String!, $rank: String!) {
@@ -9,15 +9,7 @@ mutation userCreateMutation($email: String!, $password: String!, $passwordRepeat
   }
 }`;
 
-type userCreateInput = {
-  email: string;
-  password: string;
-  passwordRepeat: string;
-  division: string;
-  rank: string;
-}
-export function userCreate(input: userCreateInput) {
-  const variables = { ...input };
+export function userCreate(variables: userCreateMutationVariables) {
   return new Promise<boolean>((resolve, reject) => {
     commitMutation<userCreateMutation>(
       environment, {

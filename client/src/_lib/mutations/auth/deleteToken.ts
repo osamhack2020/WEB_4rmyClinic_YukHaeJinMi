@@ -1,17 +1,17 @@
 import { commitMutation, graphql } from "react-relay"
 import environment from "../../environment";
-import { removeTokenMutation } from "./__generated__/removeTokenMutation.graphql";
+import { deleteTokenMutation } from "./__generated__/deleteTokenMutation.graphql";
 
 const mutation = graphql`
-mutation removeTokenMutation {
+mutation deleteTokenMutation {
   deleteTokenCookie(input: {}) {
     deleted
   }
 }`;
 
-export function removeToken() {
+export function deleteToken() {
   return new Promise<boolean>((resolve, reject) => {
-    commitMutation<removeTokenMutation>(
+    commitMutation<deleteTokenMutation>(
       environment, {
       mutation,
       variables: {},

@@ -1,6 +1,6 @@
 import { commitMutation, graphql } from "react-relay"
 import environment from "../environment";
-import { postCreateMutation } from "./__generated__/postCreateMutation.graphql";
+import { postCreateMutation, postCreateMutationVariables } from "./__generated__/postCreateMutation.graphql";
 
 const mutation = graphql`
 mutation postCreateMutation($title: String!, $content: String!) {
@@ -13,12 +13,7 @@ mutation postCreateMutation($title: String!, $content: String!) {
   }
 }`;
 
-type postCreateInput = {
-  title: string;
-  content: string;
-}
-export function postCreate(input: postCreateInput) {
-  const variables = { ...input };
+export function postCreate(variables: postCreateMutationVariables) {
   return new Promise<boolean>((resolve, reject) => {
     commitMutation<postCreateMutation>(
       environment, {
