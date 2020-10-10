@@ -7,5 +7,6 @@ import { SignUp } from './SignUp';
 import { About } from './About';
 import { Counselors } from './Counselors';
 import { MyPage } from './MyPage';
+import { CsAbout } from './csAbout';
 
-export { Main, NotFound, Post, Profile, SignIn, SignUp, About, Counselors, MyPage };
+export { Main, NotFound, Post, Profile, SignIn, SignUp , About, Counselors, CsAbout, MyPage };
