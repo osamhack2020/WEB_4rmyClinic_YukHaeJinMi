@@ -93,10 +93,10 @@ TODO
 <br/>
 
 ## 팀 정보 (Team Information)
-- 이성빈 (lee@sungbin.dev), Github: "@leesungbin"
-- 홍유준 (hyjhyj0901@gmail.com), Github: "@Kick-snare"
-- 이준영 (rubinstory@naver.com), Github: "@rubinstory"
-- 박동한 (donghanpark@naver.com), Github: "@donghanpark"
+- 이성빈 (lee@sungbin.dev), Github: @yukhaejinmi/leesungbin
+- 홍유준 (hyjhyj0901@gmail.com), Github: @yukhaejinmi/Kick-snare
+- 이준영 (rubinstory@naver.com), Github: @yukhaejinmi/rubinstory
+- 박동한 (donghanpark@naver.com), Github: @yukhaejinmi/donghanpark
 
 <br/>
 
