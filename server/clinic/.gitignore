@@ -151,4 +151,6 @@ dmypy.json
 .vscode/
 gql/migrations/*initial.py
 gql/migrations/*auto*.py
+api/migrations/*initial.py
+api/migrations/*auto*.py
 .python-version
