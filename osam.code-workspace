@@ -6,10 +6,15 @@
 		},
 		{
 			"name": "client(REACT)",
-			"path": "client"
+			"path": "client/react",
+		},
+		{
+			"name": "static server",
+			"path": "client/server"
 		}
 	],
 	"settings": {
-		"git.ignoreLimitWarning": true
+		"git.ignoreLimitWarning": true,
+		"python.pythonPath": "/Users/iseongbin/.pyenv/versions/osam/bin/python"
 	}
 }

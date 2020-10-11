@@ -1,0 +1,110 @@
+.csabout-container{
+    margin:100px auto;
+    display:flex;
+    flex-direction: column;
+
+    .csprofile{
+        display:flex;
+        justify-content: space-between;
+        width :60%;
+        margin: 0 auto;
+
+        .left{
+            width :240px;
+            display:flex;
+            flex-direction: column;
+            .csimg{
+                display:flex;
+                flex-direction: column;
+                img{
+                    width: 80%;
+                    margin:0 auto;  
+                }
+            }   
+           
+            a{
+                margin:10px auto;
+                padding: 10px 20px;
+                background: #111b47;
+                border-radius: 8px;
+                color: white;
+            }
+        }
+
+        .cshistory{
+            margin-left:5%;
+            display:flex;
+            flex-direction:row;  
+            width:600px;
+            background:rgb(238, 238, 238)  ;
+            border-radius: 8px;
+
+            .academic,.career{
+                width:40%;
+                margin:20px 5% 20px;
+            }
+        }  
+    }
+
+    .introduce{
+        width:60%;
+        margin:60px auto;
+        padding:20px 5px;
+
+        background:rgb(238, 238, 238)  ;
+        border-radius: 8px;
+        h2{
+            margin-left: 10%;
+        }
+        p{
+            width:80%;
+            margin:10px auto;
+        }
+    }
+
+    .card-container{
+        width:70%;
+        margin:50px auto;
+        display: flex;
+        justify-content: space-evenly ;
+
+        .card{
+            padding: 20px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+            width: 250px;
+            height: 200px;
+            display:flex;
+            flex-direction: column;
+
+            background: #FFFFFF;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            box-sizing: border-box;
+            box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.08);
+            border-radius: 12px;
+
+            h1,h2,h3,h4,h5,h6{
+                margin:10px auto;
+            }
+        }
+    }
+
+    .review{
+        width:60%;
+        margin:0 auto;
+        display:flex;
+        justify-content: space-between;
+
+        &-container{
+            width:60%;
+            margin-left:auto;
+            background: #f5f5f5;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.08);
+            border-radius: 6px;
+            p{
+                margin:10px 20px ;
+            }
+        }
+    }
+}

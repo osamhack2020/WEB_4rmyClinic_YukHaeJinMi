@@ -23,7 +23,12 @@ class UserManager(BaseUserManager):
     return user
   
 class User(AbstractBaseUser):
+  EMAIL_FIELD = 'email'
+  USERNAME_FIELD = 'email'
+  
   email = models.EmailField(verbose_name='email', max_length=255,unique=True)
+  imgUri = models.CharField(max_length=200, blank=True)
+
   DIVISION_CHOICES = [
     ('roka', "육군"),
     ('rokn', "해군"),

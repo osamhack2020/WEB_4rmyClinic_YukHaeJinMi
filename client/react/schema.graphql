@@ -1,0 +1,276 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type CommentNode implements Node {
+  id: ID!
+  user: UserNode!
+  post: PostNode!
+  content: String!
+  created: Date!
+  isPrivate: Boolean!
+}
+
+type CommentNodeConnection {
+  pageInfo: PageInfo!
+  edges: [CommentNodeEdge]!
+}
+
+type CommentNodeEdge {
+  node: CommentNode
+  cursor: String!
+}
+
+scalar Date
+
+scalar DateTime
+
+input DeleteJSONWebTokenCookieInput {
+  clientMutationId: String
+}
+
+type DeleteJSONWebTokenCookiePayload {
+  deleted: Boolean!
+  clientMutationId: String
+}
+
+input DeleteRefreshTokenCookieInput {
+  clientMutationId: String
+}
+
+type DeleteRefreshTokenCookiePayload {
+  deleted: Boolean!
+  clientMutationId: String
+}
+
+scalar GenericScalar
+
+type LikeNode implements Node {
+  id: ID!
+  user: UserNode!
+  post: PostNode!
+}
+
+type LikeNodeConnection {
+  pageInfo: PageInfo!
+  edges: [LikeNodeEdge]!
+}
+
+type LikeNodeEdge {
+  node: LikeNode
+  cursor: String!
+}
+
+type Mutation {
+  userCreate(input: UserCreateInput!): UserCreatePayload
+  userProfileImgSet(input: UserProfileImgSetInput!): UserProfileImgSetPayload
+  postCreate(input: PostCreateInput!): PostCreatePayload
+  authToken(input: ObtainJSONWebTokenInput!): ObtainJSONWebTokenPayload
+  verifyToken(input: VerifyInput!): VerifyPayload
+  refreshToken(input: RefreshInput!): RefreshPayload
+  revokeToken(input: RevokeInput!): RevokePayload
+  deleteTokenCookie(input: DeleteJSONWebTokenCookieInput!): DeleteJSONWebTokenCookiePayload
+  deleteRefreshTokenCookie(input: DeleteRefreshTokenCookieInput!): DeleteRefreshTokenCookiePayload
+}
+
+interface Node {
+  id: ID!
+}
+
+input ObtainJSONWebTokenInput {
+  clientMutationId: String
+  email: String!
+  password: String!
+}
+
+type ObtainJSONWebTokenPayload {
+  payload: GenericScalar!
+  refreshExpiresIn: Int!
+  clientMutationId: String
+  token: String!
+  refreshToken: String!
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+input PostCreateInput {
+  title: String!
+  content: String!
+  isPrivate: Boolean
+  clientMutationId: String
+}
+
+type PostCreatePayload {
+  postEdge: PostEdge
+  clientMutationId: String
+}
+
+type PostEdge {
+  node: PostNode
+  cursor: String
+}
+
+type PostNode implements Node {
+  id: ID!
+  user: UserNode!
+  title: String!
+  content: String!
+  created: Date!
+  isPrivate: Boolean!
+  tagSet(before: String, after: String, first: Int, last: Int): TagNodeConnection!
+  commentSet(before: String, after: String, first: Int, last: Int): CommentNodeConnection!
+  likeSet(before: String, after: String, first: Int, last: Int): LikeNodeConnection!
+}
+
+type PostNodeConnection {
+  pageInfo: PageInfo!
+  edges: [PostNodeEdge]!
+}
+
+type PostNodeEdge {
+  node: PostNode
+  cursor: String!
+}
+
+type Query {
+  node(id: ID!): Node
+  user(id: ID!): UserNode
+  post(id: ID!): PostNode
+  tag(id: ID!): TagNode
+  recentPosts(before: String, after: String, first: Int, last: Int, created_Gte: Date, created_Lte: Date, title_Icontains: String, content_Icontains: String): PostNodeConnection
+  allUsers(before: String, after: String, first: Int, last: Int, email_Icontains: String, division_Icontains: String, rank_Icontains: String): UserNodeConnection
+}
+
+input RefreshInput {
+  # refreshToken: String
+  clientMutationId: String
+}
+
+type RefreshPayload {
+  payload: GenericScalar!
+  refreshExpiresIn: Int!
+  clientMutationId: String
+  token: String!
+  refreshToken: String!
+}
+
+input RevokeInput {
+  refreshToken: String
+  clientMutationId: String
+}
+
+type RevokePayload {
+  revoked: Int!
+  clientMutationId: String
+}
+
+type TagNode implements Node {
+  id: ID!
+  posts(before: String, after: String, first: Int, last: Int, created_Gte: Date, created_Lte: Date, title_Icontains: String, content_Icontains: String): PostNodeConnection!
+  name: String!
+}
+
+type TagNodeConnection {
+  pageInfo: PageInfo!
+  edges: [TagNodeEdge]!
+}
+
+type TagNodeEdge {
+  node: TagNode
+  cursor: String!
+}
+
+input UserCreateInput {
+  email: String!
+  password: String!
+  passwordRepeat: String!
+  division: String!
+  rank: String!
+  clientMutationId: String
+}
+
+type UserCreatePayload {
+  ok: Boolean
+  clientMutationId: String
+}
+
+enum UserDivision {
+  ROKA
+  ROKN
+  ROKAF
+  ROKM
+  MND
+  CIVIL
+}
+
+type UserNode implements Node {
+  id: ID!
+  lastLogin: DateTime
+  email: String!
+  imgUri: String!
+  division: UserDivision!
+  rank: UserRank!
+  isCounselor: Boolean!
+  postSet(before: String, after: String, first: Int, last: Int, created_Gte: Date, created_Lte: Date, title_Icontains: String, content_Icontains: String): PostNodeConnection!
+  commentSet(before: String, after: String, first: Int, last: Int): CommentNodeConnection!
+  likeSet(before: String, after: String, first: Int, last: Int): LikeNodeConnection!
+}
+
+type UserNodeConnection {
+  pageInfo: PageInfo!
+  edges: [UserNodeEdge]!
+}
+
+type UserNodeEdge {
+  node: UserNode
+  cursor: String!
+}
+
+input UserProfileImgSetInput {
+  filename: String
+  clientMutationId: String
+}
+
+type UserProfileImgSetPayload {
+  ok: Boolean
+  clientMutationId: String
+}
+
+enum UserRank {
+  PVT
+  PFC
+  CPL
+  SGT
+  SSG
+  SFC
+  MSG
+  SMA
+  CWO
+  SLT
+  LT
+  CPT
+  MAJ
+  LCL
+  COL
+  BG
+  MG
+  LG
+  GEN
+  NON
+}
+
+input VerifyInput {
+  # token: String
+  clientMutationId: String
+}
+
+type VerifyPayload {
+  payload: GenericScalar!
+  clientMutationId: String
+}

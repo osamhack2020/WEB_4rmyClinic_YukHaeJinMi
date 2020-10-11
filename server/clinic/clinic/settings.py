@@ -12,11 +12,13 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import environ
+from datetime import timedelta
 import os
 
 env = environ.Env(
     DEBUG=(bool, False),
-    ALLOWED_HOSTS=(str, "*")
+    ALLOWED_HOSTS=(str, "*"),
+    JWT_COOKIE_SECURE=(bool, False),
 )
 environ.Env.read_env()
 
@@ -26,9 +28,7 @@ ROOT_DIR = os.path.dirname(BASE_DIR)
 # get value from env
 SECRET_KEY = env('SECRET_KEY')
 DEBUG = env('DEBUG')
-AH = env('ALLOWED_HOSTS')
-ALLOWED_HOSTS = [AH] if AH is None else [AH]
-
+ALLOWED_HOSTS = [env('ALLOWED_HOSTS')]
 
 # Application definition
 
@@ -40,11 +40,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'gql',
-    'rest_framework',
-    'rest_framework_simplejwt',
+    'api',
     'graphene_django',
     'django_filters',
     'corsheaders',
+    'graphql_jwt.refresh_token.apps.RefreshTokenConfig',
 ]
 
 MIDDLEWARE = [
@@ -136,18 +136,45 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(ROOT_DIR, 'static')
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_ACCESS': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
-}
+MEDIA_ROOT = os.path.join(ROOT_DIR, 'media').replace('\\', '/')
+MEDIA_URL = '/media/'
+
 GRAPHENE = {
     'SCHEMA' : 'schema.schema',
     'SCHEMA_OUTPUT': '../../client/schema.graphql',
+    'MIDDLEWARE': [
+        'graphql_jwt.middleware.JSONWebTokenMiddleware',
+    ],
+}
+AUTHENTICATION_BACKENDS = [
+    'graphql_jwt.backends.JSONWebTokenBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+GRAPHQL_JWT = {
+    'JWT_ALLOW_ARGUMENT': True,
+    'JWT_VERIFY_EXPIRATION': True,
+    'JWT_EXPIRATION_DELTA': timedelta(days=1),
+    'JWT_AUTH_HEADER_PREFIX': 'Bearer',
+    'JWT_COOKIE_SAMESITE': 'None',
+    'JWT_COOKIE_NAME': 'token',
+    'JWT_COOKIE_DOMAIN': env('JWT_COOKIE_DOMAIN', default=None),
+    'JWT_COOKIE_SECURE': env('JWT_COOKIE_SECURE'),
+    'JWT_ALLOW_REFRESH': True,
+    'JWT_REFRESH_TOKEN_COOKIE_NAME': 'refresh-token',
+    'JWT_REFRESH_EXPIRATION_DELTE': timedelta(days=7),
+    'JWT_LONG_RUNNING_REFRESH_TOKEN': True,
+    'JWT_REFRESH_EXPIRED_HANDLER': lambda orig_iat, context: False,
 }
 
 # CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000',
+    'http://49.50.164.155:8000', # personal server
+    'http://34.67.127.208:3000', # honeycombo.tk
+    'https://4rmy.app',
+    'http://localhost:3000', # local
+]
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r'^https:\/\/.*\.online\.visualstudio\.com'
 ]

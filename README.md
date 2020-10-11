@@ -1,68 +1,103 @@
-# OSAM 두軍두軍 상담소
-
-> **마스터 브랜치에 업데이트가 있다면 `git pull origin master` !!**
 
 
+# 두軍두軍 상담소
 
-* [Project Structure](#Project-Structure)
-* [Server setting 방법](#Server-setting-방법)
-* [Client setting 방법](#Client-setting-방법)
+TODO
+![Logo](https://logosbynick.com/wp-content/uploads/2018/03/final-logo-example.png)
 
+팀명 텍스트 및 팀명 로고 이미지 **(택1)**
 
+<br/>
 
-<br/><br/>
+## 팀소개 및 프로잭트 설명 동영상
+TODO
 
-# Project Structure
+<br/>
+
+## 기능 설계
+
+TODO
+
+ - Notion
+ - BeeCanvas
+ - Figma
+
+<br/>
+
+## 컴퓨터 구성 / 필수 조건 안내 (Prerequisites)
+* ECMAScript 6 지원 브라우저 사용
+* 권장: Google Chrome 버젼 77 이상
+
+<br/>
+
+## 기술 스택 (Technique Used)
+### Back-end
+ -  [Django](https://www.djangoproject.com/)
+ - [Graphene](https://graphene-python.org/)
+ - [Django GraphQL JWT](https://django-graphql-jwt.domake.io/en/latest/)
+
+<br/>
+
+### Front-end
+ -  [React.js](https://reactjs.org/)
+ -  [Typescript](https://www.typescriptlang.org/)
+ - [GraphQL Relay](https://relay.dev/)
+
+<br/>
+
+### Deploy
+
+* [Docker](https://www.docker.com/)
+* [Google Cloud Run](https://cloud.google.com/run)
+* [Golang](https://golang.org/)
+
+<br/>
+
+## 설치 안내 (Installation Process)
+
+* **Python(3.8.5)**, **Node.JS LTS(12.19.0)**, **Go (1.13)** 정도가 설치되어 있어야합니다.
 
 ```bash
-/server # 서버 배포를 위한 파일(ex Dockerfile / sh script) 등이 위치하게 됩니다.
-/server/client # Django 서버
+# Repository Clone
+git clone https://github.com/osamhack2020/web_4rmyclinic_yukhaejinmi
 
-/client # React App
-```
+# 1) Django Server Setting
+cd server
+pip install -r requirements.txt
+cd clinic
+python manage.py makemigrations
+python manage.py migrate
+python manage.py loaddata fixture.json # To load sample data
+python manage.py runserver
 
-## 초기 개발환경 세팅 방법
 
-```bash
-git clone https://github.com/yukhaejinmi/osam
-git checkout -b <task_name>
-# 코딩 & add / commit
-git push origin <task_name>
-```
-* branch에 push 후 pull request를 날리면 @leesungbin 이 검토 후, master branch에 merge 하도록 하겠습니다.
-* <task_name> : 어떤 작업을 할 것인지에 대한 내용을 간략히 요약하는 한 단어를 사용하면 되겠습니다. 자신의 아이디로 해도 상관 없습니다.
-* 마스터 브랜치에 merge 된 작업이 생기면, 자신이 작업하던 브랜치에 `git pull origin master` 명령어를 통해서 업데이트 된 사항을 바로바로 반영해주셔야 merge conflict를 많이 줄일 수 있을 것 같습니다.
-<br/><br/>
-
-# Server setting 방법
-
-> using python(3.8.5)
-```bash
-pip install -r ./server/requirements.txt
-cd server/clinic
-./manage.py makemigrations
-./manage.py migrate
-./manage.py loaddata fixture.json
-```
-> root 계정 : root@ro.ot / root
-
-* (20.09.29.) env 파일을 추가해 놓았고, makemigrations, migrate 하고 실행하면 서버가 실행되겠습니다.
-<br/><br/>
-
-# Client setting 방법
-
-* package 설치
-```bash
-npm install # 혹은 yarn
+# 2) React Client Setting
+pwd 				# Web_4rmyClinic_YukHaeJinmi
+cd client/react
+touch .env.endpoint
+# REACT_APP_DEV_SERVER=http://localhost:8000 또는 개발환경에서 사용하는 장고 서버 주소를 입력해야합니다.
+npm i
+npm run relay -- --watch # watch 모드를 실행하려면 watchman이 설치되어있어야합니다.
+npm run dev
+		# npm start는 배포되어있는 서버와 연결됩니다.
+		# npm run dev는 REACT_APP_DEV_SERVER 에서 실행되고 있는 장고 서버와 연결됩니다.
 ```
 
 <br/>
 
-* Shell 2개 띄우기
-1. `npm start`
-2. `npm run relay -- --watch`
-- watchman 설치가 필요합니다. [참고](https://facebook.github.io/watchman/docs/install.html)
+## 프로젝트 사용법 (Getting Started)
 
+TODO
 
+<br/>
 
-<br/><br/>
+## 팀 정보 (Team Information)
+- 이성빈 (lee@sungbin.dev), Github: @yukhaejinmi/leesungbin
+- 홍유준 (hyjhyj0901@gmail.com), Github: @yukhaejinmi/Kick-snare
+- 이준영 (rubinstory@naver.com), Github: @yukhaejinmi/rubinstory
+- 박동한 (donghanpark@naver.com), Github: @yukhaejinmi/donghanpark
+
+<br/>
+
+## 저작권 및 사용권 정보 (Copyleft / End User License)
+ * [MIT](https://github.com/osam2020-WEB/Sample-ProjectName-TeamName/blob/master/license.md)

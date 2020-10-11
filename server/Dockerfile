@@ -10,6 +10,7 @@ RUN pip install -r requirements.txt
 COPY clinic/clinic ./clinic
 COPY deploy.env ./clinic/.env
 COPY clinic/gql ./gql
+COPY clinic/api ./api
 COPY clinic/manage.py ./
 COPY clinic/schema.py ./
 
