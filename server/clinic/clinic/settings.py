@@ -172,7 +172,7 @@ CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
     'http://49.50.164.155:8000', # personal server
     'http://34.67.127.208:3000', # honeycombo.tk
-    'https://army.app',
+    'https://4rmy.app',
     'http://localhost:3000', # local
 ]
 CORS_ALLOWED_ORIGIN_REGEXES = [
