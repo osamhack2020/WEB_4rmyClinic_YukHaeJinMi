@@ -13,7 +13,7 @@ type postParams = {
 
 export function Post(props: RouteComponentProps) {
   return (
-    <div className="root">
+    <div className="Post-root">
       <h1>커뮤니티</h1>
       <div className="tag">
         <h2>태그</h2>
@@ -41,7 +41,7 @@ export function Post(props: RouteComponentProps) {
           <a href="#" className="tag-card">#선임</a>
         </div>
       </div>
-      <br/><hr />
+      <br/><br />
       <div className="Post">
         <div className="Post-box">
           <h1>최근 고민</h1>
