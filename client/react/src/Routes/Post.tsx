@@ -45,7 +45,7 @@ export function Post(props: RouteComponentProps) {
       <div className="Post">
         <div className="Post-box">
           <h1>최근 고민</h1>
-          <Link to="/Post:id">고민작성하기</Link>
+          <Link to="/write">고민작성하기</Link>
         </div>
         <QueryRenderer<MainQuery>
           environment={environment}
@@ -61,5 +61,5 @@ export function Post(props: RouteComponentProps) {
         />
       </div>
     </div>
-  )
+  );
 }
