@@ -5,9 +5,12 @@
 			"path": "server"
 		},
 		{
-			"name": "client",
-			"path": "client",
-			"exclude": ["client/server"]
+			"name": "client(REACT)",
+			"path": "client/react",
+		},
+		{
+			"name": "static server",
+			"path": "client/server"
 		}
 	],
 	"settings": {
