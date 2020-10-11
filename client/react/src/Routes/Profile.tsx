@@ -13,44 +13,44 @@ export function Profile(props: RouteComponentProps) {
 			variables={{}}
 			query={graphql`
   			query ProfileQuery {
-  				allUsers {
+  				recentPosts {
   					edges {
 							cursor
-  						user: node {
-  							email
-  							division
-  							rank
+  						post: node {
+  							title
+  							content
+  							commentSet {
+  								edges {
+  									comment: node {
+  										content
+  									}
+  								}
+  							}
   						}
   					}
   				}
   			}
   			` }
 			render={({ props, error, retry }) => {
-				const users = props?.allUsers?.edges;
+				const posts = props?.recentPosts?.edges;
 				return (
 					<div>
 						<div>
-							<h1>React Cookies</h1>
-							{/* {cookies.user && <p>{cookies.user}</p>} */}
+							<h1>댓글 테스트</h1>
 						</div>
-						<table>
-							<thead>
-								<tr>
-									<th>이메일</th>
-									<th>소속</th>
-									<th>계급</th>
-								</tr>
-							</thead>
-							<tbody>
-								{users?.map((e) =>
-									<tr key={e?.cursor}>
-										<td>{e?.user?.email}</td>
-										<td>{e?.user?.division}</td>
-										<td>{e?.user?.rank}</td>
-									</tr>
+						<div>
+							{posts?.map((e) =>
+								<div>
+								<p>-------------------</p>
+									<p>{e?.post?.title}</p>
+									<p>{e?.post?.content}</p>
+									{e?.post?.commentSet?.edges && 
+										e?.post?.commentSet?.edges.map((t) =>
+											<p>댓글: {t?.comment?.content}</p>
+											)}
+								</div>
 								)}
-							</tbody>
-						</table>
+						</div>
 					</div>
 				)
 			}}
