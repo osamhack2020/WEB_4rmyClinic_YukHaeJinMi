@@ -9,11 +9,11 @@ RUN GOOS=linux go build -o main .
 
 FROM node:10 as web
 WORKDIR /web
-COPY ../client/package.json ../client/package-lock.json ./
+COPY ./client/package.json ./client/package-lock.json ./
 RUN npm install
-COPY ../client/src ./src
-COPY ../client/public ./public
-COPY ../client/tsconfig.json ../client/.babelrs ../client/config-overrides.js ./
+COPY ./client/src ./src
+COPY ./client/public ./public
+COPY ./client/tsconfig.json ./client/.babelrc ./client/config-overrides.js ./
 RUN ls /web
 RUN npm run build
 
