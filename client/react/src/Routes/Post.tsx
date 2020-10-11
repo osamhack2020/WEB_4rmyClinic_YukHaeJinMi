@@ -18,30 +18,30 @@ export function Post(props: RouteComponentProps) {
       <div className="tag">
         <h2>태그</h2>
         <div className="tag-container">
-          <a href="#" className="tag-card">#선임</a>
-          <a href="#" className="tag-card">#후임</a>
-          <a href="#" className="tag-card">#애인</a>
-          <a href="#" className="tag-card">#도박</a>
-          <a href="#" className="tag-card">#간부</a>
-          <a href="#" className="tag-card">#선임</a>
-          <a href="#" className="tag-card">#후임</a>
-          <a href="#" className="tag-card">#애인</a>
-          <a href="#" className="tag-card">#도박</a>
-          <a href="#" className="tag-card">#간부</a>
-          <a href="#" className="tag-card">#선임</a>
-          <a href="#" className="tag-card">#후임</a>
-          <a href="#" className="tag-card">#애인</a>
-          <a href="#" className="tag-card">#도박</a>
-          <a href="#" className="tag-card">#간부</a>
-          <a href="#" className="tag-card">#선임</a>
-          <a href="#" className="tag-card">#후임</a>
-          <a href="#" className="tag-card">#애인</a>
-          <a href="#" className="tag-card">#도박</a>
-          <a href="#" className="tag-card">#간부</a>
-          <a href="#" className="tag-card">#선임</a>
+          <a href="##" className="tag-card">#선임</a>
+          <a href="##" className="tag-card">#후임</a>
+          <a href="##" className="tag-card">#애인</a>
+          <a href="##" className="tag-card">#도박</a>
+          <a href="##" className="tag-card">#간부</a>
+          <a href="##" className="tag-card">#선임</a>
+          <a href="##" className="tag-card">#후임</a>
+          <a href="##" className="tag-card">#애인</a>
+          <a href="##" className="tag-card">#도박</a>
+          <a href="##" className="tag-card">#간부</a>
+          <a href="##" className="tag-card">#선임</a>
+          <a href="##" className="tag-card">#후임</a>
+          <a href="##" className="tag-card">#애인</a>
+          <a href="##" className="tag-card">#도박</a>
+          <a href="##" className="tag-card">#간부</a>
+          <a href="##" className="tag-card">#선임</a>
+          <a href="##" className="tag-card">#후임</a>
+          <a href="##" className="tag-card">#애인</a>
+          <a href="##" className="tag-card">#도박</a>
+          <a href="##" className="tag-card">#간부</a>
+          <a href="##" className="tag-card">#선임</a>
         </div>
       </div>
-      <br/><br />
+      <br /><br />
       <div className="Post">
         <div className="Post-box">
           <h1>최근 고민</h1>
