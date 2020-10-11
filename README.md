@@ -49,7 +49,6 @@ TODO
 ### Deploy
 
 * [Docker](https://www.docker.com/)
-
 * [Google Cloud Run](https://cloud.google.com/run)
 * [Golang](https://golang.org/)
 
@@ -94,10 +93,12 @@ TODO
 <br/>
 
 ## 팀 정보 (Team Information)
-- 이성빈 (lee@sungbin.dev), Github: @leesungbin
-- 홍유준 (hyjhyj0901@gmail.com), Github: @Kick-snare
-- 이준영 (rubinstory@naver.com), Github: @rubinstory
-- 박동한 (donghanpark@naver.com), Github: @donghanpark
+- 이성빈 (lee@sungbin.dev), Github: [@leesungbin](https://github.com/leesungbin)
+- 홍유준 (hyjhyj0901@gmail.com), Github: [@Kick-snare](https://github.com/Kick-snare)
+- 이준영 (rubinstory@naver.com), Github: [@rubinstory](https://github.com/rubinstory)
+- 박동한 (donghanpark@naver.com), Github: [@donghanpark](https://github.com/donghanpark)
+
+<br/>
 
 ## 저작권 및 사용권 정보 (Copyleft / End User License)
  * [MIT](https://github.com/osam2020-WEB/Sample-ProjectName-TeamName/blob/master/license.md)
