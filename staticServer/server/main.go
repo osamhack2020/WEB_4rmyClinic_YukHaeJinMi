@@ -7,7 +7,7 @@ import (
 
 	// "database/sql"
 
-	"github.com/osam2020/web_4rmyclinic_yukhaejinmi/staticServer/server/env"
+	"github.com/osamhack2020/web_4rmyclinic_yukhaejinmi/staticServer/server/env"
 )
 
 // type Service struct {

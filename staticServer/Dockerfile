@@ -1,6 +1,7 @@
 FROM golang:1.13 as builder
 WORKDIR /app
-COPY server/go.mod server/go.sum ./
+COPY server/go.mod ./
+# server/go.sum
 RUN go mod download
 COPY server .
 RUN ls /app
