@@ -7,7 +7,9 @@
 /server # 서버 배포를 위한 파일(ex Dockerfile / sh script) 등이 위치하게 됩니다.
 /server/client # Django 서버
 
-/client # React App
+/client # 클라이언트 서버 배포를 위한 파일 등이 위치
+/client/react # React App
+/client/staticServer # React App을 배포하기위한 go static server 입니다.
 ```
 
 ## 초기 개발환경 세팅 방법

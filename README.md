@@ -1,57 +1,103 @@
-아래의 **샘플 양식은 필수**입니다.
-설명이 부족하거나 추가하고싶은 부분이 있으면 개발자님이 추가해서 작성해주세요!
-동영상, 이미지, 텍스트 전부 자유입니다.
 
-[https://github.com/osam2019](https://github.com/osam2019)
-**2019프로젝트, readme.md를 참고하여 개발자님의 새로운 프로젝트를 만들어주세요!**
 
-# Smaple Logo
+# 두軍두軍 상담소
+
+TODO
+
 ![Logo](https://logosbynick.com/wp-content/uploads/2018/03/final-logo-example.png)
 
 팀명 텍스트 및 팀명 로고 이미지 **(택1)**
 
+<br/>
+
 ## 팀소개 및 프로잭트 설명 동영상
-[![Watch the video](https://img.youtube.com/vi/LjX3eVQdIyk/0.jpg)](https://www.youtube.com/watch?time_continue=117&v=LjX3eVQdIyk)
+TODO
+
+<br/>
 
 ## 기능 설계
- -  발사믹, 카카오 오븐 등 본인이 편한 목업 프레임워크를 이용하여 제작 후 링크 
- - 수기로 작성시 찍어서 올려주세요
+
+TODO
+
+ - Notion
+ - BeeCanvas
+ - Figma
+
+<br/>
 
 ## 컴퓨터 구성 / 필수 조건 안내 (Prerequisites)
 * ECMAScript 6 지원 브라우저 사용
 * 권장: Google Chrome 버젼 77 이상
 
-## 기술 스택 (Technique Used) (예시)
-### Server(back-end)
- -  nodejs, php, java 등 서버 언어 버전 
- - express, laravel, sptring boot 등 사용한 프레임워크 
- - DB 등 사용한 다른 프로그램 
- 
-### front-end
- -  react.js, vue.js 등 사용한 front-end 프레임워크 
- -  UI framework
- - 기타 사용한 라이브러리
+<br/>
+
+## 기술 스택 (Technique Used)
+### Back-end
+ -  [Django](https://www.djangoproject.com/)
+ - [Graphene](https://graphene-python.org/)
+ - [Django GraphQL JWT](https://django-graphql-jwt.domake.io/en/latest/)
+
+<br/>
+
+### Front-end
+ -  [React.js](https://reactjs.org/)
+ -  [Typescript](https://www.typescriptlang.org/)
+ - [GraphQL Relay](https://relay.dev/)
+
+<br/>
+
+### Deploy
+
+* [Docker](https://www.docker.com/)
+
+* [Google Cloud Run](https://cloud.google.com/run)
+* [Golang](https://golang.org/)
+
+<br/>
 
 ## 설치 안내 (Installation Process)
+
+* **Python(3.8.5)**, **Node.JS LTS(12.19.0)**, **Go (1.13)** 정도가 설치되어 있어야합니다.
+
 ```bash
-$ git clone git주소
-$ yarn or npm install
-$ yarn start or npm run start
+# Repository Clone
+git clone https://github.com/osamhack2020/web_4rmyclinic_yukhaejinmi
+
+# 1) Django Server Setting
+cd server
+pip install -r requirements.txt
+cd clinic
+python manage.py makemigrations
+python manage.py migrate
+python manage.py loaddata fixture.json # To load sample data
+python manage.py runserver
+
+
+# 2) React Client Setting
+pwd 				# Web_4rmyClinic_YukHaeJinmi
+cd client/react
+touch .env.endpoint
+# REACT_APP_DEV_SERVER=http://localhost:8000 또는 개발환경에서 사용하는 장고 서버 주소를 입력해야합니다.
+npm i
+npm run relay -- --watch # watch 모드를 실행하려면 watchman이 설치되어있어야합니다.
+npm run dev
+		# npm start는 배포되어있는 서버와 연결됩니다.
+		# npm run dev는 REACT_APP_DEV_SERVER 에서 실행되고 있는 장고 서버와 연결됩니다.
 ```
 
+<br/>
+
 ## 프로젝트 사용법 (Getting Started)
-**마크다운 문법을 이용하여 자유롭게 기재**
 
-잘 모를 경우
-구글 검색 - 마크다운 문법
-[https://post.naver.com/viewer/postView.nhn?volumeNo=24627214&memberNo=42458017](https://post.naver.com/viewer/postView.nhn?volumeNo=24627214&memberNo=42458017)
+TODO
 
- 편한 마크다운 에디터를 찾아서 사용
- 샘플 에디터 [https://stackedit.io/app#](https://stackedit.io/app#)
- 
+<br/>
+
 ## 팀 정보 (Team Information)
-- hong gil dong (hong999@gmail.com), Github Id: gildong999
-- kim su ji (suji999@gmail.com), Github Id: suji999
+- 이성빈 (lee@sungbin.dev), Github: @leesungbin
+- 홍유준 (hyjhyj0901@gmail.com), Github: @Kick-snare
+- 이준영 (rubinstory@naver.com), Github: @rubinstory
+- 박동한 (donghanpark@naver.com), Github: @donghanpark
 
 ## 저작권 및 사용권 정보 (Copyleft / End User License)
  * [MIT](https://github.com/osam2020-WEB/Sample-ProjectName-TeamName/blob/master/license.md)
