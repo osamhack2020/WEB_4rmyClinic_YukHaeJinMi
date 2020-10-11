@@ -3,7 +3,6 @@
 # 두軍두軍 상담소
 
 TODO
-
 ![Logo](https://logosbynick.com/wp-content/uploads/2018/03/final-logo-example.png)
 
 팀명 텍스트 및 팀명 로고 이미지 **(택1)**
@@ -93,10 +92,10 @@ TODO
 <br/>
 
 ## 팀 정보 (Team Information)
-- 이성빈 (lee@sungbin.dev), Github: @osamhack2020/yukhaejinmi
-- 홍유준 (hyjhyj0901@gmail.com), Github: @yukhaejinmi/Kick-snare
-- 이준영 (rubinstory@naver.com), Github: @yukhaejinmi/rubinstory
-- 박동한 (donghanpark@naver.com), Github: @yukhaejinmi/donghanpark
+- 이성빈 (lee@sungbin.dev), Github: [@leesungbin](https://github.com/leesungbin)
+- 홍유준 (hyjhyj0901@gmail.com), Github: [@Kick-snare](https://github.com/kick-snare)
+- 이준영 (rubinstory@naver.com), Github: [@rubinstory](https://github.com/rubinstory)
+- 박동한 (donghanpark@naver.com), Github: [@donghanpark](https://github.com/donghanpark)
 
 <br/>
 
