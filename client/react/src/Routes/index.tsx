@@ -7,7 +7,7 @@ import { SignUp } from './SignUp';
 import { About } from './About';
 import { Counselors } from './Counselors';
 import { MyPage } from './MyPage';
-import { CsAbout } from './csAbout';
-import { Write } from './Write';
+import { Counselor } from './Counselor';
+import { NewPost } from './NewPost';
 
-export { Main, NotFound, Post, Profile, SignIn, SignUp , About, Counselors, CsAbout, MyPage, Write };
+export { Main, NotFound, Post, Profile, SignIn, SignUp, About, Counselors, Counselor, MyPage, NewPost };
