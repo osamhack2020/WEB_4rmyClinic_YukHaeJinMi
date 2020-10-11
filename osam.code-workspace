@@ -7,10 +7,6 @@
 		{
 			"name": "client(REACT)",
 			"path": "client"
-		},
-		{
-			"name": "clientStaticServer",
-			"path": "staticServer"
 		}
 	],
 	"settings": {
