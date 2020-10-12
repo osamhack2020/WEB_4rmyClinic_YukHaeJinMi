@@ -39,6 +39,9 @@ class TagNode(DjangoObjectType):
   class Meta:
     model = Tag
     interfaces = (relay.Node,)
+    filter_fields = {
+      'name': ['icontains'],
+    }
 
 class Query(ObjectType):
   node = relay.Node.Field()
@@ -46,5 +49,6 @@ class Query(ObjectType):
   post = relay.Node.Field(PostNode)
   tag = relay.Node.Field(TagNode)
   
+  all_tags = DjangoFilterConnectionField(TagNode)
   recent_posts = DjangoFilterConnectionField(PostNode)
   all_users = DjangoFilterConnectionField(UserNode)
