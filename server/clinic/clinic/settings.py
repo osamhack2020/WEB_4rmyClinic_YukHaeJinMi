@@ -141,7 +141,7 @@ MEDIA_URL = '/media/'
 
 GRAPHENE = {
     'SCHEMA' : 'schema.schema',
-    'SCHEMA_OUTPUT': '../../client/schema.graphql',
+    'SCHEMA_OUTPUT': '../../client/react/schema.graphql',
     'MIDDLEWARE': [
         'graphql_jwt.middleware.JSONWebTokenMiddleware',
     ],

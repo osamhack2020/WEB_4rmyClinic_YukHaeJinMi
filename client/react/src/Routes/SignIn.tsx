@@ -20,7 +20,7 @@ export function SignIn(props: RouteComponentProps) {
 
   const handleSubmit = async (loginFn: () => Promise<boolean>) => {
     const success = await loginFn();
-    if (success) history.push("/");
+    if (success) history.goBack();
     else setError(true);
   }
 

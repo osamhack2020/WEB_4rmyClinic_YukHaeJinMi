@@ -8,14 +8,14 @@ import csimg from '../assets/csprofile_ex.png';
 export function Counselors(props: RouteComponentProps) {
   return (
     <div className="container">
-      
+
       <div className="filter"></div>
       <div className="card-container">
 
-        <Link to="/csAbout">
+        <Link to="/counselor/:id">
           <div className="cscard">
             <img src={csimg} alt="" />
-            
+
             <div className="info">
               <div className="p name">Captain Lee</div>
               <div className="p intro">Blow up your mind with physical training</div>

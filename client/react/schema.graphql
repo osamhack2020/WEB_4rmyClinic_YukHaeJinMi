@@ -123,7 +123,7 @@ type PostNode implements Node {
   content: String!
   created: Date!
   isPrivate: Boolean!
-  tagSet(before: String, after: String, first: Int, last: Int): TagNodeConnection!
+  tagSet(before: String, after: String, first: Int, last: Int, name_Icontains: String): TagNodeConnection!
   commentSet(before: String, after: String, first: Int, last: Int): CommentNodeConnection!
   likeSet(before: String, after: String, first: Int, last: Int): LikeNodeConnection!
 }
@@ -143,6 +143,7 @@ type Query {
   user(id: ID!): UserNode
   post(id: ID!): PostNode
   tag(id: ID!): TagNode
+  allTags(before: String, after: String, first: Int, last: Int, name_Icontains: String): TagNodeConnection
   recentPosts(before: String, after: String, first: Int, last: Int, created_Gte: Date, created_Lte: Date, title_Icontains: String, content_Icontains: String): PostNodeConnection
   allUsers(before: String, after: String, first: Int, last: Int, email_Icontains: String, division_Icontains: String, rank_Icontains: String): UserNodeConnection
 }
