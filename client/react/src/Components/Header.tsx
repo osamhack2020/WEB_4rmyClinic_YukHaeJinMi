@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import '../scss/header.scss';
 import logo from '../assets/logo2_bgremoved.png';
 import { AuthContext } from "./AuthContextProvider";
-import { postCreate } from "../_lib/mutations";
 
 type HeaderProps = {
   userSignedId?: boolean,
