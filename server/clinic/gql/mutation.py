@@ -58,6 +58,7 @@ class PostCreate(relay.ClientIDMutation):
 	class Input:
 		title = String(required=True)
 		content = String(required=True)
+		tags = String(required=True)
 		is_private = Boolean()
 	
 	@classmethod
@@ -65,11 +66,23 @@ class PostCreate(relay.ClientIDMutation):
 	def mutate(cls, root, info, input):
 		try:
 			_user = info.context.user
-			
 			_post = Post(user=_user, title=input.title, content=input.content)
 			if input.is_private:
 				_post.is_private = input.is_private
 			_post.save()
+
+			tag_list = input.tags.split()
+			for tag in tag_list:
+				if '#' in tag:
+					tag = tag.replace('#', '')
+				tagAlreadyExists = Tag.objects.filter(name=tag).exists()
+				if not tagAlreadyExists:
+					_tag = Tag(name=tag)
+					_tag.save()
+					_tag.posts.add(_post)
+				else:
+					_tag = Tag.objects.get(name=tag)
+					_tag.posts.add(_post)
 			_post_edge = PostEdge(cursor = offset_to_cursor(Post.objects.count()), node=_post)
 			return PostCreate(post_edge=_post_edge)
 		except Exception as err:
@@ -100,7 +113,6 @@ class UserProfileImgSet(relay.ClientIDMutation):
 class Mutation(AbstractType):
 	user_create = UserCreate.Field()
 	user_profile_img_set = UserProfileImgSet.Field()
-
 	post_create = PostCreate.Field()
 
 	# token 관련 mutation

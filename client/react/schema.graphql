@@ -102,6 +102,7 @@ type PageInfo {
 input PostCreateInput {
   title: String!
   content: String!
+  tags: String!
   isPrivate: Boolean
   clientMutationId: String
 }
@@ -162,7 +163,7 @@ type RefreshPayload {
 }
 
 input RevokeInput {
-  refreshToken: String
+  # refreshToken: String
   clientMutationId: String
 }
 
