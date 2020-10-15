@@ -162,7 +162,7 @@ type RefreshPayload {
 }
 
 input RevokeInput {
-  refreshToken: String
+  # refreshToken: String
   clientMutationId: String
 }
 

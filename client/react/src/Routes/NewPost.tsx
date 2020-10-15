@@ -34,7 +34,7 @@ export function NewPost(props: RouteComponentProps) {
                         }}>
                     </textarea>
                 </div>
-                {/* TODO : tag 추가 mutation */}
+                {/* TODO : tag(#~) 에 대해 정규식 사용하여 parsing */}
                 <div className="box write-tags">
                     <input className="write-input" type="text" name="tags" placeholder="고민의 태그를 달아보세요 #군대 #가족 #애인" />
                 </div>
