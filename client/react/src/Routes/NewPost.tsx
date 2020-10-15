@@ -37,11 +37,11 @@ export function NewPost(props: RouteComponentProps) {
                 </div>
                 {/* TODO : tag(#~) 에 대해 정규식 사용하여 parsing */}
                 <div className="box write-tags">
-                    <input className="write-input" type="text" name="tags" placeholder="고민의 태그를 달아보세요 #군대 #가족 #애인" 
-                    value={state.tags}
-                    onChange={({ target }) => {
+                    <input className="write-input" type="text" name="tags" placeholder="고민의 태그를 달아보세요 #군대 #가족 #애인"
+                        value={state.tags}
+                        onChange={({ target }) => {
                             setState({ ...state, tags: target.value });
-                        }}/>
+                        }} />
                 </div>
                 {/* TODO : postCreate 시 form validation & relay - RANGE_ADD */}
                 <input className="write-btn" type="submit" value="고민 게시하기" onClick={() => {

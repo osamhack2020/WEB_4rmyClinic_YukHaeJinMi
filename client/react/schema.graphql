@@ -150,7 +150,7 @@ type Query {
 }
 
 input RefreshInput {
-  refreshToken: String
+  # refreshToken: String
   clientMutationId: String
 }
 
@@ -268,7 +268,7 @@ enum UserRank {
 }
 
 input VerifyInput {
-  token: String
+  # token: String
   clientMutationId: String
 }
 
