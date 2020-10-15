@@ -3,8 +3,8 @@ import environment from "../environment";
 import { postCreateMutation, postCreateMutationVariables } from "./__generated__/postCreateMutation.graphql";
 
 const mutation = graphql`
-mutation postCreateMutation($title: String!, $content: String!) {
-  postCreate(input: {title: $title, content: $content}) {
+mutation postCreateMutation($title: String!, $content: String!, $tags: String!) {
+  postCreate(input: {title: $title, content: $content, tags: $tags}) {
     postEdge {
       node {
         id

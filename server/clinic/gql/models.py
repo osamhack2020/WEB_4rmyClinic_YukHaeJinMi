@@ -77,7 +77,7 @@ class Post(models.Model):
     return self.title
 
 class Tag(models.Model):
-  posts = models.ManyToManyField(Post)
+  posts = models.ManyToManyField(Post, blank=True)
   name = models.CharField(max_length=20, blank=False)
 
   def __str__(self):
