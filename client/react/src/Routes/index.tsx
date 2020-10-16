@@ -1,6 +1,6 @@
 import { Main } from './Main';
 import { NotFound } from './NotFound';
-import { Post } from './Post';
+import { Posts } from './Posts';
 import { Profile } from './Profile';
 import { SignIn } from './SignIn';
 import { SignUp } from './SignUp';
@@ -9,5 +9,6 @@ import { Counselors } from './Counselors';
 import { MyPage } from './MyPage';
 import { Counselor } from './Counselor';
 import { NewPost } from './NewPost';
+import { Post } from './Post';
 
-export { Main, NotFound, Post, Profile, SignIn, SignUp, About, Counselors, Counselor, MyPage, NewPost };
+export { Main, NotFound, Posts, Profile, SignIn, SignUp, About, Counselors, Counselor, MyPage, NewPost, Post };

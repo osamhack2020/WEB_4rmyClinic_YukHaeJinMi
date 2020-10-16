@@ -3,6 +3,7 @@ import { createFragmentContainer, Environment, graphql } from "react-relay";
 import { Card_card } from "./__generated__/Card_card.graphql";
 import '../scss/Card.scss';
 import { ROOT } from '../_lib/endpoint';
+import { useHistory } from "react-router-dom";
 
 type CardProps = {
 	relay: {
@@ -13,9 +14,10 @@ type CardProps = {
 function Card(props: CardProps) {
 	const { card } = props;
 	const url = ROOT + card.author.imgUri;
+	const history = useHistory();
 	console.log(url);
 	return (
-		<div className="card">
+		<div className="card" onClick={() => history.push('/post/' + card.id)}>
 			<div className="card-title">{card.title}</div>
 			<div className="card-body">{card.content}</div>
 			<div className="card-profile">
