@@ -7,9 +7,18 @@ header {
 
 .header{
   &-logo{ 
-		margin-top: 20px;
-		img{
-			width:120px;
+		&-d{
+			margin-top: 20px;
+			img{
+				width:120px;
+			}
+		}
+		&-m{
+			display:none;
+			margin-top: 20px;
+			img{ 
+				height:50px;
+			}
 		}
 	}
 
@@ -54,6 +63,14 @@ header {
 
 @include mobile{
 	.header-logo{
+		&-d{
+			display:none;
+		}
+		&-m{
+			display:block
+		}
+	}
+	.menu-holder{
 		display:none;
 	}
 	.header-btn{
@@ -66,6 +83,6 @@ header {
 		}
 	}
 	header{
-		background: #E7ECFF;
+		background: white;
 	}
 }
