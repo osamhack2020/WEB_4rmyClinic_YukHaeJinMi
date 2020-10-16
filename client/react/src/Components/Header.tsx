@@ -33,7 +33,7 @@ export default function Header(props: HeaderProps) {
                   <Link to="/">Home</Link>
                   <Link to="/About">About</Link>
                   <Link to="/Counselors">Counseler</Link>
-                  <Link to="/post/:id">Community</Link>
+                  <Link to="/posts">Community</Link>
                   <Link to="/profile/:id">Profile</Link>
                 </ul>
               </nav>
