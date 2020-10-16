@@ -1,7 +1,7 @@
 import React from 'react';
 import { RouteComponentProps } from "react-router";
 import { Link } from 'react-router-dom';
-import bgsvg2 from '../assets/Rectangle.svg';
+// import bgsvg2 from '../assets/Rectangle.svg';
 import counselsvg from '../assets/counsel_img.svg';
 import { QueryRenderer, graphql } from "react-relay";
 import environment from "../_lib/environment";
@@ -12,9 +12,9 @@ import "../scss/Main.scss";
 export function Main(props: RouteComponentProps) {
   return (
     <div className="Main">
-      <div className="background2">
+      {/* <div className="background2">
         <img src={bgsvg2} alt="backgorund_vector2"/>
-      </div>
+      </div> */}
       <div className="container">
         <div className="main-container">
           <div className="row">
@@ -24,7 +24,7 @@ export function Main(props: RouteComponentProps) {
               <Link to="/About">더 알아보기</Link>
             </div>
             <div className="col-img">
-              <img src={counselsvg} alt="main-img" className="imgimg"  />
+              <img src={counselsvg} alt="main-img" className="imgimg" />
             </div>
           </div>
         </div>

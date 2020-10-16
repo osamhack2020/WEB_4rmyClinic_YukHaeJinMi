@@ -9,7 +9,7 @@ import {
 
 } from 'react-router-dom';
 
-import { Main, NotFound, Post, Profile, SignIn, SignUp, About, Counselors, Counselor, MyPage, NewPost } from './Routes';
+import { Main, NotFound, Posts, Profile, SignIn, SignUp, About, Counselors, Counselor, MyPage, NewPost, Post } from './Routes';
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
 import AuthContextProvider from "./Components/AuthContextProvider";
@@ -29,6 +29,7 @@ function App() {
           <Route path="/mypage" render={(props) => <MyPage {...props} />} />
           <Route path="/counselors" render={(props) => <Counselors {...props} />} />
           <Route path="/counselor/:id" render={(props) => <Counselor {...props} />} />
+          <Route path="/posts" render={(props) => <Posts {...props} />} />
           <Route path="/post/:id" render={(props) => <Post {...props} />} />
           <Route path="/newpost" render={(props) => <NewPost {...props} />} />
           <Route path="*" render={(props) => <NotFound {...props} />} />
