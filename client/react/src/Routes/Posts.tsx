@@ -8,17 +8,15 @@ import { AuthContext } from "../Components/AuthContextProvider";
 import { PostsQuery } from "./__generated__/PostsQuery.graphql";
 import "../scss/Post.scss";
 
-type postParams = {
-  id: string,
-}
-
 export function Posts(props: RouteComponentProps) {
   const [tag, setTag] = useState<string>("");
+
   return (
     <AuthContext.Consumer>
       {({ viewer, }) =>
         <QueryRenderer<PostsQuery>
           environment={environment}
+
           variables={{ name: tag }}
           query={graphql`
                 query PostsQuery($name: String) {
