@@ -2,7 +2,10 @@ from graphene import relay, ObjectType, String, Field
 from graphene_django.types import DjangoObjectType
 from graphene_django.filter import DjangoFilterConnectionField
 from .models import User, Post, Comment, Like, Tag, Counsel, Chat
+
 from api.models import Image
+
+from graphql_jwt.decorators import login_required
 
 class UserNode(DjangoObjectType):
   class Meta:
@@ -65,3 +68,10 @@ class Query(ObjectType):
   tags = DjangoFilterConnectionField(TagNode)
   recent_posts = DjangoFilterConnectionField(PostNode)
   users = DjangoFilterConnectionField(UserNode)
+
+  get_user_from_email = Field(UserNode, email=String(required=True))
+  @login_required
+  def resolve_get_user_from_email(parent, info, email):
+    user = User.objects.get_by_natural_key(email)
+    return user
+
