@@ -29,7 +29,8 @@ function App() {
           <Route path="/mypage" render={(props) => <MyPage {...props} />} />
           <Route path="/counselors" render={(props) => <Counselors {...props} />} />
           <Route path="/counselor/:id" render={(props) => <Counselor {...props} />} />
-          <Route path="/posts" render={(props) => <Posts {...props} />} />
+          <Route exact path="/posts" render={(props) => <Posts {...props} />} />
+          <Route path="/posts/:id" render={(props) => <Posts {...props} />} />
           <Route path="/post/:id" render={(props) => <Post {...props} />} />
           <Route path="/newpost" render={(props) => <NewPost {...props} />} />
           <Route path="*" render={(props) => <NotFound {...props} />} />
