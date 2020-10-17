@@ -9,6 +9,9 @@ mutation authUserMutation($email: String!, $password: String!) {
     refreshToken
     refreshExpiresIn
     payload
+    user {
+      id
+    }
   }
 }`;
 

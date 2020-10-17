@@ -3,6 +3,25 @@ schema {
   mutation: Mutation
 }
 
+type ChatNode implements Node {
+  id: ID!
+  counsel: CounselNode!
+  writer: UserNode!
+  content: String!
+  sent: Date!
+  read: Boolean!
+}
+
+type ChatNodeConnection {
+  pageInfo: PageInfo!
+  edges: [ChatNodeEdge]!
+}
+
+type ChatNodeEdge {
+  node: ChatNode
+  cursor: String!
+}
+
 type CommentNode implements Node {
   id: ID!
   user: UserNode!
@@ -20,6 +39,14 @@ type CommentNodeConnection {
 type CommentNodeEdge {
   node: CommentNode
   cursor: String!
+}
+
+type CounselNode implements Node {
+  id: ID!
+  counselor: UserNode!
+  client: UserNode!
+  status: Int!
+  chatSet(before: String, after: String, first: Int, last: Int): ChatNodeConnection!
 }
 
 scalar Date
@@ -144,9 +171,11 @@ type Query {
   user(id: ID!): UserNode
   post(id: ID!): PostNode
   tag(id: ID!): TagNode
-  allTags(before: String, after: String, first: Int, last: Int, name_Icontains: String): TagNodeConnection
+  counsel(id: ID!): CounselNode
+  chat(id: ID!): ChatNode
+  tags(before: String, after: String, first: Int, last: Int, name_Icontains: String): TagNodeConnection
   recentPosts(before: String, after: String, first: Int, last: Int, created_Gte: Date, created_Lte: Date, title_Icontains: String, content_Icontains: String): PostNodeConnection
-  allUsers(before: String, after: String, first: Int, last: Int, email_Icontains: String, division_Icontains: String, rank_Icontains: String): UserNodeConnection
+  users(before: String, after: String, first: Int, last: Int, email_Icontains: String, division_Icontains: String, rank_Icontains: String, isCounselor: Boolean): UserNodeConnection
 }
 
 input RefreshInput {
@@ -216,6 +245,8 @@ type UserNode implements Node {
   lastLogin: DateTime
   email: String!
   imgUri: String!
+  nickname: String!
+  bio: String!
   division: UserDivision!
   rank: UserRank!
   isCounselor: Boolean!

@@ -13,6 +13,7 @@ class UserNode(DjangoObjectType):
       'email': ['icontains'],
       'division': ['icontains'],
       'rank': ['icontains'],
+      'is_counselor': ['exact']
     }
 
 class PostNode(DjangoObjectType):
@@ -61,6 +62,6 @@ class Query(ObjectType):
   counsel = relay.Node.Field(CounselNode)
   chat = relay.Node.Field(ChatNode)
 
-  all_tags = DjangoFilterConnectionField(TagNode)
+  tags = DjangoFilterConnectionField(TagNode)
   recent_posts = DjangoFilterConnectionField(PostNode)
-  all_users = DjangoFilterConnectionField(UserNode)
+  users = DjangoFilterConnectionField(UserNode)

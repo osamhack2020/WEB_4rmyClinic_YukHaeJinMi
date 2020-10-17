@@ -21,7 +21,7 @@ export function Posts(props: RouteComponentProps) {
           variables={{}}
           query={graphql`
                 query PostsQuery {
-                  allTags {
+                  tags {
                     edges {
                         cursor
                       tag: node {
@@ -33,7 +33,7 @@ export function Posts(props: RouteComponentProps) {
                 }
                 `}
           render={({ props, error, retry }) => {
-            const tags = props?.allTags?.edges;
+            const tags = props?.tags?.edges;
             return (
               <div className="Post-root">
                 <h1>커뮤니티</h1>

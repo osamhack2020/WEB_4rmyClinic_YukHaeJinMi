@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from .query import UserNode
 
 class ObtainJSONWebToken(graphql_jwt.relay.JSONWebTokenMutation):
-    user = graphene.Field(UserNode)
+    user = graphene.relay.Node.Field(UserNode)
 
     @classmethod
     def Field(cls, *args, **kwargs):
