@@ -9,9 +9,6 @@ import { PostsQuery } from "./__generated__/PostsQuery.graphql";
 import "../scss/Post.scss";
 import Card from "../fragments/Card";
 
-type tagParams = {
-  id: string,
-}
 
 export function Posts(props: RouteComponentProps) {
   const [tag, setTag] = useState<string>("");
