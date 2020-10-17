@@ -1,52 +1,71 @@
-
-
-.tag{
-    display:flex;
-    flex-direction: column;
-    width:80%;
-    margin:10px auto;
-
-    &-container{
+.Post-{
+    &root{
         display:flex;
-        flex-direction: row;
-        justify-content: space-evenly;
-        flex-wrap: wrap;
-        border:0.1px solid rgb(217, 238, 255);
-        border-radius: 1em;
-        padding:20px 20px;
-    }
-
-    &-card{
-        margin:10px 10px;
-        padding:10px 20px;
-        background: rgb(235, 250, 255);
-        border-radius: 10em;
-        border:0.05px solid rgb(217, 238, 255);
-    }
-}
-
-.Post{
-    &-root{
-        width:80%;
-        margin:50px auto;
-        h1{
-            text-align: center;
+        flex-direction: column;
+        width:70%;
+        margin :100px auto;
+        .return-btn{
+            margin : 30px 0;
+            a{
+                background: rgb(152, 152, 250);
+                color:white;
+                border-radius: 15em;
+                padding:0 15px;
+                font-weight: 700;
+                font-size: 24px;
+            }
+            h3{
+                display:inline-block;
+                margin: 0px 10px;
+            }
         }
     }
-    &-box{
+    &content{
         display:flex;
-        width:80%;
-        margin: 10px auto;
-        justify-content: space-between;
-    }
+        flex-direction: column;
+        
 
-    a{
-        margin-left:auto;
-        font-size: 17px;
-        padding: 10px 20px;
-        background: #111B47;
-        border-radius: 8px;
-        color: white;
-        height:30px;
+        padding: 30px;
+        margin:0 auto;
+        width: 90%;
+        max-width: 1000px;
+        min-height: 500px;
+
+        background: #FFFFFF;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        box-sizing: border-box;
+        box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.06);
+        border-radius: 12px;
+
+        .body{
+            width:90%;
+            margin:30px auto;
+            &-text{
+                margin:50px auto;
+            }
+        }
+        
+        .writer{
+            text-align: right;
+            margin:auto 5% 0px;
+        }
+        
+    }
+    &underbox{
+        width:90%;
+        margin :30px auto;
+        max-width: 1000px;
+
+        .side-box{
+            width:90%;
+            margin:30px auto;
+            
+            display:flex;
+            justify-content: space-between;
+        }
+
+        
+
+
     }
 }
