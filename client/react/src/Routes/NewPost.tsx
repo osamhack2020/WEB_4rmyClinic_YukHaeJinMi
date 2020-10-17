@@ -15,7 +15,7 @@ export function NewPost(props: RouteComponentProps) {
     return (
         <div className="root">
             <div className="return">
-                <Link to="/post/:id">←</Link><h3>돌아가기</h3>
+                <Link to="/posts">←</Link><h3>돌아가기</h3>
             </div>
             <div className="write-container">
                 <div className="box write-title">
