@@ -29,6 +29,9 @@ class User(AbstractBaseUser):
   email = models.EmailField(verbose_name='email', max_length=255,unique=True)
   imgUri = models.CharField(max_length=200, blank=True)
 
+  nickname = models.CharField(max_length=20, default="")
+  bio = models.CharField(max_length=200, default="")
+
   DIVISION_CHOICES = [
     ('roka', "육군"),
     ('rokn', "해군"),
@@ -98,3 +101,18 @@ class Like(models.Model):
 
   def __str__(self):
     return "user"+user.pk+" - post"+post.pk
+
+
+class Counsel(models.Model):
+  counselor = models.OneToOneField(User, on_delete=models.PROTECT, related_name="%(class)s_counselor")
+  client = models.OneToOneField(User, on_delete=models.PROTECT, related_name="%(class)s_client")
+  status = models.IntegerField(default=0) # 0 : 시작 전, 1: 진행 중, 2: 완료
+
+class Chat(models.Model):
+  counsel = models.ForeignKey(Counsel, on_delete=models.PROTECT)
+  writer = models.OneToOneField(User, on_delete=models.PROTECT)
+  content = models.TextField(blank=False)
+  sent = models.DateField(default=timezone.now)
+  read = models.BooleanField(default=False)
+  
+  

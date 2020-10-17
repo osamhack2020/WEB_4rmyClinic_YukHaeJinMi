@@ -1,11 +1,12 @@
 import graphene
 import graphql_jwt
+from graphql_jwt.relay import JSONWebTokenMutation, Verify, Refresh, Revoke
 from django.contrib.auth import get_user_model
 from .query import UserNode
 
-class ObtainJSONWebToken(graphql_jwt.relay.JSONWebTokenMutation):
+class ObtainJSONWebToken(JSONWebTokenMutation):
+    # user_pk = graphene.ID()
     user = graphene.Field(UserNode)
-
     @classmethod
     def Field(cls, *args, **kwargs):
         cls._meta.arguments['input']._meta.fields.update({

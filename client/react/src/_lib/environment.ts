@@ -42,5 +42,8 @@ export default environment;
 export type JWTPayLoad = {
   email: string,
   exp: number,
-  origIat: number
+  origIat: number,
+  user: {
+    id: string,
+  }
 }

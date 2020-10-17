@@ -1,5 +1,5 @@
 import { commitMutation, graphql } from "react-relay"
-import environment, { JWTPayLoad } from "../../environment";
+import environment from "../../environment";
 import { authUserMutation, authUserMutationVariables } from "./__generated__/authUserMutation.graphql";
 
 const mutation = graphql`
@@ -9,11 +9,22 @@ mutation authUserMutation($email: String!, $password: String!) {
     refreshToken
     refreshExpiresIn
     payload
+    user {
+      id
+      nickname
+      imgUri
+    }
   }
 }`;
 
+export type Viewer = {
+  id: string,
+  nickname: string,
+  imgUri: string,
+}
+
 export function authUser(variables: authUserMutationVariables) {
-  return new Promise<JWTPayLoad>((resolve, reject) => {
+  return new Promise<Viewer>((resolve, reject) => {
     commitMutation<authUserMutation>(
       environment, {
       mutation,
@@ -23,8 +34,10 @@ export function authUser(variables: authUserMutationVariables) {
           reject();
         } else {
           // console.log("payload : ", res.tokenAuth?.payload);
-          const payload = res.authToken?.payload as JWTPayLoad;
-          resolve(payload);
+          const user = res.authToken?.user;
+          const viewer = user && { id: user?.id, nickname: user?.nickname, imgUri: user.imgUri };
+          // const payload = res.authToken?.payload as JWTPayLoad;
+          viewer ? resolve(viewer) : reject();
         }
       },
       onError: (err) => { console.error(err); reject() },

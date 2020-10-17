@@ -3,27 +3,53 @@ import { RouteComponentProps } from "react-router";
 import { Link } from "react-router-dom";
 //import CardContainer from "../Components/CardContainer";
 import "../scss/Counselors.scss";
-import csimg from '../assets/csprofile_ex.png';
+
+// TODO : csimg 를 기본 이미지로 교체
+import defaultImg from '../assets/csprofile_ex.png';
+import { graphql, QueryRenderer } from "react-relay";
+import environment from "../_lib/environment";
+import { CounselorsQuery } from "./__generated__/CounselorsQuery.graphql";
 
 export function Counselors(props: RouteComponentProps) {
   return (
-    <div className="container">
+    <QueryRenderer<CounselorsQuery>
+      environment={environment}
+      variables={{}}
+      query={graphql`
+        query CounselorsQuery {
+          counselors: users(isCounselor: true) {
+            edges {
+              node {
+                id
+                email
+                imgUri
+                nickname
+                bio
+              }
+            }
+          }
+        }
+      `}
+      render={({ props, error, retry }) => (
+        <div className="container">
+          <div className="filter"></div>
+          <div className="card-container">
+            {props?.counselors?.edges.map((edge) => edge && (
+              <Link to={"/counselor/" + edge.node?.id}>
+                <div className="cscard">
+                  <img src={edge.node?.imgUri === "" ? defaultImg : edge.node?.imgUri} alt="" />
 
-      <div className="filter"></div>
-      <div className="card-container">
-
-        <Link to="/counselor/:id">
-          <div className="cscard">
-            <img src={csimg} alt="" />
-
-            <div className="info">
-              <div className="p name">Captain Lee</div>
-              <div className="p intro">Blow up your mind with physical training</div>
-              <div className="p likes">14 soldier likes</div>
-            </div>
+                  <div className="info">
+                    <div className="p name">{edge.node?.nickname}</div>
+                    <div className="p intro">{edge.node?.bio}</div>
+                    <div className="p likes">14 soldier likes</div> {/* TODO */}
+                  </div>
+                </div>
+              </Link>
+            ))}
           </div>
-        </Link>
-      </div>
-    </div>
+        </div>
+      )}
+    />
   );
 }

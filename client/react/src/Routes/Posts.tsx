@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { RouteComponentProps } from "react-router";
 import { Link } from 'react-router-dom';
 import { QueryRenderer, graphql } from "react-relay";
@@ -13,77 +13,62 @@ type tagParams = {
   id: string,
 }
 
-export function Posts(props: RouteComponentProps<tagParams>) {
-  const tagId = props.match.params.id ? props.match.params.id : '0';
+export function Posts(props: RouteComponentProps) {
+  const [tag, setTag] = useState<string>("");
+
   return (
     <AuthContext.Consumer>
-      {({ verified, }) =>
+      {({ viewer, }) =>
         <QueryRenderer<PostsQuery>
           environment={environment}
-          variables={{ id: tagId }}
+
+          variables={{ name: tag }}
           query={graphql`
-                query PostsQuery($id: ID!) {
-                  allTags {
+                query PostsQuery($name: String) {
+                  allTags: tags(first: 10) {
                     edges {
-                        cursor
-                      tag: node {
-                        id
+                      node {
                         name
                       }
                     }
                   }
-                  tag(id: $id) {
-                    name
-                    posts {
-                      edges {
-                        post: node {
-                          title
-                          content
-                          author: user {
-                            email
-                          }
-                        }
+                  tags(name_Icontains: $name) {
+                    edges {
+                      cursor
+                      tag: node {
+                        ...CardContainer_cards
                       }
                     }
                   }
-                  ...CardContainer_cards
+                  
                 }
                 `}
           render={({ props, error, retry }) => {
-            const tagList = props?.allTags?.edges;
-            const tag = props?.tag;
+            const allTags = props?.allTags?.edges;
+            const tags = props?.tags?.edges;
             return (
               <div className="Post-root">
                 <h1>커뮤니티</h1>
                 <div className="tag">
                   <h2>태그</h2>
                   <div className="tag-container">
-                    {tagList?.map((e) =>
-                      <a href={"/posts/" + e?.tag?.id} className="tag-card">#{e?.tag?.name}</a>
+                    <p className="tag-card" onClick={() => setTag("")}>#전체</p>
+                    {allTags && allTags.map((edge) =>
+                      edge && <p className="tag-card" onClick={() => { edge?.node && setTag(edge.node.name) }}>#{edge.node?.name}</p>
                     )}
                   </div>
                 </div>
                 <br /><br />
                 <div className="Post">
                   <div className="Post-box">
-                    {tagId === '0' && <h1>최근 고민</h1>}
-                    {tagId !== '0' && 
-                      <h1>{tag?.name}<a href={"/posts/"}>전체 게시물 보기</a></h1>
-                    }
-                    <Link to={verified ? "/newpost" : "/signin"}>고민작성하기</Link>
+                    <h1>최근 고민</h1>
+                    <Link to={viewer ? "/newpost" : "/signin"}>고민작성하기</Link>
                   </div>
-                  {props && tagId === '0' && <CardContainer cards={props} />}
-                  {props && tagId !== '0' &&
-                    tag?.posts?.edges?.map((e) =>
-                      <div>
-                        <p>-------------</p>
-                        <p>제목 : {e?.post?.title}</p>
-                        <p>내용 : {e?.post?.content}</p>
-                        <p>작성자 : {e?.post?.author.email}</p> 
-                        <p>-------------</p>
-                      </div>
-                    )
-                  }
+                  <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', }}>
+                    {tags && tags.map((edge) => {
+                      return edge && edge.tag && <CardContainer cards={edge.tag} />
+                    })}
+                  </div>
                 </div>
               </div>
             );
