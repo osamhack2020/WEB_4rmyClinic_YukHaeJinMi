@@ -6,7 +6,7 @@ import environment from "../_lib/environment";
 import CardContainer from "../Components/CardContainer";
 import { AuthContext } from "../Components/AuthContextProvider";
 import { PostsQuery } from "./__generated__/PostsQuery.graphql";
-import "../scss/Post.scss";
+import "../scss/Posts.scss";
 
 type postParams = {
   id: string,
@@ -35,7 +35,7 @@ export function Posts(props: RouteComponentProps) {
           render={({ props, error, retry }) => {
             const tags = props?.allTags?.edges;
             return (
-              <div className="Post-root">
+              <div className="Posts-root">
                 <h1>커뮤니티</h1>
                 <div className="tag">
                   <h2>태그</h2>
@@ -46,8 +46,8 @@ export function Posts(props: RouteComponentProps) {
                   </div>
                 </div>
                 <br /><br />
-                <div className="Post">
-                  <div className="Post-box">
+                <div className="Posts">
+                  <div className="Posts-box">
                     <h1>최근 고민</h1>
                     <Link to={verified ? "/newpost" : "/signin"}>고민작성하기</Link>
                   </div>
