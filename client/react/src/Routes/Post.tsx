@@ -16,7 +16,7 @@ export function Post(props: RouteComponentProps<postParams>) {
 
   return (
     <AuthContext.Consumer>
-      {({ verified, }) =>
+      {({ viewer, }) =>
         <QueryRenderer<PostQuery>
           environment={environment}
           variables={{ id: postId }}

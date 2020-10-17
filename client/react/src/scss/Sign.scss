@@ -30,8 +30,10 @@
 
 .box {
     margin-bottom: 16px;
+    margin-top: 50px;
     &-input {
-        width: 100%;
+        // width: 100%;
+        min-width: 350px;
         height: 50px;
         padding: 5px;
         border: 1px solid #AAAAAA;

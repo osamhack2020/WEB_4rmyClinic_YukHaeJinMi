@@ -27,7 +27,7 @@ def upload_profile(request):
       user.imgUri = "/media/" + img.img.name
       user.save()
 
-      return JsonResponse({'uploaded': True})
+      return JsonResponse({'uploaded': True, 'imgUri': user.imgUri})
     except Exception as err:
       print(err)
       return JsonResponse({'uploaded': False})

@@ -13,7 +13,7 @@ export function Profile(props: RouteComponentProps) {
 			variables={{}}
 			query={graphql`
   			query ProfileQuery {
-  				recentPosts {
+  				posts {
   					edges {
 							cursor
   						post: node {
@@ -32,7 +32,7 @@ export function Profile(props: RouteComponentProps) {
   			}
   			` }
 			render={({ props, error, retry }) => {
-				const posts = props?.recentPosts?.edges;
+				const posts = props?.posts?.edges;
 				return (
 					<div>
 						<div>
@@ -41,15 +41,15 @@ export function Profile(props: RouteComponentProps) {
 						<div>
 							{posts?.map((e) =>
 								<div>
-								<p>-------------------</p>
+									<p>-------------------</p>
 									<p>{e?.post?.title}</p>
 									<p>{e?.post?.content}</p>
-									{e?.post?.commentSet?.edges && 
+									{e?.post?.commentSet?.edges &&
 										e?.post?.commentSet?.edges.map((t) =>
 											<p>댓글: {t?.comment?.content}</p>
-											)}
+										)}
 								</div>
-								)}
+							)}
 						</div>
 					</div>
 				)

@@ -14,8 +14,11 @@ export function NewPost(props: RouteComponentProps) {
 
     return (
         <div className="root">
+    	{/* 어디서 고민 작성 버튼을 눌렀든 무조건 이전 페이지로 돌아가기*/}
             <div className="return">
-                <Link to="/posts">←</Link><h3>돌아가기</h3>
+                <a onClick={() => {
+                    props.history.goBack();
+                }}>←</a><h3>돌아가기</h3>
             </div>
             <div className="write-container">
                 <div className="box write-title">

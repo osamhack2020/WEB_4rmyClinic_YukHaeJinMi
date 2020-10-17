@@ -15,6 +15,9 @@ export function SignIn(props: RouteComponentProps) {
   const [state, set] = useState<LoginState>({
     email: '', password: ''
   });
+
+  // TODO : 로그인 할 수 있는 상태인지 점검
+
   const [hasError, setError] = useState<boolean>(false);
   const history = useHistory();
 
@@ -38,7 +41,7 @@ export function SignIn(props: RouteComponentProps) {
             {/* <img src={logo} className="logo" alt="logo" /> */}
 
             <div className="signin">
-              <h1>계정을 입력하세요</h1>
+              <h1>로그인</h1>
 
               <div className="box">
                 <label htmlFor="email">이메일</label>

@@ -88,35 +88,33 @@ class PostCreate(relay.ClientIDMutation):
 		except Exception as err:
 			raise GraphQLError("PostCreate err")
 
+
+# api.upload_profile 이후에 실행되는 것이 보장되어야 한다.
 class UserProfileImgSet(relay.ClientIDMutation):
 	ok = Boolean()
 	class Input:
-		filename = String()
-		pass
+		imgUri = String()
 
 	@classmethod
 	@login_required
 	def mutate(cls, root, info, input):
 		try:
-			# context will be the request
+			# TODO : 해당 imgUri 있는지 확인
+			
 			_user = info.context.user
-			# imgAlreadyExists = Image.objects.filter(name=input.imgUrl).exists()
-			# if not imgAlreadyExists:
-			# 악의적인 공격이 아닌 이상, 사용자 이메일에 기반한 파일이름이 생성되었으므로, 이미지 이름이 겹칠 이유는 없다고 가정한다.
-			_user.imgUri = "/media/imgs/" + input.filename
-			print("@@@@@@@@mutation : ", _user.imgUri)
+			_user.imgUri = input.imgUri
 			_user.save()
-			return UploadProfileImage(ok=True)
+			return UserProfileImgSet(ok=True)
 		except Exception as err:
 			raise GraphQLError("UserProfileImgSet err : ", err)
 
 class Mutation(AbstractType):
 	user_create = UserCreate.Field()
-	user_profile_img_set = UserProfileImgSet.Field()
+	# user_profile_img_set = UserProfileImgSet.Field()
 	post_create = PostCreate.Field()
 
 	# token 관련 mutation
-	auth_token = graphql_jwt.relay.ObtainJSONWebToken.Field()
+	auth_token = ObtainJSONWebToken.Field()
 	verify_token = graphql_jwt.relay.Verify.Field()
 	refresh_token = graphql_jwt.relay.Refresh.Field()
 	revoke_token = graphql_jwt.relay.Revoke.Field()
