@@ -10,23 +10,24 @@ type CardContainerProps = {
   },
   cards: CardContainer_cards,
 }
-function CardContainer(props: CardContainerProps) {
+export function Cards(props: CardContainerProps) {
   const { cards } = props;
   return (
     <div className="card-container">
-      {cards.recentPosts?.edges.map(e => { return e?.card && <Card key={e.cursor} card={e.card} /> })}
+      {cards.posts?.edges.map(e => { return e?.card && <Card key={e.cursor} card={e.card} /> })}
     </div>
   )
 }
 
-export default createPaginationContainer(CardContainer, {
+export default createPaginationContainer(Cards, {
   cards: graphql`
-    fragment CardContainer_cards on Query
+    fragment CardContainer_cards on TagNode
     @argumentDefinitions(
       count: {type: "Int", defaultValue: 6},
-      cursor: {type: "String",}
+      cursor: {type: "String",},
+      tagname: {type: "String", defaultValue: ""}
     ) {
-      recentPosts(first: $count, after: $cursor) @connection(key: "CardContainer_recentPosts") {
+      posts(first: $count, after: $cursor) @connection(key: "CardContainer_posts") {
         edges {
           cursor
           card: node {
@@ -42,8 +43,15 @@ export default createPaginationContainer(CardContainer, {
     query CardContainerQuery(
       $count: Int!
       $cursor: String
+      $tagname: String
     ) {
-      ...CardContainer_cards @arguments(count: $count, cursor: $cursor)
+      tags(name_Icontains: $tagname) {
+        edges {
+          node {
+            ...CardContainer_cards @arguments(count: $count, cursor: $cursor)
+          }
+        }
+      }
     }
   `
 })

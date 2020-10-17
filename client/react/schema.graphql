@@ -174,7 +174,7 @@ type Query {
   counsel(id: ID!): CounselNode
   chat(id: ID!): ChatNode
   tags(before: String, after: String, first: Int, last: Int, name_Icontains: String): TagNodeConnection
-  recentPosts(before: String, after: String, first: Int, last: Int, created_Gte: Date, created_Lte: Date, title_Icontains: String, content_Icontains: String): PostNodeConnection
+  posts(before: String, after: String, first: Int, last: Int, created_Gte: Date, created_Lte: Date, title_Icontains: String, content_Icontains: String): PostNodeConnection
   users(before: String, after: String, first: Int, last: Int, email_Icontains: String, division_Icontains: String, rank_Icontains: String, isCounselor: Boolean): UserNodeConnection
   getUserFromEmail(email: String!): UserNode
 }

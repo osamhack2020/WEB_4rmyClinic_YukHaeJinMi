@@ -6,8 +6,8 @@ import { Link } from 'react-router-dom';
 import { QueryRenderer, graphql } from "react-relay";
 import environment from "../_lib/environment";
 import { MainQuery } from "./__generated__/MainQuery.graphql";
-import CardContainer from "../Components/CardContainer";
 import "../scss/Main.scss";
+import Card from "../fragments/Card";
 
 export function Main(props: RouteComponentProps) {
   return (
@@ -33,11 +33,20 @@ export function Main(props: RouteComponentProps) {
         variables={{}}
         query={graphql`
           query MainQuery {
-            ...CardContainer_cards
+            cards: posts(first: 8) {
+              edges {
+                cursor
+                card: node {
+                  ...Card_card
+                }
+              }
+            }
           }
         `}
         render={({ props, error, retry }) => {
-          return props && <CardContainer cards={props} />
+          return props && <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', marginTop: '50px' }}>
+            {props.cards?.edges.map(edge => edge && edge.card && <Card key={edge.cursor} card={edge.card} />)}
+          </div>
         }}
       />
     </div>

@@ -66,7 +66,7 @@ class Query(ObjectType):
   chat = relay.Node.Field(ChatNode)
 
   tags = DjangoFilterConnectionField(TagNode)
-  recent_posts = DjangoFilterConnectionField(PostNode)
+  posts = DjangoFilterConnectionField(PostNode)
   users = DjangoFilterConnectionField(UserNode)
 
   get_user_from_email = Field(UserNode, email=String(required=True))
