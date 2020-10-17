@@ -1,0 +1,71 @@
+.Post-{
+    &root{
+        display:flex;
+        flex-direction: column;
+        width:70%;
+        margin :100px auto;
+        .return-btn{
+            margin : 30px 0;
+            a{
+                background: rgb(152, 152, 250);
+                color:white;
+                border-radius: 15em;
+                padding:0 15px;
+                font-weight: 700;
+                font-size: 24px;
+            }
+            h3{
+                display:inline-block;
+                margin: 0px 10px;
+            }
+        }
+    }
+    &content{
+        display:flex;
+        flex-direction: column;
+        
+
+        padding: 30px;
+        margin:0 auto;
+        width: 90%;
+        max-width: 1000px;
+        min-height: 500px;
+
+        background: #FFFFFF;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        box-sizing: border-box;
+        box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.06);
+        border-radius: 12px;
+
+        .body{
+            width:90%;
+            margin:30px auto;
+            &-text{
+                margin:50px auto;
+            }
+        }
+        
+        .writer{
+            text-align: right;
+            margin:auto 5% 0px;
+        }
+        
+    }
+    &underbox{
+        width:90%;
+        margin :30px auto;
+        max-width: 1000px;
+
+        .side-box{
+            width:90%;
+            margin:30px auto;
+            
+            display:flex;
+            justify-content: space-between;
+        }
+
+        
+
+
+    }
+}
