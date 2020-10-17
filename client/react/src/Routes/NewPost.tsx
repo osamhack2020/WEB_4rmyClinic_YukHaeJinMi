@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { RouteComponentProps } from "react-router";
-import { Link } from 'react-router-dom';
 import "../scss/Write.scss";
 import { postCreate } from "../_lib/mutations";
 import { postCreateMutationVariables } from "../_lib/mutations/__generated__/postCreateMutation.graphql";
@@ -14,9 +13,9 @@ export function NewPost(props: RouteComponentProps) {
 
     return (
         <div className="root">
-    	{/* 어디서 고민 작성 버튼을 눌렀든 무조건 이전 페이지로 돌아가기*/}
+            {/* 어디서 고민 작성 버튼을 눌렀든 무조건 이전 페이지로 돌아가기*/}
             <div className="return">
-                <a onClick={() => {
+                <a href="##" onClick={() => {
                     props.history.goBack();
                 }}>←</a><h3>돌아가기</h3>
             </div>

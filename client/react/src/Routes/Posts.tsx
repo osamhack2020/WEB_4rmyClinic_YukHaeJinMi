@@ -48,6 +48,8 @@ export function Posts(props: RouteComponentProps) {
                   <h2>태그</h2>
                   <div className="tag-container">
                     <p className="tag-card" onClick={() => setTag("")}>#전체</p>
+
+                    {/* TODO : allTags reduce -> 태그 중복 제거 */}
                     {allTags && allTags.map((edge) =>
                       edge && <p className="tag-card" onClick={() => { edge?.node && setTag(edge.node.name) }}>#{edge.node?.name}</p>
                     )}

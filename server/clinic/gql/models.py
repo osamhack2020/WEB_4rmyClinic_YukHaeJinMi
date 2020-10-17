@@ -110,7 +110,7 @@ class Counsel(models.Model):
 
 class Chat(models.Model):
   counsel = models.ForeignKey(Counsel, on_delete=models.PROTECT)
-  writer = models.OneToOneField(User, on_delete=models.PROTECT)
+  writer = models.ForeignKey(User, on_delete=models.PROTECT)
   content = models.TextField(blank=False)
   sent = models.DateField(default=timezone.now)
   read = models.BooleanField(default=False)

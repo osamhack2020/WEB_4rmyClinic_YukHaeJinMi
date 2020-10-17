@@ -25,7 +25,7 @@ function Card(props: CardProps) {
 					? <img src={url} style={{ background: "None" }} className="card-profile-img" alt="profile-img" />
 					: <div className="card-profile-img"></div>
 				}
-				<div className="card-profile-id">{card.author.email}</div> {/* TODO - email as id : nickname*/}
+				<div className="card-profile-id">{card.author.nickname}</div> {/* TODO - email as id : nickname*/}
 			</div>
 		</div >
 	)
@@ -38,8 +38,8 @@ export default createFragmentContainer(Card, {
 			title
 			content
 			author: user {
-				rank # nickname 임시사용
-				email
+				rank
+				nickname
 				imgUri
 			}
 		}

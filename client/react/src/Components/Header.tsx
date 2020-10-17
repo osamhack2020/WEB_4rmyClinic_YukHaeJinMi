@@ -1,16 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import '../scss/header.scss';
 // import logo from '../assets/logo_col.svg';
 // import logo_row from '../assets/logo_row.svg';
 import logo from '../assets/consideringlogo.png';
 import { AuthContext } from "./AuthContextProvider";
+import { ProfileBox } from "./ProfileBox";
+import defaultProfileImg from '../assets/profile.png';
+import { ROOT } from '../_lib/endpoint';
 
 type HeaderProps = {
   isMain?: boolean,
 }
 
 export default function Header(props: HeaderProps) {
+  const [active, setActive] = useState<boolean>(false);
 
   return (
     <AuthContext.Consumer>
@@ -38,9 +42,14 @@ export default function Header(props: HeaderProps) {
                 </nav>
               </div>
               <div className="login">
+
                 {viewer
                   ?
-                  <div className="login-ed">{viewer.nickname}</div>
+                  <div className="login-ed" onClick={() => setActive(!active)}>
+                    <img className="profile" src={viewer.imgUri ? ROOT + viewer.imgUri : defaultProfileImg} alt="user profile img" />
+                    <p>{viewer.nickname}</p>
+                    <ProfileBox active={active} />
+                  </div>
                   // {/* <p onClick={logout}>로그아웃하기</p>< */}
                   :
                   <Link to="/signin" className="login-required">로그인</Link>
