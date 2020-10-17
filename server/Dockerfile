@@ -8,6 +8,7 @@ RUN pip install --upgrade pip
 COPY requirements.txt ./
 RUN pip install -r requirements.txt
 COPY clinic/clinic ./clinic
+COPY media /media
 COPY deploy.env ./clinic/.env
 COPY clinic/gql ./gql
 COPY clinic/api ./api
@@ -22,4 +23,4 @@ COPY clinic/fixture.json ./
 RUN python manage.py loaddata fixture.json
 
 RUN ls -lah
-CMD uwsgi --http :$PORT --module clinic.wsgi --static-map /static=/static
+CMD uwsgi --http :$PORT --module clinic.wsgi --static-map /static=/static --static-map /media=/media
