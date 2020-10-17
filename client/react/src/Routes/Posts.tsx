@@ -7,8 +7,6 @@ import CardContainer from "../Components/CardContainer";
 import { AuthContext } from "../Components/AuthContextProvider";
 import { PostsQuery } from "./__generated__/PostsQuery.graphql";
 import "../scss/Post.scss";
-import Card from "../fragments/Card";
-
 
 export function Posts(props: RouteComponentProps) {
   const [tag, setTag] = useState<string>("");
