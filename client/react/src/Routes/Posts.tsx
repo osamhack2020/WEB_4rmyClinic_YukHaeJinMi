@@ -15,7 +15,7 @@ type postParams = {
 export function Posts(props: RouteComponentProps) {
   return (
     <AuthContext.Consumer>
-      {({ verified, }) =>
+      {({ viewer, }) =>
         <QueryRenderer<PostsQuery>
           environment={environment}
           variables={{}}
@@ -49,7 +49,7 @@ export function Posts(props: RouteComponentProps) {
                 <div className="Post">
                   <div className="Post-box">
                     <h1>최근 고민</h1>
-                    <Link to={verified ? "/newpost" : "/signin"}>고민작성하기</Link>
+                    <Link to={viewer ? "/newpost" : "/signin"}>고민작성하기</Link>
                   </div>
                   {props && <CardContainer cards={props} />}
                 </div>

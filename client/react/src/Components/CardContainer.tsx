@@ -23,7 +23,7 @@ export default createPaginationContainer(CardContainer, {
   cards: graphql`
     fragment CardContainer_cards on Query
     @argumentDefinitions(
-      count: {type: "Int", defaultValue: 20},
+      count: {type: "Int", defaultValue: 6},
       cursor: {type: "String",}
     ) {
       recentPosts(first: $count, after: $cursor) @connection(key: "CardContainer_recentPosts") {

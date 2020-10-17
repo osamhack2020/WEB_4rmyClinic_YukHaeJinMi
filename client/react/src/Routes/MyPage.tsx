@@ -26,7 +26,7 @@ export class MyPage extends React.Component<RouteComponentProps, MyPageState> {
     reader.readAsDataURL(file as File);
   }
 
-  onSubmit = async (email: string) => {
+  onSubmit = async (id: string) => {
     const uploaded = this.state.img && await UploadImg(this.state.img)
     if (uploaded) {
       this.props.history.goBack();
@@ -36,11 +36,11 @@ export class MyPage extends React.Component<RouteComponentProps, MyPageState> {
   render() {
     return (
       <AuthContext.Consumer>
-        {({ email }) =>
-          email && <div>
+        {({ viewer }) =>
+          viewer && <div>
             {/* <form onSubmit={(e) => this.onSubmit(e, email)} > */}
             <input type="file" onChange={this.handleChangeImg} />
-            <input type="submit" value="submit" onClick={() => this.onSubmit(email)} />
+            <input type="submit" value="submit" onClick={() => this.onSubmit(viewer.id!)} />
             {/* </form> */}
             {this.state.imgPreviewUri && <img className="preview" src={this.state.imgPreviewUri} alt="preview" />}
           </div>

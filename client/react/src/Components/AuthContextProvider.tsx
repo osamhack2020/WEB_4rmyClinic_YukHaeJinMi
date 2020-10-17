@@ -1,56 +1,77 @@
 import React, { createContext } from 'react';
-import { JWTPayLoad } from "../_lib/environment";
+import { fetchQuery, graphql } from "react-relay";
+import environment from "../_lib/environment";
 import { authUser, deleteToken, deleteRefreshToken, verifyToken } from "../_lib/mutations";
+import { Viewer } from "../_lib/mutations/auth/authUser";
 import { refreshToken } from "../_lib/mutations/auth/refreshToken";
+import { AuthContextProviderQuery } from "./__generated__/AuthContextProviderQuery.graphql";
+
 
 interface AuthContext {
   login?: (email: string, password: string) => Promise<boolean>,
   logout?: () => void,
-  email?: string,
-  verified?: boolean,
+  viewer: Viewer | null,
 }
-export const AuthContext = createContext<AuthContext>({});
+export const AuthContext = createContext<AuthContext>({ viewer: null });
 
 type AuthContextState = {
-  email?: string,
-  verified: boolean,
+  viewer: Viewer | null
 }
 export default class AuthContextProvider extends React.Component<{}, AuthContextState> {
   constructor(props: any) {
     super(props);
-    this.state = { verified: false };
+    this.state = { viewer: null };
   }
-
+  getUserFromEmail = async (email: string) => {
+    const data = await fetchQuery<AuthContextProviderQuery>(environment, graphql`
+          query AuthContextProviderQuery($email: String!) {
+            getUserFromEmail(email: $email) {
+              id
+              nickname
+              imgUri
+            }
+          }
+        `,
+      { email }
+    );
+    const user = data.getUserFromEmail;
+    const viewer = user && { id: user.id, nickname: user.nickname, imgUri: user.imgUri };
+    viewer && this.setState({ viewer });
+  }
   componentDidMount = async () => {
     try {
+
       const payload = await verifyToken();
       const { email } = payload;
-      this.setState({ email, verified: true });
+      await this.getUserFromEmail(email);
+      console.log("verifyToken for ", this.state.viewer?.nickname);
+
     } catch (err) {
+
       try {
         const payload = await refreshToken();
         const { email } = payload;
-        this.setState({ email, verified: true });
+        await this.getUserFromEmail(email);
+        console.log("refreshToken for ", this.state.viewer?.nickname);
       } catch (err) {
-        this.setState({ email: '', verified: false });
+        console.log("verify & refresh failed");
+        this.setState({ viewer: null });
       }
-    };
-  }
+
+    }
+  };
 
   login = async (email: string, password: string): Promise<boolean> => {
-    const payload = await authUser({ email, password }) as JWTPayLoad;
-    console.log("login : ", payload);
-    if (payload) {
-      this.setState({ email: payload.email, verified: true });
-      return true;
-    }
-    return false;
+    const viewer = await authUser({ email, password });
+    console.log("logined user : ", viewer.id);
+    this.setState({ viewer });
+    return true;
   }
 
   logout = () => {
     deleteToken();
     deleteRefreshToken();
-    this.setState({ email: "", verified: false });
+    this.setState({ viewer: null });
   }
 
   render() {

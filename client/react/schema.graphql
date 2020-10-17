@@ -91,7 +91,6 @@ type LikeNodeEdge {
 
 type Mutation {
   userCreate(input: UserCreateInput!): UserCreatePayload
-  userProfileImgSet(input: UserProfileImgSetInput!): UserProfileImgSetPayload
   postCreate(input: PostCreateInput!): PostCreatePayload
   authToken(input: ObtainJSONWebTokenInput!): ObtainJSONWebTokenPayload
   verifyToken(input: VerifyInput!): VerifyPayload
@@ -114,6 +113,7 @@ input ObtainJSONWebTokenInput {
 type ObtainJSONWebTokenPayload {
   payload: GenericScalar!
   refreshExpiresIn: Int!
+  user: UserNode
   clientMutationId: String
   token: String!
   refreshToken: String!
@@ -176,6 +176,7 @@ type Query {
   tags(before: String, after: String, first: Int, last: Int, name_Icontains: String): TagNodeConnection
   recentPosts(before: String, after: String, first: Int, last: Int, created_Gte: Date, created_Lte: Date, title_Icontains: String, content_Icontains: String): PostNodeConnection
   users(before: String, after: String, first: Int, last: Int, email_Icontains: String, division_Icontains: String, rank_Icontains: String, isCounselor: Boolean): UserNodeConnection
+  getUserFromEmail(email: String!): UserNode
 }
 
 input RefreshInput {
@@ -263,16 +264,6 @@ type UserNodeConnection {
 type UserNodeEdge {
   node: UserNode
   cursor: String!
-}
-
-input UserProfileImgSetInput {
-  filename: String
-  clientMutationId: String
-}
-
-type UserProfileImgSetPayload {
-  ok: Boolean
-  clientMutationId: String
 }
 
 enum UserRank {
