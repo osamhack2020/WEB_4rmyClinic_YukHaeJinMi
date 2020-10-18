@@ -1,6 +1,9 @@
 from graphene import relay, ObjectType, String, Field, Int
 from graphene_django.types import DjangoObjectType
 from graphene_django.filter import DjangoFilterConnectionField
+
+from graphql_relay import from_global_id
+
 from .models import User, Post, Comment, Like, Tag, Counsel, Chat
 
 from api.models import Image
@@ -11,7 +14,7 @@ class UserNode(DjangoObjectType):
   class Meta:
     model = User
     interfaces = (relay.Node,)
-    exclude = ("is_admin", "password", "is_active", "counsel_counselor", "counsel_client", "chat")
+    exclude = ("is_admin", "password", "is_active", "counsel_counselor", "counsel_client")
     filter_fields = {
       'email': ['icontains'],
       'division': ['icontains'],
@@ -20,6 +23,7 @@ class UserNode(DjangoObjectType):
     }
 
 class PostNode(DjangoObjectType):
+  likes = Int()
   class Meta:
     model = Post
     interfaces = (relay.Node,)
@@ -28,6 +32,9 @@ class PostNode(DjangoObjectType):
       'title': ['icontains'],
       'content': ['icontains'],
     }
+  
+  def resolve_likes(parent, info):
+    return Post.objects.get(pk=parent.pk).like_set.count()
 
 class CommentNode(DjangoObjectType):
   class Meta:
@@ -62,7 +69,6 @@ class TagConnection(relay.Connection):
     node = TagNode
 
 class PostConnection(relay.Connection):
-  likes = Int()
   class Meta:
     node = PostNode
 

@@ -104,6 +104,17 @@ class UserProfileImgSet(relay.ClientIDMutation):
 		except Exception as err:
 			raise GraphQLError("UserProfileImgSet err : ", err)
 
+# class ChatSend(relay.ClientIDMutation):
+# 	chat_edge = Field()
+# 	class Input:
+# 		groupID = ID()
+# 		senderID = ID()
+	
+# 	@classmethod
+# 	@login_required
+# 	def mutate(cls, root, info, input):
+# 		pass
+
 class Mutation(AbstractType):
 	user_create = UserCreate.Field()
 	# user_profile_img_set = UserProfileImgSet.Field()
@@ -116,3 +127,6 @@ class Mutation(AbstractType):
 	revoke_token = graphql_jwt.relay.Revoke.Field()
 	delete_token_cookie = graphql_jwt.relay.DeleteJSONWebTokenCookie.Field()
 	delete_refresh_token_cookie = graphql_jwt.relay.DeleteRefreshTokenCookie.Field()
+
+	# chat 관련 mutation
+	# chat_send = 

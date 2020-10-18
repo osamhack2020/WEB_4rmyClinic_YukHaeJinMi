@@ -104,8 +104,8 @@ class Like(models.Model):
 
 
 class Counsel(models.Model):
-  counselor = models.OneToOneField(User, on_delete=models.PROTECT, related_name="%(class)s_counselor")
-  client = models.OneToOneField(User, on_delete=models.PROTECT, related_name="%(class)s_client")
+  counselor = models.ForeignKey(User, on_delete=models.PROTECT, related_name="%(class)s_counselor")
+  client = models.ForeignKey(User, on_delete=models.PROTECT, related_name="%(class)s_client")
   status = models.IntegerField(default=0) # 0 : 시작 전, 1: 진행 중, 2: 완료
 
 class Chat(models.Model):
