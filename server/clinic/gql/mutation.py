@@ -144,15 +144,14 @@ class ChatSend(relay.ClientIDMutation):
 	@classmethod
 	@login_required
 	def mutate(cls, root, info, input):
-		counselID = from_global_id(input.counsel_id)[1]
-		_counsel = Counsel.objects.get(pk=counselID)
+		_counsel = Counsel.objects.get(pk=from_global_id(input.counsel_id)[1])
 		_writer = info.context.user
 		_chat = Chat(counsel=_counsel, writer=_writer, content=input.content)
 		_chat.save()
 
+		counselID = input.counsel_id
 		senderID = _writer.id
-		print("will announce")
-		MessageSent.announce(counselID,senderID, input.content)
+		MessageSent.announce(counselID, senderID, input.content)
 		_chat_edge = CounselChatConnection.Edge(cursor = offset_to_cursor(Chat.objects.count()), node=_chat)
 		return ChatSend(chat_edge=_chat_edge)
 

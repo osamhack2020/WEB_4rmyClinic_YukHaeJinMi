@@ -3,13 +3,12 @@ from channels_graphql_ws import Subscription
 
 class MessageSent(Subscription):
   senderID = ID()
-  message = String()
+  content = String()
 
   class Arguments:
     counselID = ID(required=True)
   
   def subscribe(root, info, counselID):
-    print("subscribed group id : ",counselID)
     return [counselID]
   
   def publish(payload, info, counselID):
@@ -17,7 +16,6 @@ class MessageSent(Subscription):
   
   @classmethod
   def announce(cls, counselID, senderID, content):
-    print("announce!! : ",counselID, senderID, content)
     cls.broadcast(
       group=counselID,
       payload={"senderID": senderID, "content": content}
