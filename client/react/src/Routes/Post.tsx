@@ -78,7 +78,7 @@ export function Post(props: RouteComponentProps<postParams>) {
                     )}
                     <div className="indicator">좋아요 : {props?.post?.likes}개</div>
                     <div className="return-btn">
-                      <button onClick={() => { viewer && likeCreate({ userId: viewer.id, postId }); }}>쪼아요</button>
+                      <button onClick={() => { viewer && likeCreate({ postId }); }}>쪼아요</button>
                     </div>
                   </div>
                   <hr />

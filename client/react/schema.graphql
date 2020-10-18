@@ -23,6 +23,17 @@ type ChatNodeEdge {
   cursor: String!
 }
 
+input ChatSendInput {
+  counselId: ID!
+  content: String!
+  clientMutationId: String
+}
+
+type ChatSendPayload {
+  chatEdge: CounselChatEdge
+  clientMutationId: String
+}
+
 type CommentNode implements Node {
   id: ID!
   user: UserNode!
@@ -42,12 +53,37 @@ type CommentNodeEdge {
   cursor: String!
 }
 
+type CounselChatEdge {
+  node: ChatNode
+  cursor: String!
+}
+
 type CounselNode implements Node {
   id: ID!
   counselor: UserNode!
   client: UserNode!
   status: Int!
   chatSet(before: String, after: String, first: Int, last: Int): ChatNodeConnection!
+}
+
+type CounselNodeConnection {
+  pageInfo: PageInfo!
+  edges: [CounselNodeEdge]!
+}
+
+type CounselNodeEdge {
+  node: CounselNode
+  cursor: String!
+}
+
+type CounselorConnection {
+  pageInfo: PageInfo!
+  edges: [CounselorEdge]!
+}
+
+type CounselorEdge {
+  node: UserNode
+  cursor: String!
 }
 
 scalar Date
@@ -75,7 +111,6 @@ type DeleteRefreshTokenCookiePayload {
 scalar GenericScalar
 
 input LikeCreateInput {
-  userId: String!
   postId: String!
   clientMutationId: String
 }
@@ -107,8 +142,8 @@ type LikeNodeEdge {
 }
 
 type MessageSent {
-  senderID: ID!
-  message: String!
+  senderID: ID
+  content: String
 }
 
 type Mutation {
@@ -121,6 +156,7 @@ type Mutation {
   revokeToken(input: RevokeInput!): RevokePayload
   deleteTokenCookie(input: DeleteJSONWebTokenCookieInput!): DeleteJSONWebTokenCookiePayload
   deleteRefreshTokenCookie(input: DeleteRefreshTokenCookieInput!): DeleteRefreshTokenCookiePayload
+  chatSend(input: ChatSendInput!): ChatSendPayload
 }
 
 interface Node {
@@ -202,9 +238,10 @@ type Query {
   tag(id: ID!): TagNode
   counsel(id: ID!): CounselNode
   chat(id: ID!): ChatNode
-  tags(before: String, after: String, first: Int, last: Int, name_Icontains: String): TagNodeConnection
-  posts(before: String, after: String, first: Int, last: Int): PostConnection
   users(before: String, after: String, first: Int, last: Int, email_Icontains: String, division_Icontains: String, rank_Icontains: String, isCounselor: Boolean): UserNodeConnection
+  tags(name_Icontains: String, before: String, after: String, first: Int, last: Int): TagConnection
+  posts(before: String, after: String, first: Int, last: Int): PostConnection
+  counselors(before: String, after: String, first: Int, last: Int): CounselorConnection
   getUserFromEmail(email: String!): UserNode
 }
 
@@ -232,7 +269,17 @@ type RevokePayload {
 }
 
 type Subscription {
-  messageSent(counselID: ID): MessageSent
+  messageSent(counselID: ID!): MessageSent
+}
+
+type TagConnection {
+  pageInfo: PageInfo!
+  edges: [TagEdge]!
+}
+
+type TagEdge {
+  node: TagNode
+  cursor: String!
 }
 
 type TagNode implements Node {
@@ -287,6 +334,8 @@ type UserNode implements Node {
   postSet(before: String, after: String, first: Int, last: Int, created_Gte: Date, created_Lte: Date, title_Icontains: String, content_Icontains: String): PostNodeConnection!
   commentSet(before: String, after: String, first: Int, last: Int): CommentNodeConnection!
   likeSet(before: String, after: String, first: Int, last: Int): LikeNodeConnection!
+  counselCounselor(before: String, after: String, first: Int, last: Int): CounselNodeConnection!
+  counselClient(before: String, after: String, first: Int, last: Int): CounselNodeConnection!
   chatSet(before: String, after: String, first: Int, last: Int): ChatNodeConnection!
 }
 

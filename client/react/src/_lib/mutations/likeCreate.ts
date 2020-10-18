@@ -3,8 +3,8 @@ import environment from "../environment";
 import { likeCreateMutation, likeCreateMutationVariables } from "./__generated__/likeCreateMutation.graphql";
 
 const mutation = graphql`
-mutation likeCreateMutation($userId: String!, $postId: String!) {
-  likeCreate(input: {userId: $userId, postId: $postId}) {
+mutation likeCreateMutation($postId: String!) {
+  likeCreate(input: {postId: $postId}) {
     likeEdge {
       node {
         id
@@ -24,7 +24,7 @@ export function likeCreate(variables: likeCreateMutationVariables) {
           resolve(false);
           alert("이미 좋아요를 눌리셨습니다.");
         } else {
-          console.log("likeCreated ID : ", res.likeCreate?.likeEdge?.node?.id); 
+          console.log("likeCreated ID : ", res.likeCreate?.likeEdge?.node?.id);
           resolve(true);
         }
       },
