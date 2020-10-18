@@ -86,7 +86,7 @@ class Query(ObjectType):
     user = User.objects.get_by_natural_key(email)
     return user
 
-  def resolve_posts(parent, info, first, after=None):
+  def resolve_posts(parent, info, first=None, after=None):
     # 상담사만이 비밀글을 볼 수 있다.
     hasPerm = info.context.user.is_counselor
     if hasPerm:

@@ -48,10 +48,6 @@ class UserCreate(relay.ClientIDMutation):
 		else:
 			raise GraphQLError("CreateUser error : Password Incorrect")
 
-# class Post_Edge(ObjectType):
-# 	node = Field(PostNode)
-# 	cursor = String()
-
 class PostCreate(relay.ClientIDMutation):
 	post_edge = Field(PostConnection.Edge)
 
