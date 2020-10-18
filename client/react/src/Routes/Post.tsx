@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from "../Components/AuthContextProvider";
 import { PostQuery } from "./__generated__/PostQuery.graphql";
 import "../scss/Post.scss";
+import { likeCreate } from "../_lib/mutations";
 
 type postParams = {
   id: string,
@@ -25,13 +26,26 @@ export function Post(props: RouteComponentProps<postParams>) {
                   post(id: $id) {
                     title
                     content
+                    likes
+                    id
                     author: user {
                       email
+                    }
+                    commentSet {
+                    	edges {
+                    		comment: node {
+                    			content
+                    			created
+                    			user {
+                    				nickname
+                    			}
+                    		}
+                    	}
                     }
                     tagSet(first: 5) {
                       edges {
                         cursor
-                        node {
+                        tag: node {
                           name
                         }
                       }
@@ -40,7 +54,8 @@ export function Post(props: RouteComponentProps<postParams>) {
                 }
                 `}
           render={({ props, error, retry }) => {
-
+            const tags = props?.post?.tagSet?.edges;
+            const comments = props?.post?.commentSet?.edges;
             return (
               <div className="Post-root">
                 <div className="return-btn">
@@ -56,15 +71,25 @@ export function Post(props: RouteComponentProps<postParams>) {
                 </div>
                 <div className="Post-underbox">
                   <div className="side-box">
-                    <div className="tags">#고민 #상담</div>
-                    <div className="indicator">좋아요 : 10개</div>
+                    {tags && tags.map((e) =>
+                      <div className="tags">
+                        #{e?.tag?.name}
+                      </div>
+                    )}
+                    <div className="indicator">좋아요 : {props?.post?.likes}개</div>
+                    <div className="return-btn">
+                      <button onClick={() => { viewer && likeCreate({ userId: viewer.id, postId }); }}>쪼아요</button>
+                    </div>
                   </div>
                   <hr />
-                  <div className="comment-container"> {/*pagenation*/}
-                    <div className="comment">
-                      <h4>익명용사348</h4>
-                      <p>이게 댓글이구만유</p>
-                    </div>
+                  <div className="comment-container"> {/*pagination*/}
+                    {comments && comments.map((e) =>
+                      <div className="comment">
+                        <h4>{e?.comment?.user?.nickname}</h4>
+                        <p>{e?.comment?.content}</p>
+                        {/*<p>{e?.comment?.created}</p>*/} {/*Add Created Time*/}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

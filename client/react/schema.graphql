@@ -1,6 +1,7 @@
 schema {
   query: Query
   mutation: Mutation
+  subscription: Subscription
 }
 
 type ChatNode implements Node {
@@ -73,6 +74,22 @@ type DeleteRefreshTokenCookiePayload {
 
 scalar GenericScalar
 
+input LikeCreateInput {
+  userId: String!
+  postId: String!
+  clientMutationId: String
+}
+
+type LikeCreatePayload {
+  likeEdge: LikeEdge
+  clientMutationId: String
+}
+
+type LikeEdge {
+  node: LikeNode
+  cursor: String
+}
+
 type LikeNode implements Node {
   id: ID!
   user: UserNode!
@@ -89,9 +106,15 @@ type LikeNodeEdge {
   cursor: String!
 }
 
+type MessageSent {
+  senderID: ID!
+  message: String!
+}
+
 type Mutation {
   userCreate(input: UserCreateInput!): UserCreatePayload
   postCreate(input: PostCreateInput!): PostCreatePayload
+  likeCreate(input: LikeCreateInput!): LikeCreatePayload
   authToken(input: ObtainJSONWebTokenInput!): ObtainJSONWebTokenPayload
   verifyToken(input: VerifyInput!): VerifyPayload
   refreshToken(input: RefreshInput!): RefreshPayload
@@ -126,6 +149,11 @@ type PageInfo {
   endCursor: String
 }
 
+type PostConnection {
+  pageInfo: PageInfo!
+  edges: [PostEdge]!
+}
+
 input PostCreateInput {
   title: String!
   content: String!
@@ -141,7 +169,7 @@ type PostCreatePayload {
 
 type PostEdge {
   node: PostNode
-  cursor: String
+  cursor: String!
 }
 
 type PostNode implements Node {
@@ -154,6 +182,7 @@ type PostNode implements Node {
   tagSet(before: String, after: String, first: Int, last: Int, name_Icontains: String): TagNodeConnection!
   commentSet(before: String, after: String, first: Int, last: Int): CommentNodeConnection!
   likeSet(before: String, after: String, first: Int, last: Int): LikeNodeConnection!
+  likes: Int
 }
 
 type PostNodeConnection {
@@ -174,7 +203,7 @@ type Query {
   counsel(id: ID!): CounselNode
   chat(id: ID!): ChatNode
   tags(before: String, after: String, first: Int, last: Int, name_Icontains: String): TagNodeConnection
-  posts(before: String, after: String, first: Int, last: Int, created_Gte: Date, created_Lte: Date, title_Icontains: String, content_Icontains: String): PostNodeConnection
+  posts(before: String, after: String, first: Int, last: Int): PostConnection
   users(before: String, after: String, first: Int, last: Int, email_Icontains: String, division_Icontains: String, rank_Icontains: String, isCounselor: Boolean): UserNodeConnection
   getUserFromEmail(email: String!): UserNode
 }
@@ -200,6 +229,10 @@ input RevokeInput {
 type RevokePayload {
   revoked: Int!
   clientMutationId: String
+}
+
+type Subscription {
+  messageSent(counselID: ID): MessageSent
 }
 
 type TagNode implements Node {
@@ -254,6 +287,7 @@ type UserNode implements Node {
   postSet(before: String, after: String, first: Int, last: Int, created_Gte: Date, created_Lte: Date, title_Icontains: String, content_Icontains: String): PostNodeConnection!
   commentSet(before: String, after: String, first: Int, last: Int): CommentNodeConnection!
   likeSet(before: String, after: String, first: Int, last: Int): LikeNodeConnection!
+  chatSet(before: String, after: String, first: Int, last: Int): ChatNodeConnection!
 }
 
 type UserNodeConnection {

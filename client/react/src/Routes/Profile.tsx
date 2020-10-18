@@ -17,6 +17,7 @@ export function Profile(props: RouteComponentProps) {
   					edges {
 							cursor
   						post: node {
+  							id
   							title
   							content
   							commentSet {
@@ -25,6 +26,9 @@ export function Profile(props: RouteComponentProps) {
   										content
   									}
   								}
+  							}
+  							user {
+  								id
   							}
   						}
   					}

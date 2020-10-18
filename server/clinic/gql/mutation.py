@@ -12,9 +12,11 @@ from graphql_jwt.decorators import login_required
 from .auth import ObtainJSONWebToken
 
 from .models import User, Post, Comment, Like, Tag
-from .query import UserNode, PostNode, CommentNode, LikeNode, TagNode
+from .query import UserNode, PostNode, CommentNode, LikeNode, TagNode, PostConnection
 
 from api.models import Image
+
+from graphql_relay.node.node import from_global_id
 
 class UserCreate(relay.ClientIDMutation):
 	ok=Boolean()
@@ -48,12 +50,8 @@ class UserCreate(relay.ClientIDMutation):
 		else:
 			raise GraphQLError("CreateUser error : Password Incorrect")
 
-class PostEdge(ObjectType):
-	node = Field(PostNode)
-	cursor = String()
-
 class PostCreate(relay.ClientIDMutation):
-	post_edge = Field(PostEdge)
+	post_edge = Field(PostConnection.Edge)
 
 	class Input:
 		title = String(required=True)
@@ -83,10 +81,40 @@ class PostCreate(relay.ClientIDMutation):
 				else:
 					_tag = Tag.objects.get(name=tag)
 					_tag.posts.add(_post)
-			_post_edge = PostEdge(cursor = offset_to_cursor(Post.objects.count()), node=_post)
+			_post_edge = PostConnection.Edge(cursor = offset_to_cursor(Post.objects.count()), node=_post)
 			return PostCreate(post_edge=_post_edge)
 		except Exception as err:
 			raise GraphQLError("PostCreate err")
+
+class LikeEdge(ObjectType):
+	node = Field(LikeNode)
+	cursor = String()
+
+class LikeCreate(relay.ClientIDMutation):
+	like_edge = Field(LikeEdge)
+
+	class Input:
+		userId = String(required=True)
+		postId = String(required=True)
+
+	@classmethod
+	@login_required
+	def mutate(cls, root, info, input):
+		try:
+			_userId = from_global_id(input.userId)
+			_postId = from_global_id(input.postId)
+			_user = User.objects.get(id=_userId[1])
+			_post = Post.objects.get(id=_postId[1])
+			likeAlreadyExists = Like.objects.filter(user=_user, post=_post).exists()
+			if not likeAlreadyExists:
+				_like = Like(user=_user, post=_post)
+				_like.save()
+				_like_edge = LikeEdge(cursor=offset_to_cursor(Like.objects.count()), node=_like)
+				return LikeCreate(like_edge=_like_edge)
+			else:
+				raise GraphQLError("{user} already liked this post.".format(user=_user.email))
+		except Exception as err:
+			raise GraphQLError(err)
 
 
 # api.upload_profile 이후에 실행되는 것이 보장되어야 한다.
@@ -108,10 +136,22 @@ class UserProfileImgSet(relay.ClientIDMutation):
 		except Exception as err:
 			raise GraphQLError("UserProfileImgSet err : ", err)
 
+# class ChatSend(relay.ClientIDMutation):
+# 	chat_edge = Field()
+# 	class Input:
+# 		groupID = ID()
+# 		senderID = ID()
+	
+# 	@classmethod
+# 	@login_required
+# 	def mutate(cls, root, info, input):
+# 		pass
+
 class Mutation(AbstractType):
 	user_create = UserCreate.Field()
 	# user_profile_img_set = UserProfileImgSet.Field()
 	post_create = PostCreate.Field()
+	like_create = LikeCreate.Field()
 
 	# token 관련 mutation
 	auth_token = ObtainJSONWebToken.Field()
@@ -120,3 +160,6 @@ class Mutation(AbstractType):
 	revoke_token = graphql_jwt.relay.Revoke.Field()
 	delete_token_cookie = graphql_jwt.relay.DeleteJSONWebTokenCookie.Field()
 	delete_refresh_token_cookie = graphql_jwt.relay.DeleteRefreshTokenCookie.Field()
+
+	# chat 관련 mutation
+	# chat_send = 

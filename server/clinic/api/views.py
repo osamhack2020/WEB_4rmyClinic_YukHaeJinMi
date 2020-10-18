@@ -22,8 +22,6 @@ def upload_profile(request):
       img = Image(uploader=user, img=img)
       img.save()
 
-      print(dir(img.img))
-      # print("@@@@", img.img.name)
       user.imgUri = "/media/" + img.img.name
       user.save()
 

@@ -45,7 +45,12 @@ INSTALLED_APPS = [
     'django_filters',
     'corsheaders',
     'graphql_jwt.refresh_token.apps.RefreshTokenConfig',
+    'channels',
+    'channels_graphql_ws'
 ]
+
+ASGI_APPLICATION = "clinic.routing.application"
+CHANNEL_LAYERS = {"default": {"BACKEND": "channels.layers.InMemoryChannelLayer"}}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
