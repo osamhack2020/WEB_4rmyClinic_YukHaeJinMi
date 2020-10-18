@@ -4,6 +4,7 @@ from graphene_django.filter import DjangoFilterConnectionField
 
 from graphql_relay import from_global_id
 
+from django.db.models import Q
 from .models import User, Post, Comment, Like, Tag, Counsel, Chat
 
 from api.models import Image
@@ -94,12 +95,17 @@ class Query(ObjectType):
 
   def resolve_posts(parent, info, first=None, after=None):
     # 상담사만이 비밀글을 볼 수 있다.
-    hasPerm = info.context.user.is_counselor
-    if hasPerm:
-      posts = Post.objects.all()
+    try:
+      hasPerm = info.context.user.is_counselor
+      print(info.context.user.id)
+      if hasPerm:
+        posts = Post.objects.all()
+        return posts
+        
+      # 공개되어있는 글이거나 자신이 쓴 글만 볼 수 있도록 한다.
+      posts = Post.objects.filter(Q(is_private__exact=False) | Q(user_id__exact=info.context.user.id))
       return posts
-    posts = Post.objects.exclude(is_private=True)
-    return posts
+    except Exception as err:
+      print("resolve posts err : ",err)
+      return None
     
-    
-
