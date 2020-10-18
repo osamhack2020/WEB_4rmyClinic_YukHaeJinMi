@@ -1,4 +1,4 @@
-from graphene import relay, ObjectType, String, Field
+from graphene import relay, ObjectType, String, Field, Int
 from graphene_django.types import DjangoObjectType
 from graphene_django.filter import DjangoFilterConnectionField
 from .models import User, Post, Comment, Like, Tag, Counsel, Chat
@@ -57,6 +57,16 @@ class ChatNode(DjangoObjectType):
     model=Chat
     interfaces = (relay.Node, )
 
+class TagConnection(relay.Connection):
+  class Meta:
+    node = TagNode
+
+class PostConnection(relay.Connection):
+  likes = Int()
+  class Meta:
+    node = PostNode
+
+
 class Query(ObjectType):
   node = relay.Node.Field()
   user = relay.Node.Field(UserNode)
@@ -66,7 +76,8 @@ class Query(ObjectType):
   chat = relay.Node.Field(ChatNode)
 
   tags = DjangoFilterConnectionField(TagNode)
-  posts = DjangoFilterConnectionField(PostNode)
+  # posts = DjangoFilterConnectionField(PostNode)
+  posts = relay.ConnectionField(PostConnection)
   users = DjangoFilterConnectionField(UserNode)
 
   get_user_from_email = Field(UserNode, email=String(required=True))
@@ -74,4 +85,15 @@ class Query(ObjectType):
   def resolve_get_user_from_email(parent, info, email):
     user = User.objects.get_by_natural_key(email)
     return user
+
+  def resolve_posts(parent, info, first, after=None):
+    # 상담사만이 비밀글을 볼 수 있다.
+    hasPerm = info.context.user.is_counselor
+    if hasPerm:
+      posts = Post.objects.all()
+      return posts
+    posts = Post.objects.exclude(is_private=True)
+    return posts
+    
+    
 

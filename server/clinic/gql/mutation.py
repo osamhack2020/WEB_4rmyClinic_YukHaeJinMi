@@ -12,7 +12,7 @@ from graphql_jwt.decorators import login_required
 from .auth import ObtainJSONWebToken
 
 from .models import User, Post, Comment, Like, Tag
-from .query import UserNode, PostNode, CommentNode, LikeNode, TagNode
+from .query import UserNode, PostNode, CommentNode, LikeNode, TagNode, PostConnection
 
 from api.models import Image
 
@@ -48,12 +48,12 @@ class UserCreate(relay.ClientIDMutation):
 		else:
 			raise GraphQLError("CreateUser error : Password Incorrect")
 
-class PostEdge(ObjectType):
-	node = Field(PostNode)
-	cursor = String()
+# class Post_Edge(ObjectType):
+# 	node = Field(PostNode)
+# 	cursor = String()
 
 class PostCreate(relay.ClientIDMutation):
-	post_edge = Field(PostEdge)
+	post_edge = Field(PostConnection.Edge)
 
 	class Input:
 		title = String(required=True)
@@ -83,7 +83,7 @@ class PostCreate(relay.ClientIDMutation):
 				else:
 					_tag = Tag.objects.get(name=tag)
 					_tag.posts.add(_post)
-			_post_edge = PostEdge(cursor = offset_to_cursor(Post.objects.count()), node=_post)
+			_post_edge = PostConnection.Edge(cursor = offset_to_cursor(Post.objects.count()), node=_post)
 			return PostCreate(post_edge=_post_edge)
 		except Exception as err:
 			raise GraphQLError("PostCreate err")
