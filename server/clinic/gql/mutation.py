@@ -11,8 +11,9 @@ import graphql_jwt
 from graphql_jwt.decorators import login_required
 from .auth import ObtainJSONWebToken
 
-from .models import User, Post, Comment, Like, Tag
-from .query import UserNode, PostNode, CommentNode, LikeNode, TagNode, PostConnection
+from .models import User, Post, Comment, Like, Tag, Counsel, Chat
+from .query import UserNode, PostNode, CommentNode, LikeNode, TagNode, PostConnection, CounselChatConnection
+from .subscription import MessageSent
 
 from api.models import Image
 
@@ -94,17 +95,15 @@ class LikeCreate(relay.ClientIDMutation):
 	like_edge = Field(LikeEdge)
 
 	class Input:
-		userId = String(required=True)
-		postId = String(required=True)
+		post_id = String(required=True)
 
 	@classmethod
 	@login_required
 	def mutate(cls, root, info, input):
 		try:
-			_userId = from_global_id(input.userId)
-			_postId = from_global_id(input.postId)
-			_user = User.objects.get(id=_userId[1])
-			_post = Post.objects.get(id=_postId[1])
+			_postId = from_global_id(input.postId)[1]
+			_user = info.context.user
+			_post = Post.objects.get(id=_postId)
 			likeAlreadyExists = Like.objects.filter(user=_user, post=_post).exists()
 			if not likeAlreadyExists:
 				_like = Like(user=_user, post=_post)
@@ -136,16 +135,26 @@ class UserProfileImgSet(relay.ClientIDMutation):
 		except Exception as err:
 			raise GraphQLError("UserProfileImgSet err : ", err)
 
-# class ChatSend(relay.ClientIDMutation):
-# 	chat_edge = Field()
-# 	class Input:
-# 		groupID = ID()
-# 		senderID = ID()
+class ChatSend(relay.ClientIDMutation):
+	chat_edge = Field(CounselChatConnection.Edge)
+	class Input:
+		counsel_id = ID(required=True)
+		content = String(required=True)
 	
-# 	@classmethod
-# 	@login_required
-# 	def mutate(cls, root, info, input):
-# 		pass
+	@classmethod
+	@login_required
+	def mutate(cls, root, info, input):
+		counselID = from_global_id(input.counsel_id)[1]
+		_counsel = Counsel.objects.get(pk=counselID)
+		_writer = info.context.user
+		_chat = Chat(counsel=_counsel, writer=_writer, content=input.content)
+		_chat.save()
+
+		senderID = _writer.id
+		print("will announce")
+		MessageSent.announce(counselID,senderID, input.content)
+		_chat_edge = CounselChatConnection.Edge(cursor = offset_to_cursor(Chat.objects.count()), node=_chat)
+		return ChatSend(chat_edge=_chat_edge)
 
 class Mutation(AbstractType):
 	user_create = UserCreate.Field()
@@ -162,4 +171,4 @@ class Mutation(AbstractType):
 	delete_refresh_token_cookie = graphql_jwt.relay.DeleteRefreshTokenCookie.Field()
 
 	# chat 관련 mutation
-	# chat_send = 
+	chat_send = ChatSend.Field()
