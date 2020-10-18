@@ -4,7 +4,7 @@ from graphene_django.filter import DjangoFilterConnectionField
 
 from graphql_relay import from_global_id
 
-from django.db.models import Q
+from django.db.models import Q, Count
 from .models import User, Post, Comment, Like, Tag, Counsel, Chat
 
 from api.models import Image
@@ -82,8 +82,9 @@ class Query(ObjectType):
   counsel = relay.Node.Field(CounselNode)
   chat = relay.Node.Field(ChatNode)
 
-  tags = DjangoFilterConnectionField(TagNode)
+  # tags = DjangoFilterConnectionField(TagNode)
   # posts = DjangoFilterConnectionField(PostNode)
+  tags = relay.ConnectionField(TagConnection, name__icontains=String())
   posts = relay.ConnectionField(PostConnection)
   users = DjangoFilterConnectionField(UserNode)
 
@@ -107,4 +108,7 @@ class Query(ObjectType):
     except Exception as err:
       print("resolve posts err : ",err)
       return None
-    
+  
+  def resolve_tags(parent, info, first=None, after=None, name__icontains=""):
+    tags = Tag.objects.filter(name__icontains=name__icontains)
+    return tags
