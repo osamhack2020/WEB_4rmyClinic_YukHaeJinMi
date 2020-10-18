@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import (BaseUserManager, AbstractBaseUser)
 from django.utils import timezone
+from django.db.models import Count
 
 class UserManager(BaseUserManager):
   def create_user(self, email, password=None):
@@ -78,6 +79,12 @@ class Post(models.Model):
   is_private = models.BooleanField(default=False)
   def __str__(self):
     return self.title
+
+  def getLike(self):
+    allLikes = Post.objects.annotate(likes=Count('like'))
+    like = allLikes.filter(id=self.id).values('likes')
+    return like[0]['likes']
+    
 
 class Tag(models.Model):
   posts = models.ManyToManyField(Post, blank=True)

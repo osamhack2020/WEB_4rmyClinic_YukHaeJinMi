@@ -1,4 +1,4 @@
-from graphene import relay, ObjectType, String, Field
+from graphene import relay, ObjectType, String, Field, Int
 from graphene_django.types import DjangoObjectType
 from graphene_django.filter import DjangoFilterConnectionField
 from .models import User, Post, Comment, Like, Tag, Counsel, Chat
@@ -28,6 +28,11 @@ class PostNode(DjangoObjectType):
       'title': ['icontains'],
       'content': ['icontains'],
     }
+    
+  like = Int()
+  def resolve_like(self, info):
+    return self.getLike()
+
 
 class CommentNode(DjangoObjectType):
   class Meta:
@@ -74,4 +79,3 @@ class Query(ObjectType):
   def resolve_get_user_from_email(parent, info, email):
     user = User.objects.get_by_natural_key(email)
     return user
-

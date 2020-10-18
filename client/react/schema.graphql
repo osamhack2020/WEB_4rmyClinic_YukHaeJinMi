@@ -73,6 +73,22 @@ type DeleteRefreshTokenCookiePayload {
 
 scalar GenericScalar
 
+input LikeCreateInput {
+  userId: String!
+  postId: String!
+  clientMutationId: String
+}
+
+type LikeCreatePayload {
+  likeEdge: LikeEdge
+  clientMutationId: String
+}
+
+type LikeEdge {
+  node: LikeNode
+  cursor: String
+}
+
 type LikeNode implements Node {
   id: ID!
   user: UserNode!
@@ -92,6 +108,7 @@ type LikeNodeEdge {
 type Mutation {
   userCreate(input: UserCreateInput!): UserCreatePayload
   postCreate(input: PostCreateInput!): PostCreatePayload
+  likeCreate(input: LikeCreateInput!): LikeCreatePayload
   authToken(input: ObtainJSONWebTokenInput!): ObtainJSONWebTokenPayload
   verifyToken(input: VerifyInput!): VerifyPayload
   refreshToken(input: RefreshInput!): RefreshPayload
@@ -154,6 +171,7 @@ type PostNode implements Node {
   tagSet(before: String, after: String, first: Int, last: Int, name_Icontains: String): TagNodeConnection!
   commentSet(before: String, after: String, first: Int, last: Int): CommentNodeConnection!
   likeSet(before: String, after: String, first: Int, last: Int): LikeNodeConnection!
+  like: Int
 }
 
 type PostNodeConnection {
@@ -180,7 +198,7 @@ type Query {
 }
 
 input RefreshInput {
-  # refreshToken: String
+  refreshToken: String
   clientMutationId: String
 }
 
@@ -193,7 +211,7 @@ type RefreshPayload {
 }
 
 input RevokeInput {
-  # refreshToken: String
+  refreshToken: String
   clientMutationId: String
 }
 
@@ -254,6 +272,7 @@ type UserNode implements Node {
   postSet(before: String, after: String, first: Int, last: Int, created_Gte: Date, created_Lte: Date, title_Icontains: String, content_Icontains: String): PostNodeConnection!
   commentSet(before: String, after: String, first: Int, last: Int): CommentNodeConnection!
   likeSet(before: String, after: String, first: Int, last: Int): LikeNodeConnection!
+  chatSet(before: String, after: String, first: Int, last: Int): ChatNodeConnection!
 }
 
 type UserNodeConnection {
@@ -290,7 +309,7 @@ enum UserRank {
 }
 
 input VerifyInput {
-  # token: String
+  token: String
   clientMutationId: String
 }
 
