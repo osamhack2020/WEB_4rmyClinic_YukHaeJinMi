@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { RouteComponentProps } from "react-router";
 import { QueryRenderer, graphql } from "react-relay";
 import environment from "../_lib/environment";
@@ -7,7 +7,6 @@ import { AuthContext } from "../Components/AuthContextProvider";
 import { PostQuery } from "./__generated__/PostQuery.graphql";
 import "../scss/Post.scss";
 import { likeCreate } from "../_lib/mutations";
-import { likeCreateMutationVariables } from "../_lib/mutations/__generated__/likeCreateMutation.graphql";
 
 type postParams = {
   id: string,
@@ -16,13 +15,6 @@ type postParams = {
 export function Post(props: RouteComponentProps<postParams>) {
   const postId = props.match.params.id;
 
-  const [state, setState] = useState<likeCreateMutationVariables>({
-        userId: '',
-        postId: '',
-    });
-	{/* TODO
-	  * 로그인되어 있는 유저의 id 값을 받아 올 것.
-	*/}
   return (
     <AuthContext.Consumer>
       {({ viewer, }) =>
@@ -34,7 +26,7 @@ export function Post(props: RouteComponentProps<postParams>) {
                   post(id: $id) {
                     title
                     content
-                    like
+                    likes
                     id
                     author: user {
                       email
@@ -62,8 +54,8 @@ export function Post(props: RouteComponentProps<postParams>) {
                 }
                 `}
           render={({ props, error, retry }) => {
-          	const tags = props?.post?.tagSet?.edges;
-          	const comments = props?.post?.commentSet?.edges;
+            const tags = props?.post?.tagSet?.edges;
+            const comments = props?.post?.commentSet?.edges;
             return (
               <div className="Post-root">
                 <div className="return-btn">
@@ -79,28 +71,25 @@ export function Post(props: RouteComponentProps<postParams>) {
                 </div>
                 <div className="Post-underbox">
                   <div className="side-box">
-                    {tags && tags.map((e)=>
-                    	<div className="tags">
-                    		#{e?.tag?.name}
-                    	</div>
+                    {tags && tags.map((e) =>
+                      <div className="tags">
+                        #{e?.tag?.name}
+                      </div>
                     )}
-                    <div className="indicator">좋아요 : {props?.post?.like}개</div>
+                    <div className="indicator">좋아요 : {props?.post?.likes}개</div>
                     <div className="return-btn">
-                  <button /*onClick={ () => {
-                  	setState({ userId: props?.post?.author?.id!, postId: props?.post?.id! });
-                  	likeCreate({...state});
-                   }}*/>쪼아요</button>
-                </div>
+                      <button onClick={() => { viewer && likeCreate({ userId: viewer.id, postId }); }}>쪼아요</button>
+                    </div>
                   </div>
                   <hr />
                   <div className="comment-container"> {/*pagination*/}
-                  {comments && comments.map((e) =>
-                  	<div className="comment">
-                      <h4>{e?.comment?.user?.nickname}</h4>
-                      <p>{e?.comment?.content}</p>
-                      {/*<p>{e?.comment?.created}</p>*/} {/*Add Created Time*/}
-                    </div>
-                  )}
+                    {comments && comments.map((e) =>
+                      <div className="comment">
+                        <h4>{e?.comment?.user?.nickname}</h4>
+                        <p>{e?.comment?.content}</p>
+                        {/*<p>{e?.comment?.created}</p>*/} {/*Add Created Time*/}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

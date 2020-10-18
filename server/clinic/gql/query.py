@@ -97,7 +97,6 @@ class Query(ObjectType):
     # 상담사만이 비밀글을 볼 수 있다.
     try:
       hasPerm = info.context.user.is_counselor
-      print(info.context.user.id)
       if hasPerm:
         posts = Post.objects.all()
         return posts
