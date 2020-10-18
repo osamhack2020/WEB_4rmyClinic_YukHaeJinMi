@@ -32,7 +32,7 @@ func main() {
 	staticHandler := http.FileServer(http.Dir(envStaticDir))
 
 	mux.Handle("/", craHandler)
-	routes := []string{"/about", "/signin", "/signup", "/profile", "/counselors", "/csabout", "/post"}
+	routes := []string{"/about", "/signin", "/signup", "/profile", "/counselors", "/counselor", "/posts", "/post"}
 	for _, route := range routes {
 		mux.Handle(route, rh)
 	}
