@@ -2,23 +2,25 @@ from graphene import ID, String, ObjectType
 from channels_graphql_ws import Subscription
 
 class MessageSent(Subscription):
-  senderID = ID(required=True)
-  message = String(required=True)
+  senderID = ID()
+  message = String()
 
   class Arguments:
-    counselID = ID()
+    counselID = ID(required=True)
   
   def subscribe(root, info, counselID):
+    print("subscribed group id : ",counselID)
     return [counselID]
   
   def publish(payload, info, counselID):
-    return MessageSent(senderID=payload["senderID"], message=payload["message"])
+    return MessageSent(senderID=payload["senderID"], content=payload["content"])
   
   @classmethod
-  def announce(cls, counselID, senderID, message):
+  def announce(cls, counselID, senderID, content):
+    print("announce!! : ",counselID, senderID, content)
     cls.broadcast(
       group=counselID,
-      payload={"senderID": senderID, "message": message}
+      payload={"senderID": senderID, "content": content}
     )
 
 class Subscription(ObjectType):

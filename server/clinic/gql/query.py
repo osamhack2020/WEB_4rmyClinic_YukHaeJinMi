@@ -15,7 +15,7 @@ class UserNode(DjangoObjectType):
   class Meta:
     model = User
     interfaces = (relay.Node,)
-    exclude = ("is_admin", "password", "is_active", "counsel_counselor", "counsel_client")
+    exclude = ("is_admin", "password", "is_active") # , "counsel_counselor", "counsel_client"
     filter_fields = {
       'email': ['icontains'],
       'division': ['icontains'],
@@ -55,14 +55,18 @@ class TagNode(DjangoObjectType):
       'name': ['icontains'],
     }
 
-class CounselNode(DjangoObjectType):
-  class Meta:
-    model=Counsel
-    interfaces = (relay.Node, )
-
 class ChatNode(DjangoObjectType):
   class Meta:
     model=Chat
+    interfaces = (relay.Node, )
+
+class CounselChatConnection(relay.Connection):
+  class Meta:
+    node = ChatNode
+
+class CounselNode(DjangoObjectType):
+  class Meta:
+    model=Counsel
     interfaces = (relay.Node, )
 
 class TagConnection(relay.Connection):
@@ -73,6 +77,9 @@ class PostConnection(relay.Connection):
   class Meta:
     node = PostNode
 
+class CounselorConnection(relay.Connection):
+  class Meta:
+    node = UserNode
 
 class Query(ObjectType):
   node = relay.Node.Field()
@@ -82,18 +89,15 @@ class Query(ObjectType):
   counsel = relay.Node.Field(CounselNode)
   chat = relay.Node.Field(ChatNode)
 
-  # tags = DjangoFilterConnectionField(TagNode)
-  # posts = DjangoFilterConnectionField(PostNode)
+  users = DjangoFilterConnectionField(UserNode) # TODO : delete this field
+
+  ############### CUSTOM CONNECTIONS ###############
   tags = relay.ConnectionField(TagConnection, name__icontains=String())
+  def resolve_tags(parent, info, first=None, after=None, name__icontains=""):
+    tags = Tag.objects.filter(name__icontains=name__icontains)
+    return tags
+
   posts = relay.ConnectionField(PostConnection)
-  users = DjangoFilterConnectionField(UserNode)
-
-  get_user_from_email = Field(UserNode, email=String(required=True))
-  @login_required
-  def resolve_get_user_from_email(parent, info, email):
-    user = User.objects.get_by_natural_key(email)
-    return user
-
   def resolve_posts(parent, info, first=None, after=None):
     # 상담사만이 비밀글을 볼 수 있다.
     try:
@@ -108,7 +112,16 @@ class Query(ObjectType):
     except Exception as err:
       print("resolve posts err : ",err)
       return None
+
+  counselors = relay.ConnectionField(CounselorConnection)
+  def resolve_counselors(parent, info):
+    counselors = User.objects.filter(is_counselor=True)
+    return counselors
+
+  get_user_from_email = Field(UserNode, email=String(required=True))
+  @login_required
+  def resolve_get_user_from_email(parent, info, email):
+    user = User.objects.get_by_natural_key(email)
+    return user
+
   
-  def resolve_tags(parent, info, first=None, after=None, name__icontains=""):
-    tags = Tag.objects.filter(name__icontains=name__icontains)
-    return tags
