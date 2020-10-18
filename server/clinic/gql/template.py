@@ -56,7 +56,7 @@ def render_graphql(request):
   <script>window.addEventListener('load', function (event) {
       GraphQLPlayground.init(document.getElementById('root'), {
         endpoint: '/graphql/',
-        // subscriptionEndpoint: '/graphql/',
+        subscriptionEndpoint: '/graphql/',
       })
     })</script>
 </body>
