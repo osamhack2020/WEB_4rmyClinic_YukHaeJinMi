@@ -12,7 +12,7 @@ from graphql_jwt.decorators import login_required
 from .auth import ObtainJSONWebToken
 
 from .models import User, Post, Comment, Like, Tag, Counsel, Chat
-from .query import UserNode, PostNode, CommentNode, LikeNode, TagNode, PostConnection, CounselChatConnection
+from .query import UserNode, PostNode, CommentNode, LikeNode, TagNode, PostConnection, CounselNode, CounselChatConnection
 from .subscription import MessageSent
 
 from api.models import Image
@@ -155,6 +155,42 @@ class ChatSend(relay.ClientIDMutation):
 		_chat_edge = CounselChatConnection.Edge(cursor = offset_to_cursor(Chat.objects.count()), node=_chat)
 		return ChatSend(chat_edge=_chat_edge)
 
+# TODO : 한사람이 여러 상담사에게 상담을 요청하는 것은 막아야할 필요가 있을 수도 있음
+class CounselStart(relay.ClientIDMutation):
+	counsel = Field(CounselNode)
+	class Input:
+		counselor_id = ID(required=True)
+
+	@classmethod
+	@login_required
+	def mutate(cls, root, info, input):
+		try:
+			_client = info.context.user
+			_counselor = User.objects.get(pk=from_global_id(input.counselor_id)[1])
+			_counsel = Counsel(counselor = _counselor, client = _client, status=1)
+			_counsel.save()
+			return CounselStart(counsel = _counsel)
+		except Exception as err:
+			raise GraphQLError("counsel start error : ", err)
+
+class CounselStatusUpdate(relay.ClientIDMutation):
+	counsel = Field(CounselNode)
+	class Input:
+		counsel_id = ID(required=True)
+		status = Int(required=True) # 0 : 시작 전 ,1 : 진행 중, 2 : 상담 종료
+
+	@classmethod
+	@login_required
+	def mutate(cls, root, info, input):
+		try:
+			_counsel = Counsel.objects.get(pk=from_global_id(input.counsel_id)[1])
+			# _counsel.status == input.status 일지라도 우선 그냥 변경
+			_counsel.status = input.status
+			_counsel.save()
+			return CounselStatusUpdate(counsel = _counsel)
+		except Exception as err:
+			raise GraphQLError("chat status update error : ", err)
+
 class Mutation(AbstractType):
 	user_create = UserCreate.Field()
 	# user_profile_img_set = UserProfileImgSet.Field()
@@ -171,3 +207,7 @@ class Mutation(AbstractType):
 
 	# chat 관련 mutation
 	chat_send = ChatSend.Field()
+
+	# counsel 관련 mutation
+	counsel_start = CounselStart.Field()
+	counsel_status_update = CounselStatusUpdate.Field()
