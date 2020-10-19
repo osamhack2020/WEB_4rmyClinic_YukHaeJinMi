@@ -76,6 +76,27 @@ type CounselNodeEdge {
   cursor: String!
 }
 
+input CounselStartInput {
+  counselorId: ID!
+  clientMutationId: String
+}
+
+type CounselStartPayload {
+  counsel: CounselNode
+  clientMutationId: String
+}
+
+input CounselStatusUpdateInput {
+  counselId: ID!
+  status: Int!
+  clientMutationId: String
+}
+
+type CounselStatusUpdatePayload {
+  counsel: CounselNode
+  clientMutationId: String
+}
+
 type CounselorConnection {
   pageInfo: PageInfo!
   edges: [CounselorEdge]!
@@ -157,6 +178,8 @@ type Mutation {
   deleteTokenCookie(input: DeleteJSONWebTokenCookieInput!): DeleteJSONWebTokenCookiePayload
   deleteRefreshTokenCookie(input: DeleteRefreshTokenCookieInput!): DeleteRefreshTokenCookiePayload
   chatSend(input: ChatSendInput!): ChatSendPayload
+  counselStart(input: CounselStartInput!): CounselStartPayload
+  counselStatusUpdate(input: CounselStatusUpdateInput!): CounselStatusUpdatePayload
 }
 
 interface Node {
