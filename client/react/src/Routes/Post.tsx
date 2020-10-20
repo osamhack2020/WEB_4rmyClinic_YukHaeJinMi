@@ -7,6 +7,7 @@ import { AuthContext } from "../Components/AuthContextProvider";
 import { PostQuery } from "./__generated__/PostQuery.graphql";
 import "../scss/Post.scss";
 import { likeCreate } from "../_lib/mutations";
+import CommentsContainer from "../Components/CommentsContainer";
 
 type postParams = {
   id: string,
@@ -31,17 +32,9 @@ export function Post(props: RouteComponentProps<postParams>) {
                     author: user {
                       email
                     }
-                    commentSet {
-                    	edges {
-                    		comment: node {
-                    			content
-                    			created
-                    			user {
-                    				nickname
-                    			}
-                    		}
-                    	}
-                    }
+                    
+                    ...CommentsContainer_comments
+
                     tagSet(first: 5) {
                       edges {
                         cursor
@@ -55,7 +48,7 @@ export function Post(props: RouteComponentProps<postParams>) {
                 `}
           render={({ props, error, retry }) => {
             const tags = props?.post?.tagSet?.edges;
-            const comments = props?.post?.commentSet?.edges;
+
             return (
               <div className="Post-root">
                 <div className="return-btn">
@@ -82,15 +75,7 @@ export function Post(props: RouteComponentProps<postParams>) {
                     </div>
                   </div>
                   <hr />
-                  <div className="comment-container"> {/*pagination*/}
-                    {comments && comments.map((e) =>
-                      <div className="comment">
-                        <h4>{e?.comment?.user?.nickname}</h4>
-                        <p>{e?.comment?.content}</p>
-                        {/*<p>{e?.comment?.created}</p>*/} {/*Add Created Time*/}
-                      </div>
-                    )}
-                  </div>
+                  {props?.post && <CommentsContainer comments={props.post} />}
                 </div>
               </div>
             );

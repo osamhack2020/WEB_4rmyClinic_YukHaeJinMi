@@ -3,7 +3,7 @@ import { RouteComponentProps } from "react-router";
 import { Link } from 'react-router-dom';
 import { QueryRenderer, graphql } from "react-relay";
 import environment from "../_lib/environment";
-import CardContainer from "../Components/CardContainer";
+import CardContainerOnTag from "../Components/CardContainerOnTag";
 import { AuthContext } from "../Components/AuthContextProvider";
 import { PostsQuery } from "./__generated__/PostsQuery.graphql";
 import "../scss/Posts.scss";
@@ -20,18 +20,13 @@ export function Posts(props: RouteComponentProps) {
           variables={{ name: tag }}
           query={graphql`
                 query PostsQuery($name: String) {
-                  allTags: tags(first: 10) {
-                    edges {
-                      node {
-                        name
-                      }
-                    }
-                  }
                   tags(name_Icontains: $name) {
                     edges {
                       cursor
                       tag: node {
-                        ...CardContainer_cards
+                        id
+                        name
+                        ...CardContainerOnTag_cards
                       }
                     }
                   }
@@ -39,7 +34,6 @@ export function Posts(props: RouteComponentProps) {
                 }
                 `}
           render={({ props, error, retry }) => {
-            const allTags = props?.allTags?.edges;
             const tags = props?.tags?.edges;
             return (
               <div className="Posts-root">
@@ -50,8 +44,8 @@ export function Posts(props: RouteComponentProps) {
                     <p className="tag-card" onClick={() => setTag("")}>#전체</p>
 
                     {/* TODO : allTags reduce -> 태그 중복 제거 */}
-                    {allTags && allTags.map((edge) =>
-                      edge && <p className="tag-card" onClick={() => { edge?.node && setTag(edge.node.name) }}>#{edge.node?.name}</p>
+                    {tags && tags.map((edge) =>
+                      edge && <p className="tag-card" onClick={() => { edge?.tag && setTag(edge.tag.name) }}>#{edge.tag?.name}</p>
                     )}
                   </div>
                 </div>
@@ -63,7 +57,7 @@ export function Posts(props: RouteComponentProps) {
                   </div>
                   <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', }}>
                     {tags && tags.map((edge) => {
-                      return edge && edge.tag && <CardContainer cards={edge.tag} />
+                      return edge && edge.tag && <CardContainerOnTag cards={edge.tag} />
                     })}
                   </div>
                 </div>

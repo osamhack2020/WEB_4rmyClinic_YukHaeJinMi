@@ -2,15 +2,15 @@ import React from 'react';
 import { createPaginationContainer, Environment, graphql } from "react-relay";
 import Card from "../fragments/Card";
 import "../scss/CardContainer.scss";
-import { CardContainer_cards } from "./__generated__/CardContainer_cards.graphql";
+import { CardContainerOnTag_cards } from "./__generated__/CardContainerOnTag_cards.graphql";
 
-type CardContainer_Props = {
+type CardContainerOnTag_Props = {
   relay: {
     environment: Environment
   },
-  cards: CardContainer_cards,
+  cards: CardContainerOnTag_cards,
 }
-function Cards(props: CardContainer_Props) {
+function CardsOnTag(props: CardContainerOnTag_Props) {
   const { cards } = props;
   return (
     <div className="card-container">
@@ -19,14 +19,15 @@ function Cards(props: CardContainer_Props) {
   )
 }
 
-export default createPaginationContainer(Cards, {
+export default createPaginationContainer(CardsOnTag, {
   cards: graphql`
-    fragment CardContainer_cards on Query
+    fragment CardContainerOnTag_cards on TagNode
     @argumentDefinitions(
       count: {type: "Int", defaultValue: 6},
       cursor: {type: "String",},
+      tagname: {type: "String", defaultValue: ""}
     ) {
-      posts(first: $count, after: $cursor) @connection(key: "CardContainer_posts") {
+      posts(first: $count, after: $cursor) @connection(key: "CardContainerOnTag_posts") {
         edges {
           cursor
           card: node {
@@ -39,11 +40,18 @@ export default createPaginationContainer(Cards, {
 }, {
   getVariables: (props, info) => ({ ...info }),
   query: graphql`
-    query CardContainerQuery(
+    query CardContainerOnTagQuery(
       $count: Int!
       $cursor: String
+      $tagname: String
     ) {
-      ...CardContainer_cards @arguments(count: $count, cursor: $cursor)
+      tags(name_Icontains: $tagname) {
+        edges {
+          node {
+            ...CardContainerOnTag_cards @arguments(count: $count, cursor: $cursor)
+          }
+        }
+      }
     }
   `
 });

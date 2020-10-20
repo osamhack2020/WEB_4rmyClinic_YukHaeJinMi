@@ -7,7 +7,7 @@ import { QueryRenderer, graphql } from "react-relay";
 import environment from "../_lib/environment";
 import { MainQuery } from "./__generated__/MainQuery.graphql";
 import "../scss/Main.scss";
-import Card from "../fragments/Card";
+import CardContainer from "../Components/CardContainer";
 
 export function Main(props: RouteComponentProps) {
   return (
@@ -33,20 +33,14 @@ export function Main(props: RouteComponentProps) {
         variables={{}}
         query={graphql`
           query MainQuery {
-            cards: posts(first: 8) {
-              edges {
-                cursor
-                card: node {
-                  ...Card_card
-                }
-              }
-            }
+            ...CardContainer_cards
           }
         `}
         render={({ props, error, retry }) => {
-          return props && <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', marginTop: '50px' }}>
-            {props.cards?.edges.map(edge => edge && edge.card && <Card key={edge.cursor} card={edge.card} />)}
-          </div>
+          // TODO : MainQuery에서의 pagination query 랑 Posts에서의 pagination query는 다르다.
+          // (1) posts에 대한 connection - main / posts에서 전체 태그 선택시
+          // (2) /posts에서 태그 선택시 태그에 대한 커넥션
+          return props && <CardContainer cards={props} />
         }}
       />
     </div>
