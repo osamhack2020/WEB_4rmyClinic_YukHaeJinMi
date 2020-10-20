@@ -95,7 +95,7 @@ class LikeCreate(relay.ClientIDMutation):
 	like_edge = Field(LikeEdge)
 
 	class Input:
-		post_id = String(required=True)
+		postId = String(required=True)
 
 	@classmethod
 	@login_required
@@ -115,6 +115,31 @@ class LikeCreate(relay.ClientIDMutation):
 		except Exception as err:
 			raise GraphQLError(err)
 
+class CommentEdge(ObjectType):
+	node = Field(CommentNode)
+	cursor = String()
+
+class CommentCreate(relay.ClientIDMutation):
+	comment_edge = Field(CommentEdge)
+
+	class Input:
+		postId = String(required=True)
+		content = String(required=True)
+
+	@classmethod
+	@login_required
+	def mutate(cls, root, info, input):
+		try:
+			_postId = from_global_id(input.postId)[1]
+			_user = info.context.user
+			_post = Post.objects.get(id=_postId)
+			_comment = Comment(user=_user, post=_post, content=input.content)
+			_comment.save()
+			_comment_edge = CommentEdge(cursor=offset_to_cursor(Comment.objects.count()), node=_comment)
+			print("User: {}, Comment: {}".format(_user.email, _comment.content))
+			return CommentCreate(comment_edge=_comment_edge)
+		except Exception as err:
+			raise GraphQLError(err)
 
 # api.upload_profile 이후에 실행되는 것이 보장되어야 한다.
 class UserProfileImgSet(relay.ClientIDMutation):
@@ -196,6 +221,7 @@ class Mutation(AbstractType):
 	# user_profile_img_set = UserProfileImgSet.Field()
 	post_create = PostCreate.Field()
 	like_create = LikeCreate.Field()
+	comment_create = CommentCreate.Field()
 
 	# token 관련 mutation
 	auth_token = ObtainJSONWebToken.Field()

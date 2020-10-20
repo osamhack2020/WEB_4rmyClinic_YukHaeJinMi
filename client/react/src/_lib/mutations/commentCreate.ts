@@ -1,11 +1,11 @@
 import { commitMutation, graphql } from "react-relay"
 import environment from "../environment";
-import { likeCreateMutation, likeCreateMutationVariables } from "./__generated__/likeCreateMutation.graphql";
+import { commentCreateMutation, commentCreateMutationVariables } from "./__generated__/commentCreateMutation.graphql";
 
 const mutation = graphql`
-mutation likeCreateMutation($postId: String!) {
-  likeCreate(input: {postId: $postId}) {
-    likeEdge {
+mutation commentCreateMutation($postId: String!, $content: String!) {
+  commentCreate(input: {postId: $postId, content: $content}) {
+    commentEdge {
       node {
         id
       }
@@ -13,19 +13,17 @@ mutation likeCreateMutation($postId: String!) {
   }
 }`;
 
-export function likeCreate(variables: likeCreateMutationVariables) {
+export function commentCreate(variables: commentCreateMutationVariables) {
   return new Promise<boolean>((resolve, reject) => {
-    commitMutation<likeCreateMutation>(
+    commitMutation<commentCreateMutation>(
       environment, {
       mutation,
       variables,
       onCompleted: (res, err) => {
         if (err) {
           resolve(false);
-          alert("이미 좋아요를 눌리셨습니다.");
         } else {
-          console.log("likeCreated ID : ", res.likeCreate?.likeEdge?.node?.id);
-          window.location.reload(false);
+          console.log("commentCreated ID : ", res.commentCreate?.commentEdge?.node?.id); // TODO : token save
           resolve(true);
         }
       },

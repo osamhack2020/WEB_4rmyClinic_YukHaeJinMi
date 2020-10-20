@@ -34,6 +34,22 @@ type ChatSendPayload {
   clientMutationId: String
 }
 
+input CommentCreateInput {
+  postId: String!
+  content: String!
+  clientMutationId: String
+}
+
+type CommentCreatePayload {
+  commentEdge: CommentEdge
+  clientMutationId: String
+}
+
+type CommentEdge {
+  node: CommentNode
+  cursor: String
+}
+
 type CommentNode implements Node {
   id: ID!
   user: UserNode!
@@ -171,6 +187,7 @@ type Mutation {
   userCreate(input: UserCreateInput!): UserCreatePayload
   postCreate(input: PostCreateInput!): PostCreatePayload
   likeCreate(input: LikeCreateInput!): LikeCreatePayload
+  commentCreate(input: CommentCreateInput!): CommentCreatePayload
   authToken(input: ObtainJSONWebTokenInput!): ObtainJSONWebTokenPayload
   verifyToken(input: VerifyInput!): VerifyPayload
   refreshToken(input: RefreshInput!): RefreshPayload
@@ -269,7 +286,7 @@ type Query {
 }
 
 input RefreshInput {
-  # refreshToken: String
+  refreshToken: String
   clientMutationId: String
 }
 
@@ -282,7 +299,7 @@ type RefreshPayload {
 }
 
 input RevokeInput {
-  # refreshToken: String
+  refreshToken: String
   clientMutationId: String
 }
 
@@ -396,7 +413,7 @@ enum UserRank {
 }
 
 input VerifyInput {
-  # token: String
+  token: String
   clientMutationId: String
 }
 
