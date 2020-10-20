@@ -22,8 +22,10 @@ export function commentCreate(variables: commentCreateMutationVariables) {
       onCompleted: (res, err) => {
         if (err) {
           resolve(false);
+          alert("댓글 작성 중 오류가 발생했습니다.");
         } else {
           console.log("commentCreated ID : ", res.commentCreate?.commentEdge?.node?.id); // TODO : token save
+          window.location.reload(false);
           resolve(true);
         }
       },
