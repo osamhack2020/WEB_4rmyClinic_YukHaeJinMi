@@ -72,7 +72,7 @@ class User(AbstractBaseUser):
     return self.is_admin
 
 class Post(models.Model):
-  user = models.ForeignKey(User, on_delete=models.CASCADE)
+  user = models.ForeignKey(User, on_delete=models.PROTECT)
   title = models.CharField(max_length=128, blank=False)
   content = models.TextField(blank=False)
   created = models.DateField(default=timezone.now)
@@ -89,8 +89,8 @@ class Tag(models.Model):
     return self.name
 
 class Comment(models.Model):
-  user = models.ForeignKey(User, on_delete=models.CASCADE)
-  post = models.ForeignKey(Post, on_delete=models.CASCADE)
+  user = models.ForeignKey(User, on_delete=models.PROTECT)
+  post = models.ForeignKey(Post, on_delete=models.PROTECT)
   content = models.TextField(blank=False)
   created = models.DateField(default=timezone.now)
   is_private = models.BooleanField(default=False)
@@ -98,8 +98,8 @@ class Comment(models.Model):
     return self.content
 
 class Like(models.Model):
-  user = models.ForeignKey(User, on_delete=models.CASCADE)
-  post = models.ForeignKey(Post, on_delete=models.CASCADE)
+  user = models.ForeignKey(User, on_delete=models.PROTECT)
+  post = models.ForeignKey(Post, on_delete=models.PROTECT)
 
   def __str__(self):
     return "user"+user.pk+" - post"+post.pk

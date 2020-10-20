@@ -1,4 +1,4 @@
-from graphene import relay, ObjectType, String, Field, Int
+from graphene import relay, ObjectType, String, Field, Int, Boolean
 from graphene_django.types import DjangoObjectType
 from graphene_django.filter import DjangoFilterConnectionField
 
@@ -25,6 +25,7 @@ class UserNode(DjangoObjectType):
 
 class PostNode(DjangoObjectType):
   likes = Int()
+  viewer_already_liked = Boolean()
   class Meta:
     model = Post
     interfaces = (relay.Node,)
@@ -36,6 +37,14 @@ class PostNode(DjangoObjectType):
   
   def resolve_likes(parent, info):
     return Post.objects.get(pk=parent.pk).like_set.count()
+
+  @login_required
+  def resolve_viewer_already_liked(parent, info):
+    _user = info.context.user
+    _post = Post.objects.get(pk=parent.pk)
+    return Like.objects.filter(user=_user, post=_post).exists()
+  
+
 
 class CommentNode(DjangoObjectType):
   class Meta:

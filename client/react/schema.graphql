@@ -34,6 +34,22 @@ type ChatSendPayload {
   clientMutationId: String
 }
 
+input CommentCreateInput {
+  postId: String!
+  content: String!
+  clientMutationId: String
+}
+
+type CommentCreatePayload {
+  commentEdge: CommentEdge
+  clientMutationId: String
+}
+
+type CommentEdge {
+  node: CommentNode
+  cursor: String
+}
+
 type CommentNode implements Node {
   id: ID!
   user: UserNode!
@@ -131,21 +147,6 @@ type DeleteRefreshTokenCookiePayload {
 
 scalar GenericScalar
 
-input LikeCreateInput {
-  postId: String!
-  clientMutationId: String
-}
-
-type LikeCreatePayload {
-  likeEdge: LikeEdge
-  clientMutationId: String
-}
-
-type LikeEdge {
-  node: LikeNode
-  cursor: String
-}
-
 type LikeNode implements Node {
   id: ID!
   user: UserNode!
@@ -162,6 +163,16 @@ type LikeNodeEdge {
   cursor: String!
 }
 
+input LikeToggleInput {
+  postId: String!
+  clientMutationId: String
+}
+
+type LikeTogglePayload {
+  post: PostNode
+  clientMutationId: String
+}
+
 type MessageSent {
   senderID: ID
   content: String
@@ -170,7 +181,8 @@ type MessageSent {
 type Mutation {
   userCreate(input: UserCreateInput!): UserCreatePayload
   postCreate(input: PostCreateInput!): PostCreatePayload
-  likeCreate(input: LikeCreateInput!): LikeCreatePayload
+  likeToggle(input: LikeToggleInput!): LikeTogglePayload
+  commentCreate(input: CommentCreateInput!): CommentCreatePayload
   authToken(input: ObtainJSONWebTokenInput!): ObtainJSONWebTokenPayload
   verifyToken(input: VerifyInput!): VerifyPayload
   refreshToken(input: RefreshInput!): RefreshPayload
@@ -242,6 +254,7 @@ type PostNode implements Node {
   commentSet(before: String, after: String, first: Int, last: Int): CommentNodeConnection!
   likeSet(before: String, after: String, first: Int, last: Int): LikeNodeConnection!
   likes: Int
+  viewerAlreadyLiked: Boolean
 }
 
 type PostNodeConnection {

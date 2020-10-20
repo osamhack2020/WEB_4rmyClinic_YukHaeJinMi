@@ -1,6 +1,6 @@
 import {
   requestSubscription,
-  graphql,
+  graphql
 } from 'react-relay';
 import environment from "../environment";
 import { chatSubscriptionVariables } from "./__generated__/chatSubscription.graphql";
@@ -16,11 +16,22 @@ const subscription = graphql`
   }
 `;
 
+// const configs : DeclarativeMutationConfig[] = [{
+//   type: "RANGE_ADD",
+//   edgeName: "chatEdge",
+//   parentID: "",
+//   connectionInfo: [{
+//     key: 'App_allCards',
+//     rangeBehavior: 'append',
+//   }]
+// }]
+
 // https://relay.dev/docs/en/subscriptions#docsNav 참고할 것
 export function chatSubscribe(variables: chatSubscriptionVariables) {
   requestSubscription(environment, {
     subscription,
     variables,
+    // configs,
     updater: (store) => {
 
     },

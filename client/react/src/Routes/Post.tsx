@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { RouteComponentProps } from "react-router";
 import { QueryRenderer, graphql } from "react-relay";
 import environment from "../_lib/environment";
@@ -6,15 +6,23 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from "../Components/AuthContextProvider";
 import { PostQuery } from "./__generated__/PostQuery.graphql";
 import "../scss/Post.scss";
-import { likeCreate } from "../_lib/mutations";
+import { likeToggle } from "../_lib/mutations";
+import CommentsContainer from "../Components/CommentsContainer";
+import { commentCreate } from "../_lib/mutations";
 
 type postParams = {
   id: string,
 }
 
+type commentParams = {
+  content: string,
+}
+
 export function Post(props: RouteComponentProps<postParams>) {
   const postId = props.match.params.id;
-
+  const [state, setState] = useState<commentParams>({
+    content: '',
+  });
   return (
     <AuthContext.Consumer>
       {({ viewer, }) =>
@@ -27,21 +35,14 @@ export function Post(props: RouteComponentProps<postParams>) {
                     title
                     content
                     likes
+                    viewerAlreadyLiked
                     id
                     author: user {
                       email
                     }
-                    commentSet {
-                    	edges {
-                    		comment: node {
-                    			content
-                    			created
-                    			user {
-                    				nickname
-                    			}
-                    		}
-                    	}
-                    }
+                    
+                    ...CommentsContainer_comments
+
                     tagSet(first: 5) {
                       edges {
                         cursor
@@ -55,7 +56,7 @@ export function Post(props: RouteComponentProps<postParams>) {
                 `}
           render={({ props, error, retry }) => {
             const tags = props?.post?.tagSet?.edges;
-            const comments = props?.post?.commentSet?.edges;
+
             return (
               <div className="Post-root">
                 <div className="return-btn">
@@ -72,25 +73,34 @@ export function Post(props: RouteComponentProps<postParams>) {
                 <div className="Post-underbox">
                   <div className="side-box">
                     {tags && tags.map((e) =>
-                      <div className="tags">
+                      <div className="tags" key={e?.cursor}>
                         #{e?.tag?.name}
                       </div>
                     )}
                     <div className="indicator">좋아요 : {props?.post?.likes}개</div>
                     <div className="return-btn">
-                      <button onClick={() => { viewer && likeCreate({ postId }); }}>쪼아요</button>
+                      <button onClick={() => { viewer && likeToggle({ postId }); }}>쪼아요</button>
                     </div>
                   </div>
                   <hr />
+
                   <div className="comment-container"> {/*pagination*/}
-                    {comments && comments.map((e) =>
-                      <div className="comment">
-                        <h4>{e?.comment?.user?.nickname}</h4>
-                        <p>{e?.comment?.content}</p>
-                        {/*<p>{e?.comment?.created}</p>*/} {/*Add Created Time*/}
+                    {viewer &&
+                      <div className="input">
+                        <textarea className="comment-input" value={state.content}
+                          onChange={({ target }) => {
+                            setState({ content: target.value })
+                          }}
+                        />
+                        <button onClick={() => {
+                          commentCreate({ postId, ...state });
+                        }}>댓글쓰기</button>
                       </div>
-                    )}
+                    }
+                    <hr />
+                    {props?.post && <CommentsContainer comments={props.post} />}
                   </div>
+
                 </div>
               </div>
             );
