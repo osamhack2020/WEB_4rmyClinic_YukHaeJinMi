@@ -3,6 +3,7 @@ import { createFragmentContainer, Environment, graphql } from "react-relay";
 import { Card_card } from "./__generated__/Card_card.graphql";
 import '../scss/Card.scss';
 import { ROOT } from '../_lib/endpoint';
+import defaultProfileImg from '../assets/profile.png';
 import { useHistory } from "react-router-dom";
 
 type CardProps = {
@@ -13,7 +14,7 @@ type CardProps = {
 }
 function Card(props: CardProps) {
 	const { card } = props;
-	const url = ROOT + card.author.imgUri;
+	const url = card.author.imgUri ? ROOT + card.author.imgUri : defaultProfileImg;
 	const history = useHistory();
 	console.log(url);
 	return (
@@ -25,7 +26,7 @@ function Card(props: CardProps) {
 					? <img src={url} style={{ background: "None" }} className="card-profile-img" alt="profile-img" />
 					: <div className="card-profile-img"></div>
 				}
-				<div className="card-profile-id">{card.author.nickname}</div> {/* TODO - email as id : nickname*/}
+				<div className="card-profile-id">{card.author.nickname}</div>
 			</div>
 		</div >
 	)

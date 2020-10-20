@@ -37,9 +37,9 @@ export function Main(props: RouteComponentProps) {
           }
         `}
         render={({ props, error, retry }) => {
-          // TODO : MainQuery에서의 pagination query 랑 Posts에서의 pagination query는 다르다.
-          // (1) posts에 대한 connection - main / posts에서 전체 태그 선택시
-          // (2) /posts에서 태그 선택시 태그에 대한 커넥션
+          // MainQuery에서의 pagination query 랑 Posts에서의 pagination query는 다르다.
+          // (1) posts에 대한 connection - main / posts에서 전체 태그 선택시  : CardContainer
+          // (2) /posts에서 태그 선택시 태그에 대한 커넥션 : CardContainerOnTag
           return props && <CardContainer cards={props} />
         }}
       />

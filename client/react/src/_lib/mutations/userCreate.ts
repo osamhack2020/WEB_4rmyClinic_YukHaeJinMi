@@ -19,7 +19,7 @@ export function userCreate(variables: userCreateMutationVariables) {
         if (err) {
           resolve(false);
         } else {
-          console.log("ok : ", res.userCreate?.ok); // TODO : token save
+          console.log("ok : ", res.userCreate?.ok);
           resolve(true);
         }
       },

@@ -45,10 +45,10 @@ export function NewPost(props: RouteComponentProps) {
                             setState({ ...state, tags: target.value });
                         }} />
                 </div>
-                {/* TODO : postCreate 시 form validation & relay - RANGE_ADD */}
+                {/* TODO : postCreate 시 form validation*/}
                 <input className="write-btn" type="submit" value="고민 게시하기" onClick={() => {
                     postCreate({ ...state });
-                    props.history.push("/"); // TODO : push "/posts"
+                    props.history.push("/"); // TODO : push "/posts" ?
                 }}
                 />
             </div>

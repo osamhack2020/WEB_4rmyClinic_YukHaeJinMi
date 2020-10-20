@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 //import CardContainer from "../Components/CardContainer";
 import "../scss/Counselors.scss";
 
-// TODO : csimg 를 기본 이미지로 교체
 import defaultImg from '../assets/csprofile_ex.png';
 import { graphql, QueryRenderer } from "react-relay";
 import environment from "../_lib/environment";

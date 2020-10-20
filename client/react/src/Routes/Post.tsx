@@ -66,10 +66,10 @@ export function Post(props: RouteComponentProps<postParams>) {
                   <div className="body">
                     <h1>{props?.post?.title}</h1>
                     <p className="body-text">내용 : {props?.post?.content}</p>
-                    {/* TODO : 태그 / 좋아요 / 댓글 */}
                   </div>
                   <p className="writer">{props?.post?.author.email}</p>
                 </div>
+                {/* TODO : 태그 container */}
                 <div className="Post-underbox">
                   <div className="side-box">
                     {tags && tags.map((e) =>

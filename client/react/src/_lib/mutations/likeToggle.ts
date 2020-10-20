@@ -2,9 +2,7 @@ import { commitMutation, graphql } from "react-relay"
 import environment from "../environment";
 import { likeToggleMutation, likeToggleMutationVariables } from "./__generated__/likeToggleMutation.graphql";
 
-// TODO : like create -> like update mutation
-// 사용자가 이미 좋아했을 때, 다시 좋아요를 누르면 취소되도록
-// 페이스북 / 인스타 느낌
+// TODO :  하트 / 엄지 아이콘을 사용할지에 대한 이야기
 const mutation = graphql`
 mutation likeToggleMutation($postId: String!) {
   likeToggle(input: {postId: $postId}) {
