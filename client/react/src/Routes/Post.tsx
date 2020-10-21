@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { RouteComponentProps } from "react-router";
+import { RouteComponentProps, useHistory } from "react-router";
 import { QueryRenderer, graphql } from "react-relay";
 import environment from "../_lib/environment";
 import { Link } from 'react-router-dom';
@@ -9,6 +9,7 @@ import "../scss/Post.scss";
 import { likeToggle } from "../_lib/mutations";
 import CommentsContainer from "../Components/CommentsContainer";
 import { commentCreate } from "../_lib/mutations";
+import { postDelete } from "../_lib/mutations";
 
 type postParams = {
   id: string,
@@ -20,6 +21,8 @@ type commentParams = {
 
 export function Post(props: RouteComponentProps<postParams>) {
   const postId = props.match.params.id;
+  const history = useHistory();
+
   const [state, setState] = useState<commentParams>({
     content: '',
   });
@@ -56,11 +59,19 @@ export function Post(props: RouteComponentProps<postParams>) {
                 `}
           render={({ props, error, retry }) => {
             const tags = props?.post?.tagSet?.edges;
-
             return (
               <div className="Post-root">
                 <div className="return-btn">
                   <Link to="/Posts">←</Link><h3>돌아가기</h3>
+                </div>
+                <div className="return-btn">
+                  <Link to={`/newpost/${postId}`}>!</Link><h3>수정하기</h3>
+                </div>
+                <div className="return-btn">
+                  <button onClick={() => {
+                    postDelete({ postId });
+                    history.push('/posts');
+                  }}>X</button>
                 </div>
                 <div className="Post-content">
                   <div className="body">
@@ -77,7 +88,7 @@ export function Post(props: RouteComponentProps<postParams>) {
                         #{e?.tag?.name}
                       </div>
                     )}
-                    <div className="indicator">좋아요 : {props?.post?.likes}개</div>
+                    <div className="indicator">좋아요 {props?.post?.likes}</div>
                     <div className="return-btn">
                       <button onClick={() => { viewer && likeToggle({ postId }); }}>쪼아요</button>
                     </div>
