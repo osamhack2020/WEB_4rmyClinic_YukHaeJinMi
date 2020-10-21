@@ -31,7 +31,7 @@ function App() {
           <Route path="/counselor/:id" render={(props) => <Counselor {...props} />} />
           <Route path="/posts" render={(props) => <Posts {...props} />} />
           <Route path="/post/:id" render={(props) => <Post {...props} />} />
-          <Route path="/newpost" render={(props) => <NewPost {...props} />} />
+          <Route path="/newpost/:id" render={(props) => <NewPost {...props} />} />
           <Route path="*" render={(props) => <NotFound {...props} />} />
         </Switch>
 

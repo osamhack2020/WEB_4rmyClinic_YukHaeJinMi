@@ -55,6 +55,7 @@ class PostCreate(relay.ClientIDMutation):
 	post_edge = Field(PostConnection.Edge)
 
 	class Input:
+		postId = String(required=True)
 		title = String(required=True)
 		content = String(required=True)
 		tags = String(required=True)
@@ -65,7 +66,18 @@ class PostCreate(relay.ClientIDMutation):
 	def mutate(cls, root, info, input):
 		try:
 			_user = info.context.user
-			_post = Post(user=_user, title=input.title, content=input.content)
+			if input.postId != "0":
+				_postId = from_global_id(input.postId)[1]
+				_post = Post.objects.get(id=_postId)
+				_post.title = input.title
+				_post.content = input.content
+				tagLists = Tag.objects.all()
+				for tag in tagLists:
+					tag.posts.remove(_post)
+					if tag.posts.count() == 0:
+						tag.delete()
+			else:
+				_post = Post(user=_user, title=input.title, content=input.content)
 			if input.is_private:
 				_post.is_private = input.is_private
 			_post.save()
@@ -84,8 +96,41 @@ class PostCreate(relay.ClientIDMutation):
 					_tag.posts.add(_post)
 			_post_edge = PostConnection.Edge(cursor = offset_to_cursor(Post.objects.count()), node=_post)
 			return PostCreate(post_edge=_post_edge)
+		
 		except Exception as err:
-			raise GraphQLError("PostCreate err")
+			#raise GraphQLError("PostCreate err")
+			raise err
+
+class PostDelete(relay.ClientIDMutation):
+	ok = Boolean()
+
+	class Input:
+		postId = String(required=True)
+	
+	@classmethod
+	@login_required
+	def mutate(cls, root, info, input):
+		try:
+			_user = info.context.user
+			_postId = from_global_id(input.postId)[1]
+			_post = Post.objects.get(id=_postId)
+			tagLists = Tag.objects.all()
+			commentLists = Comment.objects.all()
+			for tag in tagLists:
+				tag.posts.remove(_post)
+				if tag.posts.count() == 0:
+					tag.delete()
+			for comment in commentLists:
+				if comment.post == _post:
+					comment.delete()
+			_post.delete()
+			
+			return PostDelete(ok=True)
+		
+		except Exception as err:
+			#raise GraphQLError("PostCreate err")
+			raise err
+
 
 class LikeEdge(ObjectType):
 	node = Field(LikeNode)
@@ -223,6 +268,7 @@ class Mutation(AbstractType):
 	post_create = PostCreate.Field()
 	like_toggle = LikeToggle.Field()
 	comment_create = CommentCreate.Field()
+	post_delete = PostDelete.Field()
 
 	# token 관련 mutation
 	auth_token = ObtainJSONWebToken.Field()
