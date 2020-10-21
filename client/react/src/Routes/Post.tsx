@@ -90,7 +90,7 @@ export function Post(props: RouteComponentProps<postParams>) {
                         #{e?.tag?.name}
                       </div>
                     )}
-                    <div className="indicator">좋아요 : {props?.post?.likes}개</div>
+                    <div className="indicator">좋아요 {props?.post?.likes}</div>
                     <div className="return-btn">
                       <button onClick={() => { viewer && likeToggle({ postId }); }}>쪼아요</button>
                     </div>
