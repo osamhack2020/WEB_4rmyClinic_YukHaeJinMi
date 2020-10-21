@@ -39,6 +39,7 @@ export function Post(props: RouteComponentProps<postParams>) {
                     content
                     likes
                     viewerAlreadyLiked
+                    viewerCanEditPost
                     id
                     author: user {
                       email
@@ -59,20 +60,23 @@ export function Post(props: RouteComponentProps<postParams>) {
                 `}
           render={({ props, error, retry }) => {
             const tags = props?.post?.tagSet?.edges;
+            const viewerCanEditPost = props?.post?.viewerCanEditPost;
             return (
               <div className="Post-root">
                 <div className="return-btn">
-                  <Link to="/Posts">←</Link><h3>돌아가기</h3>
+                  <Link to="/posts">←</Link><h3>돌아가기</h3>
                 </div>
-                <div className="return-btn">
-                  <Link to={`/newpost/${postId}`}>!</Link><h3>수정하기</h3>
-                </div>
-                <div className="return-btn">
+
+                {viewerCanEditPost && <div className="return-btn">
+                  <Link to={`/updatepost/${postId}`}>!</Link><h3>수정하기</h3>
+                  {/* </div>}
+                <div className="return-btn"> */}
                   <button onClick={() => {
                     postDelete({ postId });
                     history.push('/posts');
                   }}>X</button>
                 </div>
+                }
                 <div className="Post-content">
                   <div className="body">
                     <h1>{props?.post?.title}</h1>
@@ -89,9 +93,9 @@ export function Post(props: RouteComponentProps<postParams>) {
                       </div>
                     )}
                     <div className="indicator">좋아요 {props?.post?.likes}</div>
-                    <div className="return-btn">
+                    {viewer && <div className="return-btn">
                       <button onClick={() => { viewer && likeToggle({ postId }); }}>쪼아요</button>
-                    </div>
+                    </div>}
                   </div>
                   <hr />
 

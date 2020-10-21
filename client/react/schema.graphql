@@ -57,6 +57,7 @@ type CommentNode implements Node {
   content: String!
   created: Date!
   isPrivate: Boolean!
+  viewerCanEditComment: Boolean
 }
 
 type CommentNodeConnection {
@@ -268,6 +269,7 @@ type PostNode implements Node {
   likeSet(before: String, after: String, first: Int, last: Int): LikeNodeConnection!
   likes: Int
   viewerAlreadyLiked: Boolean
+  viewerCanEditPost: Boolean
 }
 
 type PostNodeConnection {

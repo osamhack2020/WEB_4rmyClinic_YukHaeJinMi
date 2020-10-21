@@ -26,6 +26,7 @@ class UserNode(DjangoObjectType):
 class PostNode(DjangoObjectType):
   likes = Int()
   viewer_already_liked = Boolean()
+  viewer_can_edit_post = Boolean()
   class Meta:
     model = Post
     interfaces = (relay.Node,)
@@ -43,13 +44,22 @@ class PostNode(DjangoObjectType):
     _user = info.context.user
     _post = Post.objects.get(pk=parent.pk)
     return Like.objects.filter(user=_user, post=_post).exists()
+
+  @login_required
+  def resolve_viewer_can_edit_post(parent, info):
+    return Post.objects.get(pk=parent.pk).user.id == info.context.user.id
   
 
 
 class CommentNode(DjangoObjectType):
+  viewer_can_edit_comment = Boolean()
   class Meta:
     model = Comment
     interfaces = (relay.Node,)
+  
+  @login_required
+  def resolve_viewer_can_edit_comment(parent, info):
+    return Comment.objects.get(pk=parent.pk).user.id == info.context.user.id
 
 class LikeNode(DjangoObjectType):
   class Meta:

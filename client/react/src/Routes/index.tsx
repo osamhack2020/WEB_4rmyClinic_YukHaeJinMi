@@ -6,9 +6,11 @@ import { SignIn } from './SignIn';
 import { SignUp } from './SignUp';
 import { About } from './About';
 import { Counselors } from './Counselors';
-import { MyPage } from './MyPage';
 import { Counselor } from './Counselor';
-import { NewPost } from './NewPost';
+import { Counsel } from './Counsel';
+import { MyPage } from './MyPage';
 import { Post } from './Post';
+import { NewPost } from './NewPost';
+import { UpdatePost } from './UpdatePost';
 
-export { Main, NotFound, Posts, Profile, SignIn, SignUp, About, Counselors, Counselor, MyPage, NewPost, Post };
+export { Main, NotFound, Posts, Profile, SignIn, SignUp, About, Counselors, Counselor, Counsel, MyPage, NewPost, Post, UpdatePost };

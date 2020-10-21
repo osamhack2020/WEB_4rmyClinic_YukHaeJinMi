@@ -21,6 +21,7 @@ function Comment(props: CommentProps) {
 export default createFragmentContainer(Comment, {
   comment: graphql`
     fragment Comment_comment on CommentNode {
+      viewerCanEditComment
       user {
         nickname
       }
