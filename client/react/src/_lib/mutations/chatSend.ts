@@ -19,7 +19,7 @@ mutation chatSendMutation($counselId: ID!, $content: String!) {
   }
 }`;
 
-export function counselStart(variables: chatSendMutationVariables) {
+export function chatSend(variables: chatSendMutationVariables) {
   return new Promise<chatSendMutationResponse>((resolve, reject) => {
     commitMutation<chatSendMutation>(
       environment, {
