@@ -181,6 +181,8 @@ type MessageSent {
 type Mutation {
   userCreate(input: UserCreateInput!): UserCreatePayload
   postCreate(input: PostCreateInput!): PostCreatePayload
+  postUpdate(input: PostUpdateInput!): PostUpdatePayload
+  postDelete(input: PostDeleteInput!): PostDeletePayload
   likeToggle(input: LikeToggleInput!): LikeTogglePayload
   commentCreate(input: CommentCreateInput!): CommentCreatePayload
   authToken(input: ObtainJSONWebTokenInput!): ObtainJSONWebTokenPayload
@@ -238,6 +240,17 @@ type PostCreatePayload {
   clientMutationId: String
 }
 
+input PostDeleteInput {
+  postId: String!
+  clientMutationId: String
+}
+
+type PostDeletePayload {
+  ok: Boolean
+  id: ID
+  clientMutationId: String
+}
+
 type PostEdge {
   node: PostNode
   cursor: String!
@@ -265,6 +278,20 @@ type PostNodeConnection {
 type PostNodeEdge {
   node: PostNode
   cursor: String!
+}
+
+input PostUpdateInput {
+  id: ID!
+  title: String!
+  content: String!
+  tags: String!
+  clientMutationId: String
+}
+
+type PostUpdatePayload {
+  ok: Boolean
+  post: PostNode
+  clientMutationId: String
 }
 
 type Query {

@@ -84,8 +84,72 @@ class PostCreate(relay.ClientIDMutation):
 					_tag.posts.add(_post)
 			_post_edge = PostConnection.Edge(cursor = offset_to_cursor(Post.objects.count()), node=_post)
 			return PostCreate(post_edge=_post_edge)
+		
 		except Exception as err:
-			raise GraphQLError("PostCreate err")
+			raise GraphQLError("PostCreate err : ", err)
+
+class PostUpdate(relay.ClientIDMutation):
+	ok=Boolean()
+	post=Field(PostNode)
+
+	class Input:
+		id = ID(required=True)
+		title = String(required=True)
+		content = String(required=True)
+		tags = String(required=True)
+
+	@classmethod
+	@login_required
+	def mutate(cls, root, info, input):
+		try:
+			_post = Post.objects.get(pk=from_global_id(input.id)[1])
+			_post.title = input.title
+			_post.content = input.content
+
+			# TODO : Tag edit 깔끔하게
+			_post.tag_set.all.delete()
+			tag_list = input.tags.split()
+			for tag in tag_list:
+				if '#' in tag:
+					tag = tag.replace('#', '')
+				tagAlreadyExists = Tag.objects.filter(name=tag).exists()
+				if not tagAlreadyExists:
+					_tag = Tag(name=tag)
+					_tag.save()
+					_tag.posts.add(_post)
+				else:
+					_tag = Tag.objects.get(name=tag)
+					_tag.posts.add(_post)
+
+				_post.save()
+
+			return PostUpdate(ok=True, post=_post)
+		except Exception as err:
+			raise GraphQLError("post update err : ", err)
+
+class PostDelete(relay.ClientIDMutation):
+	ok = Boolean()
+	id = ID()
+	class Input:
+		postId = String(required=True)
+	
+	@classmethod
+	@login_required
+	def mutate(cls, root, info, input):
+		try:
+			_user = info.context.user
+			_postId = from_global_id(input.postId)[1]
+			_post = Post.objects.get(id=_postId)
+
+			_post.comment_set.all().delete()
+			_post.tag_set.all().delete()
+			_post.delete()
+			
+			return PostDelete(ok=True, id = input.postId)
+		
+		except Exception as err:
+			raise GraphQLError("PostCreate err : ", err)
+
 
 class LikeEdge(ObjectType):
 	node = Field(LikeNode)
@@ -221,6 +285,9 @@ class Mutation(AbstractType):
 	user_create = UserCreate.Field()
 	# user_profile_img_set = UserProfileImgSet.Field()
 	post_create = PostCreate.Field()
+	post_update = PostUpdate.Field()
+	post_delete = PostDelete.Field()
+
 	like_toggle = LikeToggle.Field()
 	comment_create = CommentCreate.Field()
 

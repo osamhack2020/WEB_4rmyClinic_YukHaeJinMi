@@ -13,6 +13,7 @@ import { Main, NotFound, Posts, Profile, SignIn, SignUp, About, Counselors, Coun
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
 import AuthContextProvider from "./Components/AuthContextProvider";
+import { Counsel } from "./Routes/Counsel";
 
 function App() {
   return (
@@ -29,9 +30,10 @@ function App() {
           <Route path="/mypage" render={(props) => <MyPage {...props} />} />
           <Route path="/counselors" render={(props) => <Counselors {...props} />} />
           <Route path="/counselor/:id" render={(props) => <Counselor {...props} />} />
+          <Route path="/counsel/:id" render={(props) => <Counsel {...props} />} />
           <Route path="/posts" render={(props) => <Posts {...props} />} />
           <Route path="/post/:id" render={(props) => <Post {...props} />} />
-          <Route path="/newpost" render={(props) => <NewPost {...props} />} />
+          <Route path="/newpost/:id" render={(props) => <NewPost {...props} />} />
           <Route path="*" render={(props) => <NotFound {...props} />} />
         </Switch>
 
