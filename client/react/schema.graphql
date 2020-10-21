@@ -183,6 +183,7 @@ type Mutation {
   postCreate(input: PostCreateInput!): PostCreatePayload
   likeToggle(input: LikeToggleInput!): LikeTogglePayload
   commentCreate(input: CommentCreateInput!): CommentCreatePayload
+  postDelete(input: PostDeleteInput!): PostDeletePayload
   authToken(input: ObtainJSONWebTokenInput!): ObtainJSONWebTokenPayload
   verifyToken(input: VerifyInput!): VerifyPayload
   refreshToken(input: RefreshInput!): RefreshPayload
@@ -226,6 +227,7 @@ type PostConnection {
 }
 
 input PostCreateInput {
+  postId: String!
   title: String!
   content: String!
   tags: String!
@@ -235,6 +237,16 @@ input PostCreateInput {
 
 type PostCreatePayload {
   postEdge: PostEdge
+  clientMutationId: String
+}
+
+input PostDeleteInput {
+  postId: String!
+  clientMutationId: String
+}
+
+type PostDeletePayload {
+  ok: Boolean
   clientMutationId: String
 }
 
@@ -282,7 +294,7 @@ type Query {
 }
 
 input RefreshInput {
-  # refreshToken: String
+  refreshToken: String
   clientMutationId: String
 }
 
@@ -295,7 +307,7 @@ type RefreshPayload {
 }
 
 input RevokeInput {
-  # refreshToken: String
+  refreshToken: String
   clientMutationId: String
 }
 
@@ -409,7 +421,7 @@ enum UserRank {
 }
 
 input VerifyInput {
-  # token: String
+  token: String
   clientMutationId: String
 }
 

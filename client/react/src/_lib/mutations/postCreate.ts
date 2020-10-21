@@ -4,8 +4,8 @@ import { postCreateMutation, postCreateMutationVariables } from "./__generated__
 
 // TODO : tags: String (not required || 기본 태그)
 const mutation = graphql`
-mutation postCreateMutation($title: String!, $content: String!, $tags: String!) {
-  postCreate(input: {title: $title, content: $content, tags: $tags}) {
+mutation postCreateMutation($postId: String!, $title: String!, $content: String!, $tags: String!) {
+  postCreate(input: {postId: $postId, title: $title, content: $content, tags: $tags}) {
     postEdge {
       node {
         id

@@ -4,8 +4,19 @@ import "../scss/Write.scss";
 import { postCreate } from "../_lib/mutations";
 import { postCreateMutationVariables } from "../_lib/mutations/__generated__/postCreateMutation.graphql";
 
-export function NewPost(props: RouteComponentProps) {
-    const [state, setState] = useState<postCreateMutationVariables>({
+type postParams = {
+  id: string,
+}
+
+type createParams = {
+    title: string,
+    content: string,
+    tags: string,
+}
+
+export function NewPost(props: RouteComponentProps<postParams>) {
+    const postId = props.match.params.id;
+    const [state, setState] = useState<createParams>({
         title: '',
         content: '',
         tags: '',
@@ -47,8 +58,9 @@ export function NewPost(props: RouteComponentProps) {
                 </div>
                 {/* TODO : postCreate 시 form validation*/}
                 <input className="write-btn" type="submit" value="고민 게시하기" onClick={() => {
-                    postCreate({ ...state });
-                    props.history.push("/"); // TODO : push "/posts" ?
+                    postCreate({ postId, ...state });
+                    props.history.push("/posts"); // TODO : push "/posts" ?
+                    window.location.reload()
                 }}
                 />
             </div>

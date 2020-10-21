@@ -79,7 +79,6 @@ class Post(models.Model):
   is_private = models.BooleanField(default=False)
   def __str__(self):
     return self.title
-    
 
 class Tag(models.Model):
   posts = models.ManyToManyField(Post, blank=True)
@@ -98,11 +97,11 @@ class Comment(models.Model):
     return self.content
 
 class Like(models.Model):
-  user = models.ForeignKey(User, on_delete=models.PROTECT)
-  post = models.ForeignKey(Post, on_delete=models.PROTECT)
+  user = models.ForeignKey(User, on_delete=models.CASCADE)
+  post = models.ForeignKey(Post, on_delete=models.CASCADE)
 
   def __str__(self):
-    return "user"+user.pk+" - post"+post.pk
+    return "user"+str(self.user.pk)+" - post"+str(self.post.pk)
 
 
 class Counsel(models.Model):

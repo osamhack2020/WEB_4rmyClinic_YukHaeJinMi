@@ -9,6 +9,7 @@ import "../scss/Post.scss";
 import { likeToggle } from "../_lib/mutations";
 import CommentsContainer from "../Components/CommentsContainer";
 import { commentCreate } from "../_lib/mutations";
+import { postDelete } from "../_lib/mutations";
 
 type postParams = {
   id: string,
@@ -20,6 +21,10 @@ type commentParams = {
 
 export function Post(props: RouteComponentProps<postParams>) {
   const postId = props.match.params.id;
+  const goToPosts = () => {
+    document.location.href = "/Posts";
+    window.location.reload();
+  }
   const [state, setState] = useState<commentParams>({
     content: '',
   });
@@ -56,11 +61,19 @@ export function Post(props: RouteComponentProps<postParams>) {
                 `}
           render={({ props, error, retry }) => {
             const tags = props?.post?.tagSet?.edges;
-
             return (
               <div className="Post-root">
                 <div className="return-btn">
                   <Link to="/Posts">←</Link><h3>돌아가기</h3>
+                </div>
+                <div className="return-btn">
+                  <Link to={`/newpost/${ postId }`}>!</Link><h3>수정하기</h3>
+                </div>
+                <div className="return-btn">
+                  <button onClick = { () => {
+                    postDelete({ postId });
+                    goToPosts();
+                  }}>X</button>
                 </div>
                 <div className="Post-content">
                   <div className="body">
