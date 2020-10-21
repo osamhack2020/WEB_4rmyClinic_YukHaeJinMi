@@ -227,7 +227,6 @@ type PostConnection {
 }
 
 input PostCreateInput {
-  postId: String!
   title: String!
   content: String!
   tags: String!
@@ -247,6 +246,7 @@ input PostDeleteInput {
 
 type PostDeletePayload {
   ok: Boolean
+  id: ID
   clientMutationId: String
 }
 
@@ -294,7 +294,7 @@ type Query {
 }
 
 input RefreshInput {
-  refreshToken: String
+  # refreshToken: String
   clientMutationId: String
 }
 
@@ -307,7 +307,7 @@ type RefreshPayload {
 }
 
 input RevokeInput {
-  refreshToken: String
+  # refreshToken: String
   clientMutationId: String
 }
 
@@ -421,7 +421,7 @@ enum UserRank {
 }
 
 input VerifyInput {
-  token: String
+  # token: String
   clientMutationId: String
 }
 

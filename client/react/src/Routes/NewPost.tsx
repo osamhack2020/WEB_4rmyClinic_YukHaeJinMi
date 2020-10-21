@@ -2,10 +2,9 @@ import React, { useState } from 'react';
 import { RouteComponentProps } from "react-router";
 import "../scss/Write.scss";
 import { postCreate } from "../_lib/mutations";
-import { postCreateMutationVariables } from "../_lib/mutations/__generated__/postCreateMutation.graphql";
 
 type postParams = {
-  id: string,
+    id: string,
 }
 
 type createParams = {
@@ -15,7 +14,7 @@ type createParams = {
 }
 
 export function NewPost(props: RouteComponentProps<postParams>) {
-    const postId = props.match.params.id;
+    // const postId = props.match.params.id;
     const [state, setState] = useState<createParams>({
         title: '',
         content: '',
@@ -35,7 +34,7 @@ export function NewPost(props: RouteComponentProps<postParams>) {
                     <input className="write-input" type="text" name="title" placeholder="고민의 제목을 달아주세요"
                         value={state.title}
                         onChange={({ target }) => {
-                            setState({ tags: state.tags, content: state.content, title: target.value });
+                            setState({ ...state, title: target.value });
                         }}
 
                     />
@@ -58,7 +57,7 @@ export function NewPost(props: RouteComponentProps<postParams>) {
                 </div>
                 {/* TODO : postCreate 시 form validation*/}
                 <input className="write-btn" type="submit" value="고민 게시하기" onClick={() => {
-                    postCreate({ postId, ...state });
+                    postCreate({ ...state });
                     props.history.push("/posts"); // TODO : push "/posts" ?
                     window.location.reload()
                 }}

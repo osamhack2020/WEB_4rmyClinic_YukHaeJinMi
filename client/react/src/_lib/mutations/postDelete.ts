@@ -7,17 +7,18 @@ const mutation = graphql`
 mutation postDeleteMutation($postId: String!) {
   postDelete(input: {postId: $postId}) {
     ok
+    id
   }
 }`;
 
 const configs: DeclarativeMutationConfig[] = [{
-  type: 'RANGE_ADD',
-  edgeName: 'postEdge',
-  parentID: 'client:root',
-  connectionInfo: [{
-    key: 'CardContainer_posts',
-    rangeBehavior: 'append'
-  }]
+  type: 'RANGE_DELETE',
+  deletedIDFieldName: "id",
+  parentID: "client:root",
+  connectionKeys: [{
+    key: "CardContainer_posts",
+  }],
+  pathToConnection: ["edges", "posts"],
 }];
 
 export function postDelete(variables: postDeleteMutationVariables) {

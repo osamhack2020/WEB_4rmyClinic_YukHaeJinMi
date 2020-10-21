@@ -55,7 +55,6 @@ class PostCreate(relay.ClientIDMutation):
 	post_edge = Field(PostConnection.Edge)
 
 	class Input:
-		postId = String(required=True)
 		title = String(required=True)
 		content = String(required=True)
 		tags = String(required=True)
@@ -66,18 +65,7 @@ class PostCreate(relay.ClientIDMutation):
 	def mutate(cls, root, info, input):
 		try:
 			_user = info.context.user
-			if input.postId != "0":
-				_postId = from_global_id(input.postId)[1]
-				_post = Post.objects.get(id=_postId)
-				_post.title = input.title
-				_post.content = input.content
-				tagLists = Tag.objects.all()
-				for tag in tagLists:
-					tag.posts.remove(_post)
-					if tag.posts.count() == 0:
-						tag.delete()
-			else:
-				_post = Post(user=_user, title=input.title, content=input.content)
+			_post = Post(user=_user, title=input.title, content=input.content)
 			if input.is_private:
 				_post.is_private = input.is_private
 			_post.save()
@@ -98,12 +86,11 @@ class PostCreate(relay.ClientIDMutation):
 			return PostCreate(post_edge=_post_edge)
 		
 		except Exception as err:
-			#raise GraphQLError("PostCreate err")
-			raise err
+			raise GraphQLError("PostCreate err : ", err)
 
 class PostDelete(relay.ClientIDMutation):
 	ok = Boolean()
-
+	id = ID()
 	class Input:
 		postId = String(required=True)
 	
@@ -114,22 +101,15 @@ class PostDelete(relay.ClientIDMutation):
 			_user = info.context.user
 			_postId = from_global_id(input.postId)[1]
 			_post = Post.objects.get(id=_postId)
-			tagLists = Tag.objects.all()
-			commentLists = Comment.objects.all()
-			for tag in tagLists:
-				tag.posts.remove(_post)
-				if tag.posts.count() == 0:
-					tag.delete()
-			for comment in commentLists:
-				if comment.post == _post:
-					comment.delete()
+
+			_post.comment_set.all().delete()
+			_post.tag_set.all().delete()
 			_post.delete()
 			
-			return PostDelete(ok=True)
+			return PostDelete(ok=True, id = input.postId)
 		
 		except Exception as err:
-			#raise GraphQLError("PostCreate err")
-			raise err
+			raise GraphQLError("PostCreate err : ", err)
 
 
 class LikeEdge(ObjectType):

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { RouteComponentProps } from "react-router";
+import { RouteComponentProps, useHistory } from "react-router";
 import { QueryRenderer, graphql } from "react-relay";
 import environment from "../_lib/environment";
 import { Link } from 'react-router-dom';
@@ -21,10 +21,8 @@ type commentParams = {
 
 export function Post(props: RouteComponentProps<postParams>) {
   const postId = props.match.params.id;
-  const goToPosts = () => {
-    document.location.href = "/Posts";
-    window.location.reload();
-  }
+  const history = useHistory();
+
   const [state, setState] = useState<commentParams>({
     content: '',
   });
@@ -67,12 +65,12 @@ export function Post(props: RouteComponentProps<postParams>) {
                   <Link to="/Posts">←</Link><h3>돌아가기</h3>
                 </div>
                 <div className="return-btn">
-                  <Link to={`/newpost/${ postId }`}>!</Link><h3>수정하기</h3>
+                  <Link to={`/newpost/${postId}`}>!</Link><h3>수정하기</h3>
                 </div>
                 <div className="return-btn">
-                  <button onClick = { () => {
+                  <button onClick={() => {
                     postDelete({ postId });
-                    goToPosts();
+                    history.push('/posts');
                   }}>X</button>
                 </div>
                 <div className="Post-content">
