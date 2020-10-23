@@ -11,17 +11,13 @@ mutation commentDeleteMutation($commentId: String!) {
   }
 }`;
 
-const configs: DeclarativeMutationConfig[] = [{
-  type: 'RANGE_DELETE',
-  deletedIDFieldName: "id",
-  parentID: "client:root",
-  connectionKeys: [{
-    key: "CommentsContaine_comments",
-  }],
-  pathToConnection: ["edges", "posts"],
-}];
 
 export function commentDelete(variables: commentDeleteMutationVariables) {
+  const configs: DeclarativeMutationConfig[] = [{
+    type: 'NODE_DELETE',
+    deletedIDFieldName: "id",
+  }];
+
   return new Promise<boolean>((resolve, reject) => {
     commitMutation<commentDeleteMutation>(
       environment, {
@@ -33,7 +29,7 @@ export function commentDelete(variables: commentDeleteMutationVariables) {
           resolve(false);
         } else {
           console.log("commentDeleted");
-          window.location.reload(false);
+          // window.location.reload(false);
           resolve(true);
         }
       },

@@ -143,7 +143,7 @@ class PostDelete(relay.ClientIDMutation):
 			_post = Post.objects.get(id=_postId)
 
 			_post.comment_set.all().delete()
-			_post.tag_set.all().delete()
+			# _post.tag_set.all().delete()
 			_post.delete()
 			
 			return PostDelete(ok=True, id = input.postId)

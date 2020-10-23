@@ -20,6 +20,15 @@ export function Posts(props: RouteComponentProps) {
           variables={{ name: tag }}
           query={graphql`
                 query PostsQuery($name: String) {
+                  allTags: tags {
+                    edges {
+                      cursor
+                      tag: node {
+                        id
+                        name
+                      }
+                    }
+                  }
                   tags(name_Icontains: $name) {
                     edges {
                       cursor
@@ -35,6 +44,7 @@ export function Posts(props: RouteComponentProps) {
                 `}
           render={({ props, error, retry }) => {
             const tags = props?.tags?.edges;
+            const allTags = props?.allTags?.edges;
             return (
               <div className="Posts-root">
                 <h1>커뮤니티</h1>
@@ -43,7 +53,7 @@ export function Posts(props: RouteComponentProps) {
                   <div className="tag-container">
                     <p className="tag-card" onClick={() => setTag("")}>#전체</p>
 
-                    {tags && tags.map((edge) =>
+                    {allTags && allTags.map((edge) =>
                       edge && <p key={edge.cursor} className="tag-card" onClick={() => { edge?.tag && setTag(edge.tag.name) }}>#{edge.tag?.name}</p>
                     )}
                   </div>

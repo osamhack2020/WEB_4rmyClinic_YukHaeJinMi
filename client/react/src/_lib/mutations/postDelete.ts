@@ -12,13 +12,14 @@ mutation postDeleteMutation($postId: String!) {
 }`;
 
 const configs: DeclarativeMutationConfig[] = [{
-  type: 'RANGE_DELETE',
+  type: 'NODE_DELETE',
   deletedIDFieldName: "id",
-  parentID: "client:root",
-  connectionKeys: [{
-    key: "CardContainer_posts",
-  }],
-  pathToConnection: ["edges", "posts"],
+  // type: 'RANGE_DELETE',
+  // parentID: "client:root",
+  // connectionKeys: [{
+  //   key: "CardContainer_posts",
+  // }],
+  // pathToConnection: ["posts","edges"],
 }];
 
 export function postDelete(variables: postDeleteMutationVariables) {
@@ -33,7 +34,7 @@ export function postDelete(variables: postDeleteMutationVariables) {
           resolve(false);
         } else {
           console.log("postDeleted");
-          window.location.reload(false);
+          // window.location.reload(false);
           resolve(true);
         }
       },

@@ -7,18 +7,19 @@ type CommentProps = {
   relay: {
     environment: Environment
   },
-  comment: Comment_comment
+  comment: Comment_comment,
 }
 
 function Comment(props: CommentProps) {
   const commentId = props.comment?.id;
+
   return <div className="comment">
     <h4>{props.comment?.user?.nickname}</h4>
     <p>{props.comment?.content}</p>
     {/*<p>{e?.comment?.created}</p>*/} {/*Add Created Time*/}
-    {props.comment?.viewerCanEditComment && 
+    {props.comment?.viewerCanEditComment &&
       <button onClick={() => {
-                    commentDelete({ commentId });
+        commentDelete({ commentId });
       }}>X</button>
     }
 
