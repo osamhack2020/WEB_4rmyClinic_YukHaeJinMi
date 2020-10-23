@@ -9,24 +9,25 @@ mutation postUpdateMutation($id: ID!, $title: String!, $content: String!, $tags:
     ok
     post {
       id
+      title
+      content
     }
   }
 }`;
 
 
 export function postUpdate(variables: postUpdateMutationVariables) {
-  return new Promise<boolean>((resolve, reject) => {
+  return new Promise<string>((resolve, reject) => {
     commitMutation<postUpdateMutation>(
       environment, {
       mutation,
       variables,
       onCompleted: (res, err) => {
         if (err) {
-          resolve(false);
+          reject();
         } else {
           console.log("postUpdated ID : ", res.postUpdate?.post?.id);
-          window.location.reload(false);
-          resolve(true);
+          resolve(res.postUpdate?.post?.id);
         }
       },
       onError: (err) => { console.error(err); reject(false) },

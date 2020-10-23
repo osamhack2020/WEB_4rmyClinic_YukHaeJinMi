@@ -142,8 +142,8 @@ class PostDelete(relay.ClientIDMutation):
 			_postId = from_global_id(input.postId)[1]
 			_post = Post.objects.get(id=_postId)
 
-			_post.comment_set.all().delete()
-			# _post.tag_set.all().delete()
+			_post.comment_set.all().delete() # 글이 삭제되면 댓글을 삭제하는 것은 어느정도 당연해보입니다.
+			# _post.tag_set.all().delete(), # 하지만 글에 해당하는 태그를 모두 지워버리면, 모든 글에 있는 태그가 사라져버립니다.
 			_post.delete()
 			
 			return PostDelete(ok=True, id = input.postId)

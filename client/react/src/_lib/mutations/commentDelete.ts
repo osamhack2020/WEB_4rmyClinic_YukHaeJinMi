@@ -26,14 +26,13 @@ export function commentDelete(variables: commentDeleteMutationVariables) {
       configs,
       onCompleted: (res, err) => {
         if (err) {
-          resolve(false);
+          reject();
         } else {
           console.log("commentDeleted");
-          // window.location.reload(false);
           resolve(true);
         }
       },
-      onError: (err) => { console.error(err); reject(false) },
+      onError: (err) => { console.error(err); reject() },
     }
     );
   });

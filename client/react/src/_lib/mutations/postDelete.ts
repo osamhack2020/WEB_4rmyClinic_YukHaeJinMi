@@ -14,12 +14,6 @@ mutation postDeleteMutation($postId: String!) {
 const configs: DeclarativeMutationConfig[] = [{
   type: 'NODE_DELETE',
   deletedIDFieldName: "id",
-  // type: 'RANGE_DELETE',
-  // parentID: "client:root",
-  // connectionKeys: [{
-  //   key: "CardContainer_posts",
-  // }],
-  // pathToConnection: ["posts","edges"],
 }];
 
 export function postDelete(variables: postDeleteMutationVariables) {
@@ -31,14 +25,13 @@ export function postDelete(variables: postDeleteMutationVariables) {
       configs,
       onCompleted: (res, err) => {
         if (err) {
-          resolve(false);
+          reject();
         } else {
           console.log("postDeleted");
-          // window.location.reload(false);
           resolve(true);
         }
       },
-      onError: (err) => { console.error(err); reject(false) },
+      onError: (err) => { console.error(err); reject() },
     }
     );
   });

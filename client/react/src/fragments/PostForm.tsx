@@ -17,7 +17,7 @@ type PostFormFragmentProps = {
   },
   post?: PostForm_post,
   // TODO: input type 설정..
-  onClickSubmit?: (input: any) => void,
+  onClickSubmit?: (input: any) => Promise<string>,
 }
 
 export function PostFormFragment(props: PostFormFragmentProps) {
@@ -66,8 +66,7 @@ export function PostFormFragment(props: PostFormFragmentProps) {
         </div>
         {/* TODO : postCreate 시 form validation*/}
         <input className="write-btn" type="submit" value="고민 게시하기" onClick={() => {
-          onClickSubmit && onClickSubmit({ ...state });
-          history.push("/posts");
+          onClickSubmit && onClickSubmit({ ...state }).then(id => history.push(`/post/${id}`));
         }}
         />
       </div>
