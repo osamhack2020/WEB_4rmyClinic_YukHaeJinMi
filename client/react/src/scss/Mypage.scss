@@ -1,0 +1,45 @@
+.mypage-root{
+    width:70%;
+    margin:100px auto;
+}
+
+.profile-container{
+    display:flex;
+    justify-content: left;
+    align-items: center;
+
+    margin:30px 0;
+    border:1px solid gray;
+
+    .imgbox{
+        width:100px;
+        height: 100px;
+        margin:20px;
+        background: green;
+        border-radius: 10em;
+    }
+}
+
+.mypage-container{
+    height:700px;
+    display:flex;
+    justify-content: space-between;
+
+    .sidebar{
+        border:1px solid gray;
+        height:700px;
+        width: 20%;
+
+        div{
+            margin:20px;
+            background: lightgray;
+            border-radius: 4em;
+        }
+    }
+
+    .showbox{
+        border:1px solid gray;
+        width: 70%;
+        height:700px;
+    }
+}
