@@ -5,8 +5,10 @@ import {
   Network,
   RecordSource,
   Store,
+  Observable,
 } from 'relay-runtime';
-import { GRAPHQL_ENDPOINT } from "./endpoint";
+import { SubscriptionClient } from 'subscriptions-transport-ws';
+import { GRAPHQL_ENDPOINT, SUBSCRIPTION_ENDPOINT } from "./endpoint";
 
 const fetchQuery: FetchFunction = async (operation, variables): Promise<GraphQLResponse> => {
   try {
@@ -32,8 +34,23 @@ const fetchQuery: FetchFunction = async (operation, variables): Promise<GraphQLR
   }
 }
 
+const subscriptionClient = new SubscriptionClient(SUBSCRIPTION_ENDPOINT, {
+  reconnect: true,
+});
+
+const subscribe: any = (request: any, variables: any) => {
+  const subscribeObservable = subscriptionClient.request({
+    query: request.text!,
+    operationName: request.name,
+    variables,
+  });
+  // Important: Convert subscriptions-transport-ws observable type to Relay's
+  return Observable.from(subscribeObservable as any);
+};
+
+
 const environment = new Environment({
-  network: Network.create(fetchQuery),
+  network: Network.create(fetchQuery, subscribe),
   store: new Store(new RecordSource()),
 });
 

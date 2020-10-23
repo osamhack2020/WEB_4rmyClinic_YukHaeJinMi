@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 //import CardContainer from "../Components/CardContainer";
 import "../scss/Counselors.scss";
 
-import defaultImg from '../assets/csprofile_ex.png';
+import defaultImg from '../assets/default_profile.jpg';
 import { graphql, QueryRenderer } from "react-relay";
 import environment from "../_lib/environment";
 import { CounselorsQuery } from "./__generated__/CounselorsQuery.graphql";

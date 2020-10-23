@@ -9,8 +9,8 @@ import { chatSubscriptionVariables } from "./__generated__/chatSubscription.grap
 // TODO : server should return message edge
 const subscription = graphql`
   subscription chatSubscription($counselId: ID!) {
-    messageSent(counselID: $counselId) {
-      senderID
+    messageSent(counselId: $counselId) {
+      senderId
       content
     }
   }

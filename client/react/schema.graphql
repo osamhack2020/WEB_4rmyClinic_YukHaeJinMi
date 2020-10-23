@@ -186,7 +186,7 @@ type LikeTogglePayload {
 }
 
 type MessageSent {
-  senderID: ID
+  senderId: ID
   content: String
 }
 
@@ -346,7 +346,7 @@ type RevokePayload {
 }
 
 type Subscription {
-  messageSent(counselID: ID!): MessageSent
+  messageSent(counselId: ID!): MessageSent
 }
 
 type TagConnection {

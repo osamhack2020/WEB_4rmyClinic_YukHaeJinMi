@@ -278,6 +278,12 @@ class CounselStart(relay.ClientIDMutation):
 		try:
 			_client = info.context.user
 			_counselor = User.objects.get(pk=from_global_id(input.counselor_id)[1])
+			
+			counselAlreadyStarted = Counsel.objects.filter(counselor=_counselor, client = _client).exists()
+			if counselAlreadyStarted:
+				_counsel = Counsel.objects.get(counselor=_counselor, client=_client)
+				return CounselStart(counsel = _counsel)
+				
 			_counsel = Counsel(counselor = _counselor, client = _client, status=1)
 			_counsel.save()
 			return CounselStart(counsel = _counsel)

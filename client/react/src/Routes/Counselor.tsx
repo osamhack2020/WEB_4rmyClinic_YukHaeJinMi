@@ -1,21 +1,23 @@
 import React from "react";
-import { RouteComponentProps } from "react-router";
-import { Link } from "react-router-dom";
+import { RouteComponentProps, useHistory } from "react-router";
 import "../scss/csAbout.scss";
-import csimg from '../assets/csprofile_ex.png';
+import defaultImg from '../assets/default_profile.jpg';
 import { graphql, QueryRenderer } from "react-relay";
 import environment from "../_lib/environment";
 import { CounselorQuery } from "./__generated__/CounselorQuery.graphql";
+import { counselStart } from "../_lib/mutations/counselStart";
 
 type counselorProps = {
   id: string;
 };
 
 export function Counselor(props: RouteComponentProps<counselorProps>) {
+  const history = useHistory();
+  const counselorId = props.match.params.id;
   return (
     <QueryRenderer<CounselorQuery>
       environment={environment}
-      variables={{ id: props.match.params.id }}
+      variables={{ id: counselorId }}
       query={graphql`
         query CounselorQuery($id: ID!) {
           user(id: $id) {
@@ -31,19 +33,20 @@ export function Counselor(props: RouteComponentProps<counselorProps>) {
           <div className="csprofile">
             <div className="left">
               <div className="csimg">
-                <img src={csimg} alt="csimg" />
+                <img src={defaultImg} alt="csimg" />
                 <h2>{props?.user?.nickname}</h2>
                 <p>{props?.user?.bio}</p>
               </div>
-              <Link to="/">go counsel</Link> {/* TODO : how to start counsel? */}
+              <div className="start-button" onClick={async () => {
+                const counselId = await counselStart({ counselorId });
+                history.push(`/counsel/${counselId}`);
+              }}><p style={{ textAlign: 'center' }}>{props?.user?.nickname}님과<br />상담하기</p></div>
             </div>
 
+
             {/* TODO : detail 
-
               상담사에 관한 어떤 자료를 보여주어야 좋을까?
-
             */}
-
             <div className="cshistory">
               <div className="academic">학력<hr />카이스트 박사</div>
               <div className="career">경력<hr />국내 최초 노벨문학상 수상</div>
@@ -60,6 +63,10 @@ export function Counselor(props: RouteComponentProps<counselorProps>) {
               <div className="card complete"><h2>완료된 상담 수</h2><h3>234</h3></div>
             </div>
           </div>
+
+          {/* TODO : review
+              리뷰를 어떻게 작성하게 할 것인지?
+            */}
           <div className="review">
             <div><h2>후기</h2></div>
             <div className="review-container">
