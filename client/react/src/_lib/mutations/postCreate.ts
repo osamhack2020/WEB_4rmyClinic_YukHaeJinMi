@@ -20,12 +20,12 @@ const configs: DeclarativeMutationConfig[] = [{
   parentID: 'client:root',
   connectionInfo: [{
     key: 'CardContainer_posts',
-    rangeBehavior: 'append'
+    rangeBehavior: 'prepend'
   }]
 }];
 
 export function postCreate(variables: postCreateMutationVariables) {
-  return new Promise<boolean>((resolve, reject) => {
+  return new Promise<string>((resolve, reject) => {
     commitMutation<postCreateMutation>(
       environment, {
       mutation,
@@ -33,13 +33,13 @@ export function postCreate(variables: postCreateMutationVariables) {
       configs,
       onCompleted: (res, err) => {
         if (err) {
-          resolve(false);
+          reject();
         } else {
           console.log("postCreated ID : ", res.postCreate?.postEdge?.node?.id);
-          resolve(true);
+          resolve(res.postCreate?.postEdge?.node?.id);
         }
       },
-      onError: (err) => { console.error(err); reject(false) },
+      onError: (err) => { console.error(err); reject() },
     }
     );
   });

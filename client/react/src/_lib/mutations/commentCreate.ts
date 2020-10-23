@@ -7,7 +7,12 @@ mutation commentCreateMutation($postId: String!, $content: String!) {
   commentCreate(input: {postId: $postId, content: $content}) {
     commentEdge {
       node {
+        viewerCanEditComment
         id
+        user {
+          nickname
+        }
+        content
       }
     }
   }
@@ -21,7 +26,7 @@ export function commentCreate(variables: commentCreateMutationVariables) {
     edgeName: 'commentEdge',
     connectionInfo: [{
       key: 'CommentsContainer_commentSet',
-      rangeBehavior: 'append'
+      rangeBehavior: 'prepend'
     }]
   }];
 
