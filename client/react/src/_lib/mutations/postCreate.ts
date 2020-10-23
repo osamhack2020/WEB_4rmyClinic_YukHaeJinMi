@@ -36,6 +36,7 @@ export function postCreate(variables: postCreateMutationVariables) {
           resolve(false);
         } else {
           console.log("postCreated ID : ", res.postCreate?.postEdge?.node?.id);
+          window.location.reload(false);
           resolve(true);
         }
       },

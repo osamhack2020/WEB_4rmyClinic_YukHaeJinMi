@@ -45,6 +45,17 @@ type CommentCreatePayload {
   clientMutationId: String
 }
 
+input CommentDeleteInput {
+  commentId: String!
+  clientMutationId: String
+}
+
+type CommentDeletePayload {
+  ok: Boolean
+  id: ID
+  clientMutationId: String
+}
+
 type CommentEdge {
   node: CommentNode
   cursor: String
@@ -186,6 +197,7 @@ type Mutation {
   postDelete(input: PostDeleteInput!): PostDeletePayload
   likeToggle(input: LikeToggleInput!): LikeTogglePayload
   commentCreate(input: CommentCreateInput!): CommentCreatePayload
+  commentDelete(input: CommentDeleteInput!): CommentDeletePayload
   authToken(input: ObtainJSONWebTokenInput!): ObtainJSONWebTokenPayload
   verifyToken(input: VerifyInput!): VerifyPayload
   refreshToken(input: RefreshInput!): RefreshPayload
@@ -311,7 +323,7 @@ type Query {
 }
 
 input RefreshInput {
-  # refreshToken: String
+  refreshToken: String
   clientMutationId: String
 }
 
@@ -324,7 +336,7 @@ type RefreshPayload {
 }
 
 input RevokeInput {
-  # refreshToken: String
+  refreshToken: String
   clientMutationId: String
 }
 
@@ -438,7 +450,7 @@ enum UserRank {
 }
 
 input VerifyInput {
-  # token: String
+  token: String
   clientMutationId: String
 }
 

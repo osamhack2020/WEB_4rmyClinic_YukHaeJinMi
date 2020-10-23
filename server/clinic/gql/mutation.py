@@ -107,7 +107,7 @@ class PostUpdate(relay.ClientIDMutation):
 			_post.content = input.content
 
 			# TODO : Tag edit 깔끔하게
-			_post.tag_set.all.delete()
+			_post.tag_set.all().delete()
 			tag_list = input.tags.split()
 			for tag in tag_list:
 				if '#' in tag:
@@ -125,7 +125,8 @@ class PostUpdate(relay.ClientIDMutation):
 
 			return PostUpdate(ok=True, post=_post)
 		except Exception as err:
-			raise GraphQLError("post update err : ", err)
+			#raise GraphQLError("post update err : ", err) -> 요거 err이 안뜹니다. 혹시 저만 그런가요?(이준영)
+			raise err
 
 class PostDelete(relay.ClientIDMutation):
 	ok = Boolean()
@@ -148,7 +149,7 @@ class PostDelete(relay.ClientIDMutation):
 			return PostDelete(ok=True, id = input.postId)
 		
 		except Exception as err:
-			raise GraphQLError("PostCreate err : ", err)
+			raise GraphQLError("PostDelete err : ", err)
 
 
 class LikeEdge(ObjectType):
@@ -205,6 +206,26 @@ class CommentCreate(relay.ClientIDMutation):
 			return CommentCreate(comment_edge=_comment_edge)
 		except Exception as err:
 			raise GraphQLError(err)
+
+class CommentDelete(relay.ClientIDMutation):
+	ok = Boolean()
+	id = ID()
+	class Input:
+		commentId = String(required=True)
+
+	@classmethod
+	@login_required
+	def mutate(cls, root, info, input):
+		try:
+			_user = info.context.user
+			_commentId = from_global_id(input.commentId)[1]
+			_comment = Comment.objects.get(id=_commentId)
+
+			_comment.delete()
+			return CommentDelete(ok=True, id=input.commentId)
+		except Exception as err:
+			raise GraphQLError("CommentDelete err : ", err)
+
 
 # api.upload_profile 이후에 실행되는 것이 보장되어야 한다.
 class UserProfileImgSet(relay.ClientIDMutation):
@@ -290,6 +311,7 @@ class Mutation(AbstractType):
 
 	like_toggle = LikeToggle.Field()
 	comment_create = CommentCreate.Field()
+	comment_delete = CommentDelete.Field()
 
 	# token 관련 mutation
 	auth_token = ObtainJSONWebToken.Field()

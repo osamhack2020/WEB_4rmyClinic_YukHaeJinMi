@@ -25,6 +25,7 @@ export function postUpdate(variables: postUpdateMutationVariables) {
           resolve(false);
         } else {
           console.log("postUpdated ID : ", res.postUpdate?.post?.id);
+          window.location.reload(false);
           resolve(true);
         }
       },

@@ -37,6 +37,7 @@ export function commentCreate(variables: commentCreateMutationVariables) {
           reject();
         } else {
           console.log("commentCreated ID : ", res.commentCreate?.commentEdge?.node?.id);
+          window.location.reload(false);
           resolve(true);
         }
       },

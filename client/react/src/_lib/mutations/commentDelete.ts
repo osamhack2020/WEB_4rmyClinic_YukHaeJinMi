@@ -1,11 +1,11 @@
 import { commitMutation, DeclarativeMutationConfig, graphql } from "react-relay"
 import environment from "../environment";
-import { postDeleteMutation, postDeleteMutationVariables } from "./__generated__/postDeleteMutation.graphql";
+import { commentDeleteMutation, commentDeleteMutationVariables } from "./__generated__/commentDeleteMutation.graphql";
 
 // TODO : tags: String (not required || 기본 태그)
 const mutation = graphql`
-mutation postDeleteMutation($postId: String!) {
-  postDelete(input: {postId: $postId}) {
+mutation commentDeleteMutation($commentId: String!) {
+  commentDelete(input: {commentId: $commentId}) {
     ok
     id
   }
@@ -16,14 +16,14 @@ const configs: DeclarativeMutationConfig[] = [{
   deletedIDFieldName: "id",
   parentID: "client:root",
   connectionKeys: [{
-    key: "CardContainer_posts",
+    key: "CommentsContaine_comments",
   }],
   pathToConnection: ["edges", "posts"],
 }];
 
-export function postDelete(variables: postDeleteMutationVariables) {
+export function commentDelete(variables: commentDeleteMutationVariables) {
   return new Promise<boolean>((resolve, reject) => {
-    commitMutation<postDeleteMutation>(
+    commitMutation<commentDeleteMutation>(
       environment, {
       mutation,
       variables,
@@ -32,7 +32,7 @@ export function postDelete(variables: postDeleteMutationVariables) {
         if (err) {
           resolve(false);
         } else {
-          console.log("postDeleted");
+          console.log("commentDeleted");
           window.location.reload(false);
           resolve(true);
         }
