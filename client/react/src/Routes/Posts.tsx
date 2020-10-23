@@ -52,7 +52,7 @@ export function Posts(props: RouteComponentProps) {
                 <div className="Posts">
                   <div className="Posts-box">
                     <h1>최근 고민</h1>
-                    <Link to={viewer ? "/newpost/0" : "/signin"}>고민작성하기</Link>
+                    <Link to={viewer ? "/newpost" : "/signin"}>고민작성하기</Link>
                   </div>
                   <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', }}>
                     {tags && tags.map((edge) => {

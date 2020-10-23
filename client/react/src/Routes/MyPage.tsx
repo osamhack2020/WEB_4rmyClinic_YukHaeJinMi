@@ -36,37 +36,36 @@ export class MyPage extends React.Component<RouteComponentProps, MyPageState> {
 
   render() {
     return (
-      <div>
-        <AuthContext.Consumer>
-          {({ viewer }) =>
-            viewer && <div>
+      <AuthContext.Consumer>
+        {({ viewer }) =>
+          viewer && <div>
+            <div>
               {/* <form onSubmit={(e) => this.onSubmit(e, email)} > */}
               <input type="file" onChange={this.handleChangeImg} />
               <input type="submit" value="submit" onClick={() => this.onSubmit(viewer.id!)} />
               {/* </form> */}
               {this.state.imgPreviewUri && <img className="preview" src={this.state.imgPreviewUri} alt="preview" />}
             </div>
-          }
-        </AuthContext.Consumer>
-        {/* html */}
-        <div className="mypage-root">
-          <div className="profile-container">
-            <div className="imgbox"></div>
-            <div className="myinfo">
-              <div className="label">육군</div>
-              <div className="class">병장 김아무개</div>
+            <div className="mypage-root">
+              <div className="profile-container">
+                <div className="imgbox"></div>
+                <div className="myinfo">
+                  <div className="label">육군</div>
+                  <div className="class">병장 김아무개</div>
+                </div>
+              </div>
+              <div className="mypage-container">
+                <div className="sidebar">
+                  <div className="history">상담내역</div>
+                  <div className="community">커뮤니티</div>
+                  <div className="profile-info">회원정보</div>
+                </div>
+                <div className="showbox"></div>
+              </div>
             </div>
           </div>
-          <div className="mypage-container">
-            <div className="sidebar">
-              <div className="history">상담내역</div>
-              <div className="community">커뮤니티</div>
-              <div className="profile-info">회원정보</div>
-            </div>
-            <div className="showbox"></div>
-          </div>
-        </div>
-      </div>
+        }
+      </AuthContext.Consumer>
     )
   }
 }

@@ -12,7 +12,7 @@ type postFormParams = {
 }
 
 type PostFormFragmentProps = {
-  relay: {
+  relay?: {
     environment: Environment,
   },
   post?: PostForm_post,
