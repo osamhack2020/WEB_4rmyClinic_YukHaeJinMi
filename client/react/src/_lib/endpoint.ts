@@ -4,4 +4,4 @@ DEV && console.log("graphql endpoint : ", ROOT);
 
 export const GRAPHQL_ENDPOINT = ROOT + "/graphql/";
 export const IMG_UPLOAD_ENDPOINT = ROOT + "/api/upload/";
-export const SUBSCRIPTION_ENDPOINT = DEV ? "ws://localhost:8000/graphql/" : "ws://api.4rmy.app/graphql/";
+export const SUBSCRIPTION_ENDPOINT = DEV ? "ws://localhost:8000/graphql/" : "wss://api.4rmy.app/graphql/";
