@@ -1,5 +1,5 @@
 
-import { commitMutation, graphql } from "react-relay"
+import { commitMutation, DeclarativeMutationConfig, graphql } from "react-relay"
 import environment from "../environment";
 import { chatSendMutation, chatSendMutationResponse, chatSendMutationVariables } from "./__generated__/chatSendMutation.graphql";
 
@@ -19,12 +19,24 @@ mutation chatSendMutation($counselId: ID!, $content: String!) {
   }
 }`;
 
+
 export function chatSend(variables: chatSendMutationVariables) {
+  const configs: DeclarativeMutationConfig[] = [{
+    type: "RANGE_ADD",
+    edgeName: "chatEdge",
+    connectionInfo: [{
+      key: "Counsel_chatSet",
+      // TODO : prepend or append -> different sort method
+      rangeBehavior: "append",
+    }],
+    parentID: variables.counselId
+  }]
   return new Promise<chatSendMutationResponse>((resolve, reject) => {
     commitMutation<chatSendMutation>(
       environment, {
       mutation,
       variables,
+      configs,
       onCompleted: (res, err) => {
         resolve(res);
       },

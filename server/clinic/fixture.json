@@ -494,6 +494,162 @@
     }
   },
   {
+    "model": "admin.logentry",
+    "id": 39,
+    "fields": {
+      "action_time": "2020-10-23T12:51:49.042Z",
+      "user": 1,
+      "content_type": 8,
+      "object_id": "4",
+      "object_repr": "내무생활",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Posts\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "id": 40,
+    "fields": {
+      "action_time": "2020-10-23T12:51:59.050Z",
+      "user": 1,
+      "content_type": 8,
+      "object_id": "10",
+      "object_repr": "개발",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "id": 41,
+    "fields": {
+      "action_time": "2020-10-23T12:52:05.865Z",
+      "user": 1,
+      "content_type": 8,
+      "object_id": "10",
+      "object_repr": "개발",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Posts\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "id": 42,
+    "fields": {
+      "action_time": "2020-10-23T12:52:15.458Z",
+      "user": 1,
+      "content_type": 8,
+      "object_id": "11",
+      "object_repr": "테스트",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "id": 43,
+    "fields": {
+      "action_time": "2020-10-23T12:52:24.960Z",
+      "user": 1,
+      "content_type": 8,
+      "object_id": "12",
+      "object_repr": "그냥",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "id": 44,
+    "fields": {
+      "action_time": "2020-10-23T14:17:32.105Z",
+      "user": 1,
+      "content_type": 6,
+      "object_id": "2",
+      "object_repr": "(rokn) rubinstory@naver.com",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Is counselor\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "id": 45,
+    "fields": {
+      "action_time": "2020-10-24T14:28:55.278Z",
+      "user": 1,
+      "content_type": 10,
+      "object_id": "17",
+      "object_repr": "ㅁㄴㅇㄹㅁㄴㅇㄹ",
+      "action_flag": 3,
+      "change_message": ""
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "id": 46,
+    "fields": {
+      "action_time": "2020-10-24T14:29:03.943Z",
+      "user": 1,
+      "content_type": 10,
+      "object_id": "15",
+      "object_repr": "ㅆ",
+      "action_flag": 3,
+      "change_message": ""
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "id": 47,
+    "fields": {
+      "action_time": "2020-10-24T14:29:03.947Z",
+      "user": 1,
+      "content_type": 10,
+      "object_id": "11",
+      "object_repr": "tttt",
+      "action_flag": 3,
+      "change_message": ""
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "id": 48,
+    "fields": {
+      "action_time": "2020-10-24T14:29:03.949Z",
+      "user": 1,
+      "content_type": 10,
+      "object_id": "9",
+      "object_repr": "test",
+      "action_flag": 3,
+      "change_message": ""
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "id": 49,
+    "fields": {
+      "action_time": "2020-10-24T14:29:11.152Z",
+      "user": 1,
+      "content_type": 7,
+      "object_id": "15",
+      "object_repr": "test2",
+      "action_flag": 3,
+      "change_message": ""
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "id": 50,
+    "fields": {
+      "action_time": "2020-10-24T14:29:11.154Z",
+      "user": 1,
+      "content_type": 7,
+      "object_id": "14",
+      "object_repr": "test2",
+      "action_flag": 3,
+      "change_message": ""
+    }
+  },
+  {
     "model": "auth.permission",
     "id": 1,
     "fields": {
@@ -1143,7 +1299,7 @@
   },
   {
     "model": "gql.user",
-    "id": 1,
+    "pk": 1,
     "fields": {
       "password": "bcrypt_sha256$$2b$12$nXYSXKR30N93iN0oAAR9D.ZanI.dtokgrx4AAwGynjMTas86hDIWu",
       "last_login": "2020-10-17T15:42:02.255Z",
@@ -1160,7 +1316,7 @@
   },
   {
     "model": "gql.user",
-    "id": 2,
+    "pk": 2,
     "fields": {
       "password": "bcrypt_sha256$$2b$12$s8QJwXhQoSFW7Cz6fcljZOswn5FQWcsDVtfCo.jYQAJbHbbPeEgI6",
       "last_login": null,
@@ -1170,14 +1326,14 @@
       "bio": "이준영입니다.",
       "division": "rokn",
       "rank": "sgt",
-      "is_counselor": false,
+      "is_counselor": true,
       "is_active": true,
       "is_admin": false
     }
   },
   {
     "model": "gql.user",
-    "id": 3,
+    "pk": 3,
     "fields": {
       "password": "bcrypt_sha256$$2b$12$Tq9N.i4rhF/1Tv61vou1ceNGcm8uCzOserxigttk.6yy0TmQZEoZa",
       "last_login": null,
@@ -1194,7 +1350,7 @@
   },
   {
     "model": "gql.user",
-    "id": 4,
+    "pk": 4,
     "fields": {
       "password": "bcrypt_sha256$$2b$12$fNlqTJg7a9pPtXlL1bUF.O2cXC2sPL5.Ofcc5PB.4JN1nU9KzQR86",
       "last_login": null,
@@ -1211,7 +1367,7 @@
   },
   {
     "model": "gql.user",
-    "id": 5,
+    "pk": 5,
     "fields": {
       "password": "bcrypt_sha256$$2b$12$q5/V03iHbXmMnKrjKxnaEOFFM2m9nIocRt14u1WP53U.2nl1jPnYy",
       "last_login": null,
@@ -1228,7 +1384,7 @@
   },
   {
     "model": "gql.user",
-    "id": 6,
+    "pk": 6,
     "fields": {
       "password": "bcrypt_sha256$$2b$12$HgjLzruySver5qwHHkZlReduil8mKQTzdymPILEPKTVzJtBMnoO.m",
       "last_login": null,
@@ -1245,40 +1401,7 @@
   },
   {
     "model": "gql.post",
-    "id": 1,
-    "fields": {
-      "user": 1,
-      "title": "관리자의 고민입니다.",
-      "content": "플랫폼을 만든다는 것은 수많은 고민이 들어가는 일인 것 같습니다.\r\ndb를 어떻게 설계할 것인지, 보안적인 면에서 취약한 부분이 있지는 않은지...",
-      "created": "2020-10-11",
-      "is_private": false
-    }
-  },
-  {
-    "model": "gql.post",
-    "id": 2,
-    "fields": {
-      "user": 5,
-      "title": "고민을 이렇게 남기면 되나요?",
-      "content": "켈로그 책스초코\r\n영양정보 총내용량 570g\r\n1회섭취참고량(30g)당 118kcal\r\n\r\n작은 대화의 재발견\r\n나는 소트웍스가 영국 정부기관에서 발주한 프로젝트를 진행할 때 비즈니스 분석가로 일했다. 우리는 제품 출시를 책임졌을 뿐 아니라, 고객 팀에 애자일 개발 방법론에 대한 실제 경험을 전수해야할 책임도 있었다.",
-      "created": "2020-10-11",
-      "is_private": false
-    }
-  },
-  {
-    "model": "gql.post",
-    "id": 3,
-    "fields": {
-      "user": 2,
-      "title": "안녕하세요. 제 고민을 들어주세요.",
-      "content": "그래서 기술 분야 전문가와 비즈니스 전문가로 구성 된 약 25명의 큰 팀이 만들어졌다.\r\n방 하나에 25개의 다른 에어컨 설정이 필요한 상황이라면 이해가 될 것이다.",
-      "created": "2020-10-11",
-      "is_private": false
-    }
-  },
-  {
-    "model": "gql.post",
-    "id": 4,
+    "pk": 4,
     "fields": {
       "user": 4,
       "title": "여기에 이런 질문 해도 되는건가요?",
@@ -1289,7 +1412,7 @@
   },
   {
     "model": "gql.post",
-    "id": 5,
+    "pk": 5,
     "fields": {
       "user": 3,
       "title": "쉽지않네요.",
@@ -1300,18 +1423,18 @@
   },
   {
     "model": "gql.post",
-    "id": 6,
+    "pk": 6,
     "fields": {
       "user": 1,
       "title": "이것은 관리자의 테스트글(비밀이에요)",
-      "content": "내용은 없습니다.",
+      "content": "내용은 없습니다.sdasdfasdfasdfasdf",
       "created": "2020-10-13",
       "is_private": true
     }
   },
   {
     "model": "gql.post",
-    "id": 7,
+    "pk": 7,
     "fields": {
       "user": 4,
       "title": "얼마나 완성된거죠?",
@@ -1322,7 +1445,7 @@
   },
   {
     "model": "gql.post",
-    "id": 8,
+    "pk": 8,
     "fields": {
       "user": 3,
       "title": "VS Code Online... 어떡하죠?",
@@ -1332,90 +1455,54 @@
     }
   },
   {
-    "model": "gql.post",
-    "id": 9,
-    "fields": {
-      "user": 1,
-      "title": "test인데 이게 된다고?",
-      "content": "test",
-      "created": "2020-10-18",
-      "is_private": false
-    }
-  },
-  {
-    "model": "gql.post",
-    "id": 10,
-    "fields": {
-      "user": 1,
-      "title": "test인데 이게 된다고?",
-      "content": "test",
-      "created": "2020-10-18",
-      "is_private": false
-    }
-  },
-  {
     "model": "gql.tag",
-    "id": 2,
-    "fields": {
-      "name": "고민",
-      "posts": [
-        1,
-        2
-      ]
-    }
-  },
-  {
-    "model": "gql.tag",
-    "id": 3,
-    "fields": {
-      "name": "일상",
-      "posts": [
-        3
-      ]
-    }
-  },
-  {
-    "model": "gql.tag",
-    "id": 4,
+    "pk": 4,
     "fields": {
       "name": "내무생활",
       "posts": [
-        1,
-        5
+        5,
+        7,
+        8
       ]
     }
   },
   {
     "model": "gql.tag",
-    "id": 6,
+    "pk": 10,
+    "fields": {
+      "name": "개발",
+      "posts": [
+        7,
+        8
+      ]
+    }
+  },
+  {
+    "model": "gql.tag",
+    "pk": 11,
     "fields": {
       "name": "테스트",
       "posts": [
-        9,
-        10
+        4
       ]
     }
   },
   {
     "model": "gql.tag",
-    "id": 7,
+    "pk": 13,
     "fields": {
-      "name": "입니다",
-      "posts": [
-        9,
-        10
-      ]
+      "name": "태그",
+      "posts": []
     }
   },
   {
-    "model": "gql.comment",
-    "id": 1,
+    "model": "gql.tag",
+    "pk": 17,
     "fields": {
-      "user": 1,
-      "post": 2,
-      "content": "흠... 이게 무슨 글이죠?",
-      "created": "2020-10-11",
-      "is_private": false
+      "name": "그냥",
+      "posts": [
+        6
+      ]
     }
   },
   {
@@ -1442,10 +1529,10 @@
   },
   {
     "model": "gql.like",
-    "id": 1,
+    "pk": 9,
     "fields": {
-      "user": 3,
-      "post": 2
+      "user": 1,
+      "post": 6
     }
   },
   {
@@ -1454,6 +1541,24 @@
     "fields": {
       "counselor": 6,
       "client": 5,
+      "status": 1
+    }
+  },
+  {
+    "model": "gql.counsel",
+    "id": 2,
+    "fields": {
+      "counselor": 6,
+      "client": 1,
+      "status": 1
+    }
+  },
+  {
+    "model": "gql.counsel",
+    "id": 3,
+    "fields": {
+      "counselor": 2,
+      "client": 1,
       "status": 1
     }
   },
@@ -1839,6 +1944,76 @@
       "user": 1,
       "token": "eccd3eb333ab9ed791a7eeef6de84f34920291ef",
       "created": "2020-10-18T13:57:56.170Z",
+      "revoked": null
+    }
+  },
+  {
+    "model": "refresh_token.refreshtoken",
+    "id": 13,
+    "fields": {
+      "user": 1,
+      "token": "a2cba94042ea0dba84d38db5662db3c3d1f9fa74",
+      "created": "2020-10-20T13:15:59.928Z",
+      "revoked": null
+    }
+  },
+  {
+    "model": "refresh_token.refreshtoken",
+    "id": 14,
+    "fields": {
+      "user": 1,
+      "token": "0bc47840d689467069ced6977cc0ac8fa83ecc51",
+      "created": "2020-10-21T13:21:15.871Z",
+      "revoked": null
+    }
+  },
+  {
+    "model": "refresh_token.refreshtoken",
+    "id": 15,
+    "fields": {
+      "user": 1,
+      "token": "f775b8b1c1f450822b1588073e4a018aebb8eb6f",
+      "created": "2020-10-23T10:27:26.683Z",
+      "revoked": null
+    }
+  },
+  {
+    "model": "refresh_token.refreshtoken",
+    "id": 16,
+    "fields": {
+      "user": 5,
+      "token": "03800dbc947d2b4dc3c06d9af9821538b319c133",
+      "created": "2020-10-23T14:18:09.762Z",
+      "revoked": null
+    }
+  },
+  {
+    "model": "refresh_token.refreshtoken",
+    "id": 17,
+    "fields": {
+      "user": 5,
+      "token": "440c27980abbe4c8514d8ac13beeba3afd662ce3",
+      "created": "2020-10-24T13:29:22.315Z",
+      "revoked": null
+    }
+  },
+  {
+    "model": "refresh_token.refreshtoken",
+    "id": 18,
+    "fields": {
+      "user": 1,
+      "token": "9da20aa15f95a651e54e7b30b8999e4302eb8bd2",
+      "created": "2020-10-24T14:27:50.336Z",
+      "revoked": null
+    }
+  },
+  {
+    "model": "refresh_token.refreshtoken",
+    "id": 19,
+    "fields": {
+      "user": 1,
+      "token": "8b0fdcaee70587581f881cc08f41c6f4d6d0c700",
+      "created": "2020-10-24T14:30:00.117Z",
       "revoked": null
     }
   }

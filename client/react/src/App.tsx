@@ -9,7 +9,7 @@ import {
 
 } from 'react-router-dom';
 
-import { Main, NotFound, Posts, Profile, SignIn, SignUp, About, Counselors, Counselor, Counsel, MyPage, NewPost, Post, UpdatePost } from './Routes';
+import { Main, NotFound, Posts, Profile, SignIn, SignUp, About, Counselors, Counselor, Counsel, CounselList, MyPage, NewPost, Post, UpdatePost } from './Routes';
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
 import AuthContextProvider from "./Components/AuthContextProvider";
@@ -30,6 +30,7 @@ function App() {
           <Route path="/counselors" render={(props) => <Counselors {...props} />} />
           <Route path="/counselor/:id" render={(props) => <Counselor {...props} />} />
           <Route path="/counsel/:id" render={(props) => <Counsel {...props} />} />
+          <Route path="/counsellist" render={(props) => <CounselList {...props} />} />
           <Route path="/posts" render={(props) => <Posts {...props} />} />
           <Route path="/post/:id" render={(props) => <Post {...props} />} />
           <Route path="/newpost" render={(props) => <NewPost {...props} />} />

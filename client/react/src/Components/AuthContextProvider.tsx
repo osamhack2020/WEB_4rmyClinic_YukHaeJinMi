@@ -29,13 +29,14 @@ export default class AuthContextProvider extends React.Component<{}, AuthContext
               id
               nickname
               imgUri
+              isCounselor
             }
           }
         `,
       { email }
     );
     const user = data.getUserFromEmail;
-    const viewer = user && { id: user.id, nickname: user.nickname, imgUri: user.imgUri };
+    const viewer = user && { id: user.id, nickname: user.nickname, imgUri: user.imgUri, isCounselor: user.isCounselor };
     viewer && this.setState({ viewer });
   }
   componentDidMount = async () => {

@@ -46,10 +46,12 @@ INSTALLED_APPS = [
     'corsheaders',
     'graphql_jwt.refresh_token.apps.RefreshTokenConfig',
     'channels',
+    'channels_redis',
     'channels_graphql_ws'
 ]
 
 ASGI_APPLICATION = "clinic.routing.application"
+# CHANNEL_LAYERS = {"default": {"BACKEND": "channels_redis.core.RedisChannelLayer", "CONFIG": {"hosts": [ ("localhost", 6379) if not DEBUG else ("10.36.98.107", 6379)], }, }, }
 CHANNEL_LAYERS = {"default": {"BACKEND": "channels.layers.InMemoryChannelLayer"}}
 
 MIDDLEWARE = [

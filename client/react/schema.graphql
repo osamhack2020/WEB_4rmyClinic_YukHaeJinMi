@@ -186,8 +186,7 @@ type LikeTogglePayload {
 }
 
 type MessageSent {
-  senderId: ID
-  content: String
+  chatEdge: CounselChatEdge
 }
 
 type Mutation {

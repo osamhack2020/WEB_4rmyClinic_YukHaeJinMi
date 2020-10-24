@@ -288,7 +288,8 @@ class CounselStart(relay.ClientIDMutation):
 			_counsel.save()
 			return CounselStart(counsel = _counsel)
 		except Exception as err:
-			raise GraphQLError("counsel start error : ", err)
+			# raise GraphQLError("counsel start error : ", err)
+			raise err
 
 class CounselStatusUpdate(relay.ClientIDMutation):
 	counsel = Field(CounselNode)

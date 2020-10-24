@@ -7,10 +7,11 @@ import { SignUp } from './SignUp';
 import { About } from './About';
 import { Counselors } from './Counselors';
 import { Counselor } from './Counselor';
+import { CounselList } from './CounselList';
 import { Counsel } from './Counsel';
 import { MyPage } from './MyPage';
 import { Post } from './Post';
 import { NewPost } from './NewPost';
 import { UpdatePost } from './UpdatePost';
 
-export { Main, NotFound, Posts, Profile, SignIn, SignUp, About, Counselors, Counselor, Counsel, MyPage, NewPost, Post, UpdatePost };
+export { Main, NotFound, Posts, Profile, SignIn, SignUp, About, Counselors, Counselor, Counsel, CounselList, MyPage, NewPost, Post, UpdatePost };
