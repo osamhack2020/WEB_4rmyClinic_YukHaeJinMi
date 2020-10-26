@@ -8,3 +8,5 @@ deploy.env
 # for uploaded files
 media
 media/**
+static
+static/**
