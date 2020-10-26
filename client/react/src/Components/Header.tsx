@@ -6,8 +6,7 @@ import '../scss/header.scss';
 import logo from '../assets/consideringlogo.png';
 import { AuthContext } from "./AuthContextProvider";
 import { ProfileBox } from "./ProfileBox";
-import defaultProfileImg from '../assets/profile.png';
-import { ROOT } from '../_lib/endpoint';
+import { ProfileIcon } from "./ProfileIcon";
 
 type HeaderProps = {
   isMain?: boolean,
@@ -46,7 +45,7 @@ export default function Header(props: HeaderProps) {
                 {viewer
                   ?
                   <div className="login-ed" onClick={() => setActive(!active)}>
-                    <img className="profile" src={viewer.imgUri ? ROOT + viewer.imgUri : defaultProfileImg} alt="user profile img" />
+                    <ProfileIcon imgUri={viewer.imgUri} size={20} />
                     <p>{viewer.nickname}</p>
                     <ProfileBox active={active} />
                   </div>

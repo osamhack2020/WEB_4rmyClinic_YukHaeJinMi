@@ -20,10 +20,10 @@ env = environ.Env(
     ALLOWED_HOSTS=(str, "*"),
     JWT_COOKIE_SECURE=(bool, False),
 )
-environ.Env.read_env()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 ROOT_DIR = os.path.dirname(BASE_DIR)
+environ.Env.read_env(env_file="clinic/.env")
 
 # get value from env
 SECRET_KEY = env('SECRET_KEY')

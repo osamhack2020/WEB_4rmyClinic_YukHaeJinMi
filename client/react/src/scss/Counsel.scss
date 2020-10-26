@@ -1,0 +1,68 @@
+@import "mixin";
+
+.chat-container {
+  .chat-box {
+    display: flex;
+    flex-direction: column;
+    padding: 1%;
+    .chat {
+      &-mine {
+        display: flex;
+        justify-content: flex-end;
+        .chat-info {
+          display: flex;
+          flex-direction: row-reverse; 
+          p {
+            background-color: #94D6FF;
+          }
+        }
+      }
+      &-others {
+        display: flex;
+        justify-content: flex-start;
+        .chat-info {
+          display: flex;
+          flex-direction: row; 
+          p {
+            background-color: antiquewhite;
+          }
+        }
+      }
+    }
+    .chat-info {
+      p {
+        margin: 8px 12px 8px 12px;
+        border-radius: 12px;
+        padding: 16px;
+      }
+    }
+  }
+  .chat-input {
+    position: fixed;
+    background-color: white;
+    border-top: 1px solid rgba(212, 212, 212, 0.5);
+    bottom: 0px;
+    width: 100%;
+    height: 52px;
+    display: flex;
+    justify-content: center;
+    padding: 8px;
+    textarea {
+      resize: none;
+      width: 80%;
+      height: 36px;
+    }
+    button {
+      max-width: 56px;
+      height: 36px;
+    }
+  }
+}
+
+@include desktop {
+
+}
+
+@include mobile {
+
+}
