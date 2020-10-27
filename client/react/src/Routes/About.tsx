@@ -22,14 +22,14 @@ export function About(props: RouteComponentProps) {
                 <div className="icon"></div>
                 <h3 className="bigtext">community</h3>
                 <p className="smalltext">청춘 목숨을 위하여 끓는 심장의 더운지라 것이다. 충분히 가치를 보이는 방황하였으며, 쓸쓸한 없는 속에서 갑 기관과 운다. 예가 풀이 튼튼하며, 착목한는 밝은 생명을 황금시대를 얼음과 봄바람이다. 품었기 영락과 시들어 노래하며 청춘 끝에 천고에 뿐이다.</p>
-                <div className="button"><Link to="/">상담 시작하기</Link></div>
+                <div className="button"><Link to="/posts">상담 시작하기</Link></div>
               </div>
               <div className="blank2"></div>
               <div className="itemitem">
                 <div className="icon"></div>
                 <h3 className="bigtext">professional Counselor</h3>
                 <p className="smalltext">때에, 별과 든 공자는 인간이 것이다. 힘차게 이는 못하다 바이며, 못할 품고 것이다. 피어나는 내려온 그것을 소담스러운 설레는 때까지 그들의 보이는 가는 그리하였는가? 꽃 살았으며, 되려니와, 능히 두기 이 우리의 때문이다.</p>
-                <div className="button"><Link to="/">상담 시작하기</Link></div>
+                <div className="button"><Link to="/counselors">상담 시작하기</Link></div>
               </div>
             </div>
           </div>

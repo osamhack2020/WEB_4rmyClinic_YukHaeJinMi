@@ -45,7 +45,7 @@ export default function Header(props: HeaderProps) {
                 {viewer
                   ?
                   <div className="login-ed" onClick={() => setActive(!active)}>
-                    <ProfileIcon imgUri={viewer.imgUri} size={20} />
+                    <ProfileIcon imgUri={viewer.imgUri} size={20} borderRadius={12} />
                     <p style={{ marginLeft: "10px" }}>{viewer.nickname}</p>
                     <ProfileBox active={active} />
                   </div>

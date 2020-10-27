@@ -36,7 +36,7 @@ export function Counselors(props: RouteComponentProps) {
             {props?.counselors?.edges.map((edge) => edge && (
               <Link to={"/counselor/" + edge.node?.id} className="card-box">
                 <div className="cscard">
-                  <ProfileIcon imgUri={edge.node?.imgUri} />
+                  <ProfileIcon imgUri={edge.node?.imgUri} borderRadius={12} />
 
                   <div className="info">
                     <div className="p name">{edge.node?.nickname}</div>
