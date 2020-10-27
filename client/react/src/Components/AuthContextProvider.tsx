@@ -10,6 +10,7 @@ import { AuthContextProviderQuery } from "./__generated__/AuthContextProviderQue
 interface AuthContext {
   login?: (email: string, password: string) => Promise<boolean>,
   logout?: () => void,
+  changeProfileImg?: (imgUri: string) => void,
   viewer: Viewer | null,
 }
 export const AuthContext = createContext<AuthContext>({ viewer: null });
@@ -30,13 +31,14 @@ export default class AuthContextProvider extends React.Component<{}, AuthContext
               nickname
               imgUri
               isCounselor
+              bio
             }
           }
         `,
       { email }
     );
     const user = data.getUserFromEmail;
-    const viewer = user && { id: user.id, nickname: user.nickname, imgUri: user.imgUri, isCounselor: user.isCounselor };
+    const viewer = user && { id: user.id, nickname: user.nickname, imgUri: user.imgUri, isCounselor: user.isCounselor, bio: user.bio };
     viewer && this.setState({ viewer });
   }
   componentDidMount = async () => {
@@ -74,13 +76,16 @@ export default class AuthContextProvider extends React.Component<{}, AuthContext
     deleteRefreshToken();
     this.setState({ viewer: null });
   }
-
+  changeProfileImg = (imgUri: string) => {
+    this.state.viewer && this.setState({ viewer: { ...this.state.viewer, imgUri } });
+  }
   render() {
 
     return (
       <AuthContext.Provider value={{
         login: this.login,
         logout: this.logout,
+        changeProfileImg: this.changeProfileImg,
         ...this.state
       }}>
         {this.props.children}

@@ -2,6 +2,7 @@ import { IMG_UPLOAD_ENDPOINT } from "./endpoint";
 
 type UploadImgResponse = {
   uploaded: boolean;
+  imgUri: string;
 }
 export async function UploadImg(img: File) {
   const form = new FormData();
@@ -17,5 +18,5 @@ export async function UploadImg(img: File) {
     body: form,
   });
   const json = await response.json() as UploadImgResponse;
-  return json.uploaded;
+  return json;
 }

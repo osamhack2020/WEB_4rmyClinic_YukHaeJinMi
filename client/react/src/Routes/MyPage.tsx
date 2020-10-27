@@ -1,19 +1,26 @@
-import React from 'react';
+import React, { createRef } from 'react';
 import { RouteComponentProps } from "react-router";
 import { AuthContext } from "../Components/AuthContextProvider";
 import { UploadImg } from "../_lib/imageclient";
 import '../scss/Mypage.scss';
+import { userProfileImgSet } from "../_lib/mutations/userProfileImgSet";
+import { ProfileIcon } from "../Components/ProfileIcon";
 // import { userProfileImgSet } from "../_lib/mutations/userProfileImgSet";
 
 type MyPageState = {
   img?: File;
   imgPreviewUri?: string,
+  showUploadButton?: boolean,
 }
 export class MyPage extends React.Component<RouteComponentProps, MyPageState> {
+  private inputRef = createRef<HTMLInputElement>();
+  private uploadRef = createRef<HTMLDivElement>();
+
   constructor(props: RouteComponentProps) {
     super(props);
     this.state = {};
   }
+
   handleChangeImg = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const reader = new FileReader();
@@ -25,11 +32,14 @@ export class MyPage extends React.Component<RouteComponentProps, MyPageState> {
       })
     }
     reader.readAsDataURL(file as File);
+    this.setState({ showUploadButton: true });
   }
 
-  onSubmit = async (id: string) => {
-    const uploaded = this.state.img && await UploadImg(this.state.img)
-    if (uploaded) {
+  onSubmit = async (id: string, authChangeProfileImg?: (imgUri: string) => void) => {
+    const json = this.state.img && await UploadImg(this.state.img);
+    if (json?.uploaded) {
+      await userProfileImgSet({ imgUri: json.imgUri }, id);
+      authChangeProfileImg && authChangeProfileImg(json.imgUri);
       this.props.history.goBack();
     }
   }
@@ -37,29 +47,32 @@ export class MyPage extends React.Component<RouteComponentProps, MyPageState> {
   render() {
     return (
       <AuthContext.Consumer>
-        {({ viewer }) =>
+        {({ viewer, changeProfileImg }) =>
           viewer && <div>
-            <div>
-              {/* <form onSubmit={(e) => this.onSubmit(e, email)} > */}
-              <input type="file" onChange={this.handleChangeImg} />
-              <input type="submit" value="submit" onClick={() => this.onSubmit(viewer.id!)} />
-              {/* </form> */}
-              {this.state.imgPreviewUri && <img className="preview" src={this.state.imgPreviewUri} alt="preview" />}
-            </div>
             <div className="mypage-root">
+              <div className="upload-button" ref={this.uploadRef} onClick={() => this.onSubmit(viewer.id!, changeProfileImg)} style={{ display: this.state.showUploadButton ? "block" : "none" }}>
+                수정
+              </div>
               <div className="profile-container">
-                <div className="imgbox"></div>
+                <div className="imgbox" onClick={() => this.inputRef.current?.click()}>
+                  {this.state.imgPreviewUri
+                    ? <ProfileIcon imgUri={this.state.imgPreviewUri} size={50} borderRadius={12} />
+                    : <ProfileIcon imgUri={viewer.imgUri} size={50} borderRadius={12} />}
+                  <input type="file" ref={this.inputRef} onChange={(e) => this.handleChangeImg(e)} style={{ display: "none" }} />
+                </div>
                 <div className="myinfo">
-                  <div className="label">육군</div>
-                  <div className="class">병장 김아무개</div>
+                  <div className="nickname">{viewer.nickname}</div>
+                  <div className="bio">{viewer.bio}</div>
                 </div>
               </div>
               <div className="mypage-container">
+
                 <div className="sidebar">
-                  <div className="history">상담내역</div>
-                  <div className="community">커뮤니티</div>
-                  <div className="profile-info">회원정보</div>
+                  <div className="title"><p>회원정보</p></div>
+                  <div className="title"><p>상담내역</p></div>
+                  <div className="title"><p>내가 쓴 글</p></div>
                 </div>
+
                 <div className="showbox"></div>
               </div>
             </div>

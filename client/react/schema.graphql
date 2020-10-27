@@ -191,6 +191,7 @@ type MessageSent {
 
 type Mutation {
   userCreate(input: UserCreateInput!): UserCreatePayload
+  userProfileImgSet(input: UserProfileImgSetInput!): UserProfileImgSetPayload
   postCreate(input: PostCreateInput!): PostCreatePayload
   postUpdate(input: PostUpdateInput!): PostUpdatePayload
   postDelete(input: PostDeleteInput!): PostDeletePayload
@@ -423,6 +424,16 @@ type UserNodeConnection {
 type UserNodeEdge {
   node: UserNode
   cursor: String!
+}
+
+input UserProfileImgSetInput {
+  imgUri: String
+  clientMutationId: String
+}
+
+type UserProfileImgSetPayload {
+  user: UserNode
+  clientMutationId: String
 }
 
 enum UserRank {

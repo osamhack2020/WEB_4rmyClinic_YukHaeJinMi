@@ -14,6 +14,7 @@ mutation authUserMutation($email: String!, $password: String!) {
       nickname
       imgUri
       isCounselor
+      bio
     }
   }
 }`;
@@ -23,6 +24,7 @@ export type Viewer = {
   nickname: string,
   imgUri: string,
   isCounselor: boolean
+  bio: string,
 }
 
 export function authUser(variables: authUserMutationVariables) {
@@ -37,7 +39,7 @@ export function authUser(variables: authUserMutationVariables) {
         } else {
           // console.log("payload : ", res.tokenAuth?.payload);
           const user = res.authToken?.user;
-          const viewer = user && { id: user?.id, nickname: user?.nickname, imgUri: user.imgUri, isCounselor: user.isCounselor };
+          const viewer = user && { id: user?.id, nickname: user?.nickname, imgUri: user.imgUri, isCounselor: user.isCounselor, bio: user.bio };
           // const payload = res.authToken?.payload as JWTPayLoad;
           viewer ? resolve(viewer) : reject();
         }

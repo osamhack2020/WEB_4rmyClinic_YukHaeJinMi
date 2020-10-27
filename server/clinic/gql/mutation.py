@@ -229,7 +229,7 @@ class CommentDelete(relay.ClientIDMutation):
 
 # api.upload_profile 이후에 실행되는 것이 보장되어야 한다.
 class UserProfileImgSet(relay.ClientIDMutation):
-	ok = Boolean()
+	user = Field(UserNode)
 	class Input:
 		imgUri = String()
 
@@ -238,11 +238,10 @@ class UserProfileImgSet(relay.ClientIDMutation):
 	def mutate(cls, root, info, input):
 		try:
 			# TODO : 해당 imgUri 있는지 확인
-			
 			_user = info.context.user
 			_user.imgUri = input.imgUri
 			_user.save()
-			return UserProfileImgSet(ok=True)
+			return UserProfileImgSet(user=_user)
 		except Exception as err:
 			raise GraphQLError("UserProfileImgSet err : ", err)
 
@@ -311,7 +310,7 @@ class CounselStatusUpdate(relay.ClientIDMutation):
 
 class Mutation(AbstractType):
 	user_create = UserCreate.Field()
-	# user_profile_img_set = UserProfileImgSet.Field()
+	user_profile_img_set = UserProfileImgSet.Field()
 	post_create = PostCreate.Field()
 	post_update = PostUpdate.Field()
 	post_delete = PostDelete.Field()
