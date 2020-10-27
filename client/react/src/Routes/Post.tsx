@@ -10,6 +10,7 @@ import { likeToggle } from "../_lib/mutations/likeToggle";
 import CommentsContainer from "../Components/CommentsContainer";
 import { commentCreate } from "../_lib/mutations/commentCreate";
 import { postDelete } from "../_lib/mutations/postDelete";
+import { ProfileIcon } from "../Components/ProfileIcon";
 
 type postParams = {
   id: string,
@@ -42,7 +43,8 @@ export function Post(props: RouteComponentProps<postParams>) {
                     viewerCanEditPost
                     id
                     author: user {
-                      email
+                      nickname
+                      imgUri
                     }
                     
                     ...CommentsContainer_comments
@@ -69,8 +71,6 @@ export function Post(props: RouteComponentProps<postParams>) {
 
                 {viewerCanEditPost && <div className="return-btn">
                   <Link to={`/updatepost/${postId}`}>!</Link><h3>수정하기</h3>
-                  {/* </div>}
-                <div className="return-btn"> */}
                   <button onClick={() => {
                     postDelete({ postId });
                     history.push('/posts');
@@ -78,25 +78,29 @@ export function Post(props: RouteComponentProps<postParams>) {
                 </div>
                 }
                 <div className="Post-content">
+                  <div className="tags">
+                    {tags && tags.map((e) =>
+                      <p key={e?.cursor}>#{e?.tag?.name}</p>
+                    )}
+                  </div>
                   <div className="body">
                     <h1>{props?.post?.title}</h1>
                     <p className="body-text">내용 : {props?.post?.content}</p>
                   </div>
-                  <p className="writer">{props?.post?.author.email}</p>
-                </div>
-                {/* TODO : 태그 container */}
-                <div className="Post-underbox">
-                  <div className="side-box">
-                    {tags && tags.map((e) =>
-                      <div className="tags" key={e?.cursor}>
-                        #{e?.tag?.name}
-                      </div>
-                    )}
-                    <div className="indicator">좋아요 {props?.post?.likes}</div>
-                    {viewer && <div className="return-btn">
-                      <button onClick={() => { viewer && likeToggle({ postId }); }}>쪼아요</button>
-                    </div>}
+                  <div className="foot">
+                    <div className="indicator">
+                      <p className="heart" onClick={() => { viewer && likeToggle({ postId }) }}>{props?.post?.viewerAlreadyLiked ? "♥" : "♡"}</p>
+                      <p className="number">{props?.post?.likes}</p>
+                    </div>
+                    <div className="writer">
+                      <ProfileIcon imgUri={props?.post?.author.imgUri} size={24} borderRadius={12} />
+                      <p>{props?.post?.author.nickname}</p>
+                    </div>
                   </div>
+                </div>
+
+                <div className="Post-underbox">
+                  {/* TODO : 좋아요 -> 하트 */}
                   <hr />
 
                   <div className="comment-container"> {/*pagination*/}

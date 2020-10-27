@@ -1,9 +1,10 @@
+@import 'mixin';
+
 .Post-{
     &root{
         display:flex;
         flex-direction: column;
-        width:70%;
-        margin :100px auto;
+        margin :20px auto;
         .return-btn{
             margin : 30px 0;
             a{
@@ -28,8 +29,6 @@
         padding: 30px;
         margin:0 auto;
         width: 90%;
-        max-width: 1000px;
-        min-height: 500px;
 
         background: #FFFFFF;
         border: 1px solid rgba(0, 0, 0, 0.08);
@@ -37,17 +36,48 @@
         box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.06);
         border-radius: 12px;
 
+        .tags {
+            display: flex;
+            color: #666080;
+            p {
+                margin-right: 8px;
+            }
+        }
         .body{
-            width:90%;
+            width:100%;
             margin:30px auto;
             &-text{
                 margin:50px auto;
             }
         }
-        
-        .writer{
-            text-align: right;
-            margin:auto 5% 0px;
+        .foot {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            .indicator {
+                display: flex;
+                align-items: center;
+                .heart {
+                    font-size: 24px;
+                    color: rgb(248, 78, 106);
+                }
+                .heart:hover {
+                    font-weight: 900;
+                }
+                .number {
+                    margin-left: 4px;
+                    font-size: 20px;
+                }
+            }
+            .writer{
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+                p {
+                    margin-left: 12px;
+                    font-size: 20px;
+                }
+            }
         }
         
     }
@@ -55,7 +85,7 @@
         width:90%;
         margin :30px auto;
         max-width: 1000px;
-
+        
         .side-box{
             width:90%;
             margin:30px auto;
@@ -66,6 +96,21 @@
             .tags{
                 color: rgb(70, 65, 217);
             }
+        }
+    }
+}
+
+@include desktop {
+    .Post- {
+        &root{
+            width:70%;
+        }
+    }
+}
+@include mobile {
+    .Post- {
+        &root{
+            width:98%;
         }
     }
 }
