@@ -66,10 +66,12 @@ export class Counsel extends React.Component<CounselProps, CounselState> {
           }
         `}
         render={({ props, error, retry }) => {
+          // TODO : 처음에 scroll 맨 밑에서 시작해야함. 위로 올리면 이전의 대화 내용을 불러올 것.
           return <AuthContext.Consumer>
             {({ viewer }) =>
               <div className="chat-container">
                 <div className="chat-box">
+                  {props?.counsel?.chatSet.edges.length === 0 && <p className="chat-introduce">채팅을 통해 상담을 시작해보세요!</p>}
                   {props?.counsel?.chatSet.edges.map((edge) => {
                     const id = edge?.node?.writer.id;
                     const className = "chat-" + (id === viewer?.id ? "mine" : "others");

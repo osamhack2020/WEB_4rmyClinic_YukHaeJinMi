@@ -14,6 +14,19 @@ import Header from "./Components/Header";
 import Footer from "./Components/Footer";
 import AuthContextProvider from "./Components/AuthContextProvider";
 
+interface WithFooterProps {
+  component?: React.ReactNode
+}
+function WithFooter(props: WithFooterProps) {
+  return (
+    <div>
+      {props.component}
+      <Footer />
+    </div>
+  )
+}
+
+
 function App() {
   return (
     <AuthContextProvider>
@@ -21,24 +34,23 @@ function App() {
         <Header />
 
         <Switch>
-          <Route exact path="/" render={(props) => <Main {...props} />} />
-          <Route path="/about" render={(props) => <About {...props} />} />
-          <Route path="/signin" render={(props) => <SignIn {...props} />} />
-          <Route path="/signup" render={(props) => <SignUp {...props} />} />
-          <Route path="/profile/:id" render={(props) => <Profile {...props} />} />
-          <Route path="/mypage" render={(props) => <MyPage {...props} />} />
-          <Route path="/counselors" render={(props) => <Counselors {...props} />} />
-          <Route path="/counselor/:id" render={(props) => <Counselor {...props} />} />
+          <Route exact path="/" render={(props) => <WithFooter component={<Main {...props} />} />} />
+          <Route path="/about" render={(props) => <WithFooter component={<About {...props} />} />} />
+          <Route path="/signin" render={(props) => <WithFooter component={<SignIn {...props} />} />} />
+          <Route path="/signup" render={(props) => <WithFooter component={<SignUp {...props} />} />} />
+          <Route path="/profile/:id" render={(props) => <WithFooter component={<Profile {...props} />} />} />
+          <Route path="/mypage" render={(props) => <WithFooter component={<MyPage {...props} />} />} />
+          <Route path="/counselors" render={(props) => <WithFooter component={<Counselors {...props} />} />} />
+          <Route path="/counselor/:id" render={(props) => <WithFooter component={<Counselor {...props} />} />} />
           <Route path="/counsel/:id" render={(props) => <Counsel {...props} />} />
-          <Route path="/counsellist" render={(props) => <CounselList {...props} />} />
-          <Route path="/posts" render={(props) => <Posts {...props} />} />
-          <Route path="/post/:id" render={(props) => <Post {...props} />} />
-          <Route path="/newpost" render={(props) => <NewPost {...props} />} />
-          <Route path="/updatepost/:id" render={(props) => <UpdatePost {...props} />} />
-          <Route path="*" render={(props) => <NotFound {...props} />} />
+          <Route path="/counsellist" render={(props) => <WithFooter component={<CounselList {...props} />} />} />
+          <Route path="/posts" render={(props) => <WithFooter component={<Posts {...props} />} />} />
+          <Route path="/post/:id" render={(props) => <WithFooter component={<Post {...props} />} />} />
+          <Route path="/newpost" render={(props) => <WithFooter component={<NewPost {...props} />} />} />
+          <Route path="/updatepost/:id" render={(props) => <WithFooter component={<UpdatePost {...props} />} />} />
+          <Route path="*" render={(props) => <WithFooter component={<NotFound {...props} />} />} />
         </Switch>
 
-        <Footer />
       </Router>
     </AuthContextProvider>
   );

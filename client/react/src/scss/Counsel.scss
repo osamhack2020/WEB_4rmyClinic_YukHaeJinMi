@@ -5,7 +5,16 @@
     display: flex;
     flex-direction: column;
     padding: 1%;
+    margin-bottom: 80px;
     .chat {
+      &-introduce {
+        height: 70vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #757575;
+        text-align: center;
+      }
       &-mine {
         display: flex;
         justify-content: flex-end;
@@ -44,7 +53,7 @@
     border-top: 1px solid rgba(212, 212, 212, 0.5);
     bottom: 0px;
     width: 100%;
-    height: 52px;
+    height: 8vh;
     display: flex;
     justify-content: center;
     align-items: center;

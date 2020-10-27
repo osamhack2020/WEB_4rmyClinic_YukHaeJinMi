@@ -49,9 +49,7 @@ export function SignUp(props: RouteComponentProps) {
   return (
     <div className="root">
       <div className="sign">
-        {/* <div className="logo">
-            <img src={logo} alt="logo" />
-          </div> */}
+        {/* TODO : form validation with regex */}
         <div>
           <h1>아래사항을 기입해주세요</h1>
           <div className="box">
