@@ -1,7 +1,7 @@
 import React, { createContext } from 'react';
 import { fetchQuery, graphql } from "react-relay";
 import environment from "../_lib/environment";
-import { authUser, deleteToken, deleteRefreshToken, verifyToken } from "../_lib/mutations";
+import { authUser, deleteToken, deleteRefreshToken, verifyToken } from "../_lib/mutations/auth";
 import { Viewer } from "../_lib/mutations/auth/authUser";
 import { refreshToken } from "../_lib/mutations/auth/refreshToken";
 import { AuthContextProviderQuery } from "./__generated__/AuthContextProviderQuery.graphql";

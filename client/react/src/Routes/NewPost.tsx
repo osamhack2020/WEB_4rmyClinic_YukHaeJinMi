@@ -2,7 +2,7 @@ import React from 'react';
 import { RouteComponentProps } from "react-router";
 import { PostFormFragment } from "../fragments/PostForm";
 import "../scss/Write.scss";
-import { postCreate } from "../_lib/mutations";
+import { postCreate } from "../_lib/mutations/postCreate";
 
 type createParams = {
     title: string,

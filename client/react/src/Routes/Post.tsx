@@ -6,10 +6,10 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from "../Components/AuthContextProvider";
 import { PostQuery } from "./__generated__/PostQuery.graphql";
 import "../scss/Post.scss";
-import { likeToggle } from "../_lib/mutations";
+import { likeToggle } from "../_lib/mutations/likeToggle";
 import CommentsContainer from "../Components/CommentsContainer";
-import { commentCreate } from "../_lib/mutations";
-import { postDelete } from "../_lib/mutations";
+import { commentCreate } from "../_lib/mutations/commentCreate";
+import { postDelete } from "../_lib/mutations/postDelete";
 
 type postParams = {
   id: string,

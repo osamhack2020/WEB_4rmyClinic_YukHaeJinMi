@@ -1,7 +1,7 @@
 import React from 'react';
 import { createFragmentContainer, Environment, graphql } from "react-relay";
 import { Comment_comment } from "./__generated__/Comment_comment.graphql";
-import { commentDelete } from "../_lib/mutations";
+import { commentDelete } from "../_lib/mutations/commentDelete";
 
 type CommentProps = {
   relay: {

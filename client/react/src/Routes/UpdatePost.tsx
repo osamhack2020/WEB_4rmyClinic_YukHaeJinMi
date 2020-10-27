@@ -5,7 +5,7 @@ import PostForm from "../fragments/PostForm";
 import "../scss/Write.scss";
 import environment from "../_lib/environment";
 import { UpdatePostQuery } from "./__generated__/UpdatePostQuery.graphql";
-import { postUpdate } from "../_lib/mutations";
+import { postUpdate } from "../_lib/mutations/postUpdate";
 
 type postParams = {
   id: string,

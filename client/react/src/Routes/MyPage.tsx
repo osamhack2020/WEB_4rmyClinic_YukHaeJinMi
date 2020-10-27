@@ -5,7 +5,6 @@ import { UploadImg } from "../_lib/imageclient";
 import '../scss/Mypage.scss';
 import { userProfileImgSet } from "../_lib/mutations/userProfileImgSet";
 import { ProfileIcon } from "../Components/ProfileIcon";
-// import { userProfileImgSet } from "../_lib/mutations/userProfileImgSet";
 
 type MyPageState = {
   img?: File;

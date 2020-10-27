@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { RouteComponentProps, useHistory } from "react-router";
 import "../scss/Main.scss";
-import { authUser, userCreate } from "../_lib/mutations";
+import { authUser } from "../_lib/mutations/auth";
+import { userCreate } from "../_lib/mutations/userCreate";
+
 
 type SignUpState = {
   name: string;
