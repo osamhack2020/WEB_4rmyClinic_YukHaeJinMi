@@ -100,9 +100,6 @@ export function Post(props: RouteComponentProps<postParams>) {
                 </div>
 
                 <div className="Post-underbox">
-                  {/* TODO : 좋아요 -> 하트 */}
-                  <hr />
-
                   <div className="comment-container"> {/*pagination*/}
                     {viewer &&
                       <div className="input">
@@ -113,7 +110,8 @@ export function Post(props: RouteComponentProps<postParams>) {
                         />
                         <button onClick={() => {
                           commentCreate({ postId, ...state });
-                        }}>댓글쓰기</button>
+                          setState({ content: "" });
+                        }}>작성</button>
                       </div>
                     }
                     <hr />

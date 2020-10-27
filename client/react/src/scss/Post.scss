@@ -85,7 +85,34 @@
         width:90%;
         margin :30px auto;
         max-width: 1000px;
-        
+        hr {
+            border-top: 1px solid #eee;
+        }
+        .comment-container {
+            .input {
+                display: flex;
+                width: 100%;
+                height: 56px;
+                margin-bottom: 24px;
+                justify-content: center;
+                // align-items: center;
+                textarea {
+                    resize: none;
+                    width: 85%;
+                    // height: 56px;
+                    margin-right: 12px;
+                    border-radius: 8px;
+                    padding: 2px;
+                }
+                button {
+                    // height: 32px;
+                    background-color: #5e5e5e;
+                    color: rgb(255, 255, 255);
+                    border: none;
+                    border-radius: 8px;
+                }
+            }
+        }
         .side-box{
             width:90%;
             margin:30px auto;

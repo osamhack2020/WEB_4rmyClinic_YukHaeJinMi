@@ -24,7 +24,7 @@ function Card(props: CardProps) {
 					? <img src={url} style={{ background: "None" }} className="card-profile-img" alt="profile-img" />
 					: <div className="card-profile-img"></div>
 				} */}
-				<ProfileIcon imgUri={imgUri} size={24} />
+				<ProfileIcon imgUri={imgUri} size={24} borderRadius={12} />
 				<div className="card-profile-id">{card.author.nickname}</div>
 			</div>
 		</div >

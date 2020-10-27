@@ -13,6 +13,7 @@ mutation commentCreateMutation($postId: String!, $content: String!) {
           nickname
         }
         content
+        created
       }
     }
   }
