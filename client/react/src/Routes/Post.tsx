@@ -69,19 +69,19 @@ export function Post(props: RouteComponentProps<postParams>) {
                   <Link to="/posts">←</Link><h3>돌아가기</h3>
                 </div>
 
-                {viewerCanEditPost && <div className="return-btn">
-                  <Link to={`/updatepost/${postId}`}>!</Link><h3>수정하기</h3>
-                  <button onClick={() => {
-                    postDelete({ postId });
-                    history.push('/posts');
-                  }}>X</button>
-                </div>
-                }
                 <div className="Post-content">
-                  <div className="tags">
-                    {tags && tags.map((e) =>
-                      <p key={e?.cursor}>#{e?.tag?.name}</p>
-                    )}
+                  <div className="top">
+                    <div className="tags">
+                      {tags && tags.map((e) =>
+                        <p key={e?.cursor}>#{e?.tag?.name}</p>
+                      )}
+                    </div>
+                    {viewerCanEditPost &&
+                      <div className="">
+                        <button className="authbutton" onClick={() => history.push(`/updatepost/${postId}`)}>수정</button>
+                        <button className="authbutton" onClick={() => { postDelete({ postId }); history.push('/posts'); }}>X</button>
+                      </div>
+                    }
                   </div>
                   <div className="body">
                     <h1>{props?.post?.title}</h1>
