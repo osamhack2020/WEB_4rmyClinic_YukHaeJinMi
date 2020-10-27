@@ -27,8 +27,15 @@
         
         input,textarea{
             width:100%;
+            border-radius:8px;
+            border: 1px solid #ddd;
+
+        }
+        .write-input {
+            height: 28px;
         }
         textarea{
+            resize: none;
             height: 400px;
         }
     }
@@ -41,6 +48,7 @@
         padding:8px 20px;
         background: rgb(152, 152, 250);
         border-radius: 3em;
+        border: none;
     }
 
     background: #FFFFFF;

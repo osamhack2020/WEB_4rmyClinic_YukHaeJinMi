@@ -40,7 +40,7 @@ export function PostFormFragment(props: PostFormFragmentProps) {
       </div>
       <div className="write-container">
         <div className="box write-title">
-          <input className="write-input" type="text" name="title" placeholder="고민의 제목을 달아주세요"
+          <input className="write-input" type="text" name="title" placeholder="제목"
             value={state.title}
             onChange={({ target }) => {
               setState({ ...state, title: target.value });
@@ -49,7 +49,7 @@ export function PostFormFragment(props: PostFormFragmentProps) {
           />
         </div>
         <div className="box write-text">
-          <textarea placeholder="고민 내용을 입력하세용" name="content"
+          <textarea placeholder="어떤 고민을 하고 있나요?" name="content"
             value={state.content}
             onChange={({ target }) => {
               setState({ ...state, content: target.value });
