@@ -7,6 +7,7 @@ import CardContainerOnTag from "../Components/CardContainerOnTag";
 import { AuthContext } from "../Components/AuthContextProvider";
 import { PostsQuery } from "./__generated__/PostsQuery.graphql";
 import "../scss/Posts.scss";
+import CardContainer from "../Components/CardContainer";
 
 export function Posts(props: RouteComponentProps) {
   const [tag, setTag] = useState<string>("");
@@ -29,6 +30,9 @@ export function Posts(props: RouteComponentProps) {
                       }
                     }
                   }
+
+                  ...CardContainer_cards
+
                   tags(name_Icontains: $name) {
                     edges {
                       cursor
@@ -64,11 +68,13 @@ export function Posts(props: RouteComponentProps) {
                     <h1>최근 고민</h1>
                     <Link to={viewer ? "/newpost" : "/signin"}>고민작성하기</Link>
                   </div>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', }}>
+                  {tag ? <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', }}>
                     {tags && tags.map((edge) => {
                       return edge && edge.tag && <CardContainerOnTag cards={edge.tag} />
                     })}
                   </div>
+                    : props && <CardContainer cards={props} />
+                  }
                 </div>
               </div>
             );

@@ -16,19 +16,19 @@ from datetime import timedelta
 import os
 
 env = environ.Env(
-    DEBUG=(bool, False),
+    DEBUG=(bool, "*"),
     ALLOWED_HOSTS=(str, "*"),
     JWT_COOKIE_SECURE=(bool, False),
 )
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 ROOT_DIR = os.path.dirname(BASE_DIR)
-environ.Env.read_env(env_file="clinic/.env")
+environ.Env.read_env()
 
 # get value from env
 SECRET_KEY = env('SECRET_KEY')
 DEBUG = env('DEBUG')
-ALLOWED_HOSTS = [env('ALLOWED_HOSTS')]
+ALLOWED_HOSTS = [env("ALLOWED_HOSTS")]
 
 # Application definition
 

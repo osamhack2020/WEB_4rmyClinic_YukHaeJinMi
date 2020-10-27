@@ -32,7 +32,7 @@
 
 .card-profile{ 
 	display: flex;
-	justify-content: space-between;
+	justify-content: flex-start;
 	align-items: center;
 	width: 100%;
 	&-img{
@@ -40,5 +40,10 @@
 		height: 30px;
 		border-radius: 15px;
 		background-color: orange;
+	}
+	&-id {
+		margin-left: 12px;
+		font-size: large;
+		font-weight: 500;
 	}
 }

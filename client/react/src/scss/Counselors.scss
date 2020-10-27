@@ -1,11 +1,11 @@
 .cscard{
     display:flex;
     justify-content: left;
-    flex-direction: row;
+    align-items: center;
 
 	padding: 20px;
 	margin-bottom: 50px;
-	width: 399px;
+	width: 340px;
 	height: 150px;
 
 	background: #FFFFFF;
@@ -34,4 +34,8 @@
         width:30%;
         margin-right:10px;
     }
+}
+
+.card-box {
+    padding: 16px;
 }

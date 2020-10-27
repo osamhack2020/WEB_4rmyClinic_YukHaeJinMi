@@ -33,6 +33,11 @@ export function SignIn(props: RouteComponentProps) {
     set({ ...state, [target.name]: value })
   }
 
+  const onPressEnter = async (e: React.KeyboardEvent<HTMLInputElement>, loginFn: () => Promise<boolean>) => {
+    if (e.key === 'Enter') {
+      handleSubmit(loginFn);
+    }
+  }
   return (
     <AuthContext.Consumer>
       {({ login }) =>
@@ -52,7 +57,7 @@ export function SignIn(props: RouteComponentProps) {
               <div className="box">
                 <label htmlFor="password">비밀번호</label>
                 <input className="box-input" type="password" name="password"
-                  value={state.password} onChange={handleChange} />
+                  value={state.password} onChange={handleChange} onKeyDown={(e) => login && onPressEnter(e, () => login(state.email, state.password))} />
               </div>
 
               <input className="box-btn" type='submit' value='로그인'

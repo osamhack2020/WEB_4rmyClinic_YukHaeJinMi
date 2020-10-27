@@ -26,14 +26,21 @@ export class Counsel extends React.Component<CounselProps, CounselState> {
   onChangeText = ({ target }: React.ChangeEvent<HTMLTextAreaElement>) => {
     this.setState({ content: target.value });
   }
-  onSendText = () => {
-    chatSend({ ...this.state });
+  onSendText = async () => {
+    if (this.state.content.length > 0) {
+      await chatSend({ ...this.state });
+      this.setState({ content: "" });
+    }
   }
   componentDidMount = async () => {
     const { counselId } = this.state;
     chatSubscribe({ counselId });
   }
-
+  onPressEnter = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === 'Enter') {
+      this.onSendText();
+    }
+  }
   render() {
     return (
       <QueryRenderer<CounselQuery>
@@ -75,7 +82,7 @@ export class Counsel extends React.Component<CounselProps, CounselState> {
                   })}
                 </div>
                 <div className="chat-input">
-                  <textarea cols={32} rows={5} value={this.state.content} onChange={this.onChangeText}></textarea>
+                  <textarea cols={32} rows={5} value={this.state.content} onChange={this.onChangeText} onKeyDown={this.onPressEnter}></textarea>
                   <button type="submit" onClick={this.onSendText}>보내기</button>
                 </div>
               </div>

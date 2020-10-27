@@ -34,6 +34,7 @@
         margin: 8px 12px 8px 12px;
         border-radius: 12px;
         padding: 16px;
+        max-width: 68%;
       }
     }
   }
@@ -46,15 +47,23 @@
     height: 52px;
     display: flex;
     justify-content: center;
+    align-items: center;
     padding: 8px;
     textarea {
       resize: none;
       width: 80%;
-      height: 36px;
+      height: 34px;
+      margin: 0;
+      padding: 0;
+      border-radius: 8px;
     }
     button {
+      margin-left: 8px;
       max-width: 56px;
       height: 36px;
+      background-color: #94D6FF;
+      border: none;
+      border-radius: 8px;
     }
   }
 }

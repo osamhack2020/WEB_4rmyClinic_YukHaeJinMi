@@ -1,11 +1,11 @@
 import React from "react";
 import { RouteComponentProps, useHistory } from "react-router";
 import "../scss/csAbout.scss";
-import defaultImg from '../assets/default_profile.jpg';
 import { graphql, QueryRenderer } from "react-relay";
 import environment from "../_lib/environment";
 import { CounselorQuery } from "./__generated__/CounselorQuery.graphql";
 import { counselStart } from "../_lib/mutations/counselStart";
+import { ProfileIcon } from "../Components/ProfileIcon";
 
 type counselorProps = {
   id: string;
@@ -33,7 +33,7 @@ export function Counselor(props: RouteComponentProps<counselorProps>) {
           <div className="csprofile">
             <div className="left">
               <div className="csimg">
-                <img src={defaultImg} alt="csimg" />
+                <ProfileIcon imgUri={props?.user?.imgUri} size={100} borderRadius={12} />
                 <h2>{props?.user?.nickname}</h2>
                 <p>{props?.user?.bio}</p>
               </div>

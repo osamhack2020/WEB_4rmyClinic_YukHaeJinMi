@@ -2,9 +2,8 @@ import React from 'react';
 import { createFragmentContainer, Environment, graphql } from "react-relay";
 import { Card_card } from "./__generated__/Card_card.graphql";
 import '../scss/Card.scss';
-import { ROOT } from '../_lib/endpoint';
-import defaultProfileImg from '../assets/profile.png';
 import { useHistory } from "react-router-dom";
+import { ProfileIcon } from "../Components/ProfileIcon";
 
 type CardProps = {
 	relay: {
@@ -14,18 +13,18 @@ type CardProps = {
 }
 function Card(props: CardProps) {
 	const { card } = props;
-	const url = card.author.imgUri ? ROOT + card.author.imgUri : defaultProfileImg;
+	const imgUri = card.author.imgUri;
 	const history = useHistory();
-	console.log(url);
 	return (
 		<div className="card" onClick={() => history.push('/post/' + card.id)}>
 			<div className="card-title">{card.title}</div>
 			<div className="card-body">{card.content}</div>
 			<div className="card-profile">
-				{url !== ROOT
+				{/* {url !== ROOT
 					? <img src={url} style={{ background: "None" }} className="card-profile-img" alt="profile-img" />
 					: <div className="card-profile-img"></div>
-				}
+				} */}
+				<ProfileIcon imgUri={imgUri} size={24} />
 				<div className="card-profile-id">{card.author.nickname}</div>
 			</div>
 		</div >

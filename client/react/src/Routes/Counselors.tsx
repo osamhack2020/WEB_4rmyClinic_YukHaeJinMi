@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 //import CardContainer from "../Components/CardContainer";
 import "../scss/Counselors.scss";
 
-import defaultImg from '../assets/default_profile.jpg';
 import { graphql, QueryRenderer } from "react-relay";
 import environment from "../_lib/environment";
 import { CounselorsQuery } from "./__generated__/CounselorsQuery.graphql";
+import { ProfileIcon } from "../Components/ProfileIcon";
 
 export function Counselors(props: RouteComponentProps) {
   return (
@@ -34,9 +34,9 @@ export function Counselors(props: RouteComponentProps) {
           <div className="filter"></div>
           <div className="card-container">
             {props?.counselors?.edges.map((edge) => edge && (
-              <Link to={"/counselor/" + edge.node?.id}>
+              <Link to={"/counselor/" + edge.node?.id} className="card-box">
                 <div className="cscard">
-                  <img src={edge.node?.imgUri === "" ? defaultImg : edge.node?.imgUri} alt="" />
+                  <ProfileIcon imgUri={edge.node?.imgUri} />
 
                   <div className="info">
                     <div className="p name">{edge.node?.nickname}</div>

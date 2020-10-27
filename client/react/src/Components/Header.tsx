@@ -46,7 +46,7 @@ export default function Header(props: HeaderProps) {
                   ?
                   <div className="login-ed" onClick={() => setActive(!active)}>
                     <ProfileIcon imgUri={viewer.imgUri} size={20} />
-                    <p>{viewer.nickname}</p>
+                    <p style={{ marginLeft: "10px" }}>{viewer.nickname}</p>
                     <ProfileBox active={active} />
                   </div>
                   // {/* <p onClick={logout}>로그아웃하기</p>< */}
