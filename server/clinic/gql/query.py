@@ -5,7 +5,7 @@ from graphene_django.filter import DjangoFilterConnectionField
 from graphql_relay import from_global_id
 
 from django.db.models import Q, Count
-from .models import User, Post, Comment, Like, Tag, Counsel, Chat
+from .models import User, Post, Comment, Like, Tag, Counsel, Chat, Career
 
 from api.models import Image
 
@@ -100,6 +100,11 @@ class CounselorConnection(relay.Connection):
   class Meta:
     node = UserNode
 
+class CareerNode(DjangoObjectType):
+  class Meta:
+    model=Career
+    interfaces = (relay.Node, )
+
 class Query(ObjectType):
   node = relay.Node.Field()
   user = relay.Node.Field(UserNode)
@@ -107,9 +112,9 @@ class Query(ObjectType):
   tag = relay.Node.Field(TagNode)
   counsel = relay.Node.Field(CounselNode)
   chat = relay.Node.Field(ChatNode)
-
-  users = DjangoFilterConnectionField(UserNode) # TODO : delete this field
-
+  career = relay.Node.Field(CareerNode)
+  users = DjangoFilterConnectionField(UserNode)
+  
   ############### CUSTOM CONNECTIONS ###############
   tags = relay.ConnectionField(TagConnection, name__icontains=String())
   def resolve_tags(parent, info, first=None, after=None, name__icontains=""):
@@ -120,9 +125,6 @@ class Query(ObjectType):
   def resolve_posts(parent, info, first=None, after=None):
     # 상담사만이 비밀글을 볼 수 있다.
     try:
-      # print(dir(info.context.user))
-      # print(info.context.user.is_anonymous)
-      # print("@@@",info.context.user)
       if not info.context.user.is_anonymous:
         hasPerm = info.context.user.is_counselor
         if hasPerm:

@@ -1,17 +1,38 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { RouteComponentProps } from "react-router";
 import { Link } from 'react-router-dom';
-import { QueryRenderer, graphql } from "react-relay";
+import { QueryRenderer, graphql, fetchQuery } from "react-relay";
 import environment from "../_lib/environment";
 import CardContainerOnTag from "../Components/CardContainerOnTag";
 import { AuthContext } from "../Components/AuthContextProvider";
 import { PostsQuery } from "./__generated__/PostsQuery.graphql";
 import "../scss/Posts.scss";
 import CardContainer from "../Components/CardContainer";
+import { PostsTagQuery, PostsTagQueryResponse } from "./__generated__/PostsTagQuery.graphql";
 
 export function Posts(props: RouteComponentProps) {
   const [tag, setTag] = useState<string>("");
-
+  const [tagLists, setTags] = useState<PostsTagQueryResponse>({ allTags: null });
+  const firstUpdate = useRef(true);
+  useEffect(() => {
+    if (firstUpdate.current) {
+      firstUpdate.current = false;
+      fetchQuery<PostsTagQuery>(environment, graphql`
+        query PostsTagQuery {
+          allTags: tags {
+            edges {
+              cursor
+              tag: node {
+                id
+                name
+              }
+            }
+          }
+        }
+      `, {}).then(res => { setTags(res) });
+      return;
+    }
+  });
   return (
     <AuthContext.Consumer>
       {({ viewer, }) =>
@@ -21,15 +42,15 @@ export function Posts(props: RouteComponentProps) {
           variables={{ name: tag }}
           query={graphql`
                 query PostsQuery($name: String) {
-                  allTags: tags {
-                    edges {
-                      cursor
-                      tag: node {
-                        id
-                        name
-                      }
-                    }
-                  }
+                  # allTags: tags {
+                  #   edges {
+                  #     cursor
+                  #     tag: node {
+                  #       id
+                  #       name
+                  #     }
+                  #   }
+                  # }
 
                   ...CardContainer_cards
 
@@ -48,7 +69,7 @@ export function Posts(props: RouteComponentProps) {
                 `}
           render={({ props, error, retry }) => {
             const tags = props?.tags?.edges;
-            const allTags = props?.allTags?.edges;
+            // const allTags = props?.allTags?.edges;
             return (
               <div className="Posts-root">
                 <h1>커뮤니티</h1>
@@ -57,7 +78,7 @@ export function Posts(props: RouteComponentProps) {
                   <div className="tag-container">
                     <p className="tag-card" onClick={() => setTag("")}>#전체</p>
 
-                    {allTags && allTags.map((edge) =>
+                    {tagLists && tagLists.allTags?.edges.map((edge) =>
                       edge && <p key={edge.cursor} className="tag-card" onClick={() => { edge?.tag && setTag(edge.tag.name) }}>#{edge.tag?.name}</p>
                     )}
                   </div>

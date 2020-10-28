@@ -1,13 +1,11 @@
 import React from 'react';
-import { createPaginationContainer, Environment, graphql } from "react-relay";
+import { createPaginationContainer, graphql, RelayPaginationProp } from "react-relay";
 import Card from "../fragments/Card";
 import "../scss/CardContainer.scss";
 import { CardContainerOnTag_cards } from "./__generated__/CardContainerOnTag_cards.graphql";
 
 type CardContainerOnTag_Props = {
-  relay: {
-    environment: Environment
-  },
+  relay: RelayPaginationProp,
   cards: CardContainerOnTag_cards,
 }
 function CardsOnTag(props: CardContainerOnTag_Props) {
@@ -15,6 +13,7 @@ function CardsOnTag(props: CardContainerOnTag_Props) {
   return (
     <div className="card-container">
       {cards.posts?.edges.map(e => { return e?.card && <Card key={e.cursor} card={e.card} /> })}
+      {props.relay.hasMore() && <p onClick={() => props.relay.loadMore(6)}>더 많은 글 보기</p>}
     </div>
   )
 }

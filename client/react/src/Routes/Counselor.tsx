@@ -48,7 +48,6 @@ export function Counselor(props: RouteComponentProps<counselorProps>) {
               상담사에 관한 어떤 자료를 보여주어야 좋을까?
             */}
             <div className="cshistory">
-              <div className="academic">학력<hr />카이스트 박사</div>
               <div className="career">경력<hr />국내 최초 노벨문학상 수상</div>
             </div>
           </div>
@@ -58,6 +57,7 @@ export function Counselor(props: RouteComponentProps<counselorProps>) {
           </div>
           <div className="grade">
             <div className="card-container">
+              {/* TODO */}
               <div className="card likes"><h2>추천 수</h2><h3>38</h3></div>
               <div className="card ongoing"><h2>상담 진행 중</h2><h3>5</h3></div>
               <div className="card complete"><h2>완료된 상담 수</h2><h3>234</h3></div>

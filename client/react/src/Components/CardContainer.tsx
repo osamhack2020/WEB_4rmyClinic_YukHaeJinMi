@@ -1,20 +1,21 @@
 import React from 'react';
-import { createPaginationContainer, Environment, graphql } from "react-relay";
+import { createPaginationContainer, graphql, RelayPaginationProp } from "react-relay";
 import Card from "../fragments/Card";
 import "../scss/CardContainer.scss";
 import { CardContainer_cards } from "./__generated__/CardContainer_cards.graphql";
 
 type CardContainer_Props = {
-  relay: {
-    environment: Environment
-  },
+  relay: RelayPaginationProp,
   cards: CardContainer_cards,
 }
 function Cards(props: CardContainer_Props) {
   const { cards } = props;
   return (
-    <div className="card-container">
-      {cards.posts?.edges.map(e => { return e?.card && <Card key={e.cursor} card={e.card} /> })}
+    <div>
+      <div className="card-container">
+        {cards.posts?.edges.map(e => { return e?.card && <Card key={e.cursor} card={e.card} /> })}
+      </div>
+      {props.relay.hasMore() && <p className="loadMore" onClick={() => props.relay.loadMore(6)}>더 많은 글 보기</p>}
     </div>
   )
 }

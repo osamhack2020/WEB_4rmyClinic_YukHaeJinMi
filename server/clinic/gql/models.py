@@ -115,5 +115,8 @@ class Chat(models.Model):
   content = models.TextField(blank=False)
   sent = models.DateField(default=timezone.now)
   read = models.BooleanField(default=False)
-  
+
+class Career(models.Model):
+  user = models.ForeignKey(User, on_delete=models.CASCADE)
+  title = models.TextField(blank=True)
   

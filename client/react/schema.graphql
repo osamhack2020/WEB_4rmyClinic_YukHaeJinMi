@@ -4,6 +4,22 @@ schema {
   subscription: Subscription
 }
 
+type CareerNode implements Node {
+  id: ID!
+  user: UserNode!
+  title: String!
+}
+
+type CareerNodeConnection {
+  pageInfo: PageInfo!
+  edges: [CareerNodeEdge]!
+}
+
+type CareerNodeEdge {
+  node: CareerNode
+  cursor: String!
+}
+
 type ChatNode implements Node {
   id: ID!
   counsel: CounselNode!
@@ -315,6 +331,7 @@ type Query {
   tag(id: ID!): TagNode
   counsel(id: ID!): CounselNode
   chat(id: ID!): ChatNode
+  career(id: ID!): CareerNode
   users(before: String, after: String, first: Int, last: Int, email_Icontains: String, division_Icontains: String, rank_Icontains: String, isCounselor: Boolean): UserNodeConnection
   tags(name_Icontains: String, before: String, after: String, first: Int, last: Int): TagConnection
   posts(before: String, after: String, first: Int, last: Int): PostConnection
@@ -414,6 +431,7 @@ type UserNode implements Node {
   counselCounselor(before: String, after: String, first: Int, last: Int): CounselNodeConnection!
   counselClient(before: String, after: String, first: Int, last: Int): CounselNodeConnection!
   chatSet(before: String, after: String, first: Int, last: Int): ChatNodeConnection!
+  careerSet(before: String, after: String, first: Int, last: Int): CareerNodeConnection!
 }
 
 type UserNodeConnection {
