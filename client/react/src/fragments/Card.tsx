@@ -20,10 +20,6 @@ function Card(props: CardProps) {
 			<div className="card-title">{card.title}</div>
 			<div className="card-body">{card.content}</div>
 			<div className="card-profile">
-				{/* {url !== ROOT
-					? <img src={url} style={{ background: "None" }} className="card-profile-img" alt="profile-img" />
-					: <div className="card-profile-img"></div>
-				} */}
 				<ProfileIcon imgUri={imgUri} size={24} borderRadius={12} />
 				<div className="card-profile-id">{card.author.nickname}</div>
 			</div>

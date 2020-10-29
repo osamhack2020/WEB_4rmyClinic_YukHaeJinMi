@@ -208,6 +208,7 @@ type MessageSent {
 type Mutation {
   userCreate(input: UserCreateInput!): UserCreatePayload
   userProfileImgSet(input: UserProfileImgSetInput!): UserProfileImgSetPayload
+  userInfoUpdate(input: UserInfoUpdateInput!): UserInfoUpdatePayload
   postCreate(input: PostCreateInput!): PostCreatePayload
   postUpdate(input: PostUpdateInput!): PostUpdatePayload
   postDelete(input: PostDeleteInput!): PostDeletePayload
@@ -413,6 +414,20 @@ enum UserDivision {
   ROKM
   MND
   CIVIL
+}
+
+input UserInfoUpdateInput {
+  nickname: String
+  bio: String
+  careers: String
+  rank: String
+  division: String
+  clientMutationId: String
+}
+
+type UserInfoUpdatePayload {
+  user: UserNode
+  clientMutationId: String
 }
 
 type UserNode implements Node {

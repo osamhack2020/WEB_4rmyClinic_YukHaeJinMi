@@ -5,11 +5,18 @@ import { UploadImg } from "../_lib/imageclient";
 import '../scss/Mypage.scss';
 import { userProfileImgSet } from "../_lib/mutations/userProfileImgSet";
 import { ProfileIcon } from "../Components/ProfileIcon";
+import { InfoUpdate } from "../Components/InfoUpdate";
+import { CounselList } from "./CounselList";
+import MyPosts from "../Components/MyPosts";
+import environment from "../_lib/environment";
+import { MyPageMyPostsQuery } from "./__generated__/MyPageMyPostsQuery.graphql";
+import { graphql, QueryRenderer } from "react-relay";
 
 type MyPageState = {
   img?: File;
   imgPreviewUri?: string,
   showUploadButton?: boolean,
+  sidebarIdx: number,
 }
 export class MyPage extends React.Component<RouteComponentProps, MyPageState> {
   private inputRef = createRef<HTMLInputElement>();
@@ -17,7 +24,7 @@ export class MyPage extends React.Component<RouteComponentProps, MyPageState> {
 
   constructor(props: RouteComponentProps) {
     super(props);
-    this.state = {};
+    this.state = { sidebarIdx: 0 };
   }
 
   handleChangeImg = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -67,12 +74,29 @@ export class MyPage extends React.Component<RouteComponentProps, MyPageState> {
               <div className="mypage-container">
 
                 <div className="sidebar">
-                  <div className="title"><p>회원정보</p></div>
-                  <div className="title"><p>상담내역</p></div>
-                  <div className="title"><p>내가 쓴 글</p></div>
+                  <div className="title" onClick={() => this.setState({ sidebarIdx: 0 })}><p>회원정보</p></div>
+                  <div className="title" onClick={() => this.setState({ sidebarIdx: 1 })}><p>상담내역</p></div>
+                  <div className="title" onClick={() => this.setState({ sidebarIdx: 2 })}><p>내가 쓴 글</p></div>
                 </div>
 
-                <div className="showbox"></div>
+                <div className="showbox">
+                  {this.state.sidebarIdx === 0
+                    ? <InfoUpdate viewerId={viewer.id} afterUpdate={() => this.props.history.push(`/mypage/${viewer.id}`)} isCounselor={viewer.isCounselor} />
+                    : this.state.sidebarIdx === 1
+                      ?
+                      <CounselList {...this.props} />
+                      : <QueryRenderer<MyPageMyPostsQuery>
+                        environment={environment}
+                        variables={{ viewerId: viewer.id }}
+                        query={graphql`
+                        query MyPageMyPostsQuery($viewerId: ID!) {
+                          user(id: $viewerId) {
+                            ...MyPosts_posts
+                          }
+                        }
+                        `}
+                        render={({ props, retry, error }) => { return props?.user && <MyPosts posts={props.user} viewerId={viewer.id} /> }} />}
+                </div>
               </div>
             </div>
           </div>

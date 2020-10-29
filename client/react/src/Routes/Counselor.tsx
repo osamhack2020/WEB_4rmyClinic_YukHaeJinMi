@@ -25,6 +25,14 @@ export function Counselor(props: RouteComponentProps<counselorProps>) {
             email
             imgUri
             bio
+            careerSet {
+              edges {
+                node {
+                  id
+                  title
+                }
+              }
+            }
           }
         }
       `}
@@ -48,13 +56,12 @@ export function Counselor(props: RouteComponentProps<counselorProps>) {
               상담사에 관한 어떤 자료를 보여주어야 좋을까?
             */}
             <div className="cshistory">
-              <div className="career">경력<hr />국내 최초 노벨문학상 수상</div>
+              <div className="career">경력<hr />
+                {props?.user?.careerSet.edges.map(edge => <p>{edge?.node?.title}</p>)}
+              </div>
             </div>
           </div>
-          <div className="introduce">
-            <h2>소개</h2><hr />
-            <p>안녕하세요 이근대위입니다. 당신의 나약한 정신과 신체를 MUSAT SURVIVE 과정을 통해 단련시켜 드립니다. 안되면 될때까지 악바리로 견디고 버텨내고 나면 한층 더 성장한 자신을 볼 수 있을 겁니다. </p>
-          </div>
+
           <div className="grade">
             <div className="card-container">
               {/* TODO */}

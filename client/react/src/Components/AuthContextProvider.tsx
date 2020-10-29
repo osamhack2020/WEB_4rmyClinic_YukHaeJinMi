@@ -18,6 +18,7 @@ export const AuthContext = createContext<AuthContext>({ viewer: null });
 type AuthContextState = {
   viewer: Viewer | null
 }
+
 export default class AuthContextProvider extends React.Component<{}, AuthContextState> {
   constructor(props: any) {
     super(props);
@@ -38,7 +39,7 @@ export default class AuthContextProvider extends React.Component<{}, AuthContext
       { email }
     );
     const user = data.getUserFromEmail;
-    const viewer = user && { id: user.id, nickname: user.nickname, imgUri: user.imgUri, isCounselor: user.isCounselor, bio: user.bio };
+    const viewer = user && user;
     viewer && this.setState({ viewer });
   }
   componentDidMount = async () => {
