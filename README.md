@@ -97,13 +97,6 @@ type Subscription {
 }
 ```
 
-
-
-<br/>
-
-## 컴퓨터 구성 / 필수 조건 안내
-
-
 <br/>
 
 ## 기술 스택
@@ -131,7 +124,7 @@ type Subscription {
 
 ## 설치 안내 (Installation Process)
 
-* **Python(3.8.5)**, **Node.JS LTS(12.19.0)**, **Go (1.13)** 정도가 설치되어 있어야합니다.
+* **Python(3.8.5)**, **Node.JS LTS(12.19.0)** 이상이 설치되어 있어야합니다.
 
 ```bash
 # Repository Clone
@@ -161,13 +154,7 @@ npm run dev
 
 <br/>
 
-## 프로젝트 사용법 (Getting Started)
-
-TODO
-
-<br/>
-
-## 팀 정보 (Team Information)
+## 팀 정보
 - 이성빈 (lee@sungbin.dev), Github: [@leesungbin](https://github.com/leesungbin)
 - 홍유준 (hyjhyj0901@gmail.com), Github: [@Kick-snare](https://github.com/kick-snare)
 - 이준영 (rubinstory@naver.com), Github: [@rubinstory](https://github.com/rubinstory)
@@ -175,5 +162,5 @@ TODO
 
 <br/>
 
-## 저작권 및 사용권 정보 (Copyleft / End User License)
+## License
  * [MIT](https://github.com/osam2020-WEB/Sample-ProjectName-TeamName/blob/master/license.md)
