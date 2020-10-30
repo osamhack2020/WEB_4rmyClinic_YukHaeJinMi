@@ -1,6 +1,6 @@
 # <img src="https://4rmy.app/static/media/consideringlogo.44b2b8fa.png" width=30 /> 두軍두軍 상담소
 
-![Logo](./readme/logo.png)
+
 
 <br/>
 
@@ -138,9 +138,11 @@ npm run dev
 
 <br/>
 
-## <img src="./readme/team.png" width=30/> 팀 정보
+## <img src="./readme/logo.png" width=140/> 팀원 정보
+
 - 이성빈 (lee@sungbin.dev), Github: [@leesungbin](https://github.com/leesungbin)
 - 홍유준 (hyjhyj0901@gmail.com), Github: [@Kick-snare](https://github.com/kick-snare)
+
 - 이준영 (rubinstory@naver.com), Github: [@rubinstory](https://github.com/rubinstory)
 - 박동한 (donghanpark@naver.com), Github: [@donghanpark](https://github.com/donghanpark)
 
