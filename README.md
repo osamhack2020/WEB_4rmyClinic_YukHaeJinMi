@@ -102,6 +102,8 @@ type Subscription {
 ## 기술 스택
 ![tech-stack](./readme/tech.png)
 
+> [모든 dependency 보기](https://github.com/osamhack2020/WEB_4rmyClinic_YukHaeJinMi/network/dependencies)
+
 <br/>
 
 ## 설치 안내 (Installation Process)
