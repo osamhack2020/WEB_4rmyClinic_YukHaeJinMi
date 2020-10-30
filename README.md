@@ -3,7 +3,7 @@
 # 두軍두軍 상담소
 
 ![license](https://img.shields.io/bower/l/react)
-![Logo](/Users/iseongbin/workspace/OSAM/readme/logo.png)
+![Logo](./readme/logo.png)
 
 
 
