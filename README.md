@@ -1,26 +1,39 @@
 
 
-# 두軍두軍 상담소
+# 두軍두軍 상담소 ![license](https://img.shields.io/bower/l/react)
 
-![license](https://img.shields.io/bower/l/react)
 ![Logo](./readme/logo.png)
-
-
 
 <br/>
 
-## 팀소개 및 프로젝트 설명 동영상
+## 프로젝트 시연 동영상
+[![Thumbnail](./readme/video.png)]("https://youtu.be/TA9kBvD3mos")
 
+> 이미지를 클릭하시면 이동합니다.
 
 <br/>
 
 ## 기능 설계
 
-TODO
-
  - Notion
- - BeeCanvas
- - Figma
+
+
+
+ - BeeCanvas를 통해 사용자 스토리 작성
+
+
+
+ - Figma 사용하여 디자인 작업 진행
+
+
+
+ - ERD 작성
+
+
+
+ - [GraphQL Schema](https://api.4rmy.app/playground) 작성
+
+
 
 <br/>
 
