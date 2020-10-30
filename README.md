@@ -13,27 +13,43 @@
 
 <br/>
 
-## 기능 설계
+## 프로젝트 설계 과정
 
- - Notion
+ - <a href="https://www.notion.so/OSAM-66aec75349664b6693f56ad80575f903"><img src="https://cdn.icon-icons.com/icons2/2389/PNG/512/notion_logo_icon_145025.png" width=30/></a>`Notion`
 
+   > 팀원 간 프로젝트 진행과 관련된 이슈 공유 및 임무 분담
 
+   ![Notion](./readme/notion.png)
 
- - BeeCanvas를 통해 사용자 스토리 작성
+<br/>
 
+ - <a href="https://beecanvas.com/s/61Hk2QZQV8gctG3M10Z3leIbGCS0DalxOeH_aWvhZrVXu7dzfXvxE-SvwGon8Rwr"><img src="https://image.winudf.com/v2/image1/Y29tLmpva2VycGFja2luYy5iZWVjYW52YXNfaWNvbl8xNTUzOTQ1MDM1XzA1NA/icon.png?w=340&fakeurl=1" width=30/></a>`BeeCanvas`를 통해 사용자 스토리 작성
 
+   > 팀원 간 대면하여 소통하기에 제한이 있으므로 공유된 이해를 갖기 위해 스토리 작성을 진행하며 회의 진행
+
+   ![Story](./readme/story.png)
+
+<br/>
 
  - Figma 사용하여 디자인 작업 진행
 
+   > 정해진 스토리를 기반으로 디자인 작업 진행
 
+   
+
+<br/>
 
  - ERD 작성
 
+   > 두군두군 상담소 서비스에 필요한 데이터베이스 구조를 잡기위해 ERD 작성
 
+   
+
+<br/>
 
  - [GraphQL Schema](https://api.4rmy.app/playground) 작성
 
-
+   
 
 <br/>
 
