@@ -1,8 +1,6 @@
 # <img src="https://4rmy.app/static/media/consideringlogo.44b2b8fa.png" width=30 /> 두軍두軍 상담소
 
-
-
-<br/>
+[두軍두軍 상담소 바로가기](https://4rmy.app)
 
 ## <img src="https://i.pinimg.com/564x/31/23/9a/31239a2f70e4f8e4e3263fafb00ace1c.jpg" width=30/> 프로젝트 시연 동영상
 [![Thumbnail](./readme/video.png)]("https://youtu.be/TA9kBvD3mos")
