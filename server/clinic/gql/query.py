@@ -87,7 +87,7 @@ class CounselNode(DjangoObjectType):
   class Meta:
     model=Counsel
     interfaces = (relay.Node, )
-
+    
 class TagConnection(relay.Connection):
   class Meta:
     node = TagNode

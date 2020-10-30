@@ -51,8 +51,9 @@ INSTALLED_APPS = [
 ]
 
 ASGI_APPLICATION = "clinic.routing.application"
-# CHANNEL_LAYERS = {"default": {"BACKEND": "channels_redis.core.RedisChannelLayer", "CONFIG": {"hosts": [ ("localhost", 6379) if not DEBUG else ("10.36.98.107", 6379)], }, }, }
 CHANNEL_LAYERS = {"default": {"BACKEND": "channels.layers.InMemoryChannelLayer"}}
+# CHANNEL_LAYERS = {"default": {"BACKEND": "channels_redis.core.RedisChannelLayer", "CONFIG": {"hosts": [ ("localhost", 6379) if not DEBUG else ("10.36.98.107", 6379)], }, }, }
+# CHANNEL_LAYERS = {"default": {"BACKEND": "channels.layers.InMemoryChannelLayer"}} if not DEBUG else {"default": {"BACKEND": "channels_redis.core.RedisChannelLayer", "CONFIG": {"hosts": [ ("10.122.3.83", 6379)], }, }, }
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

@@ -24,3 +24,4 @@ RUN python manage.py loaddata fixture.json
 
 RUN ls -lah
 CMD uwsgi --http :$PORT --module clinic.wsgi --static-map /static=/static --static-map /media=/media
+# CMD python manage.py runserver 0:$PORT

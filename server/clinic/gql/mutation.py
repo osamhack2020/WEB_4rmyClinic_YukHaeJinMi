@@ -11,7 +11,7 @@ import graphql_jwt
 from graphql_jwt.decorators import login_required
 from .auth import ObtainJSONWebToken
 
-from .models import User, Post, Comment, Like, Tag, Counsel, Chat
+from .models import User, Post, Comment, Like, Tag, Counsel, Chat, Career
 from .query import UserNode, PostNode, CommentNode, LikeNode, TagNode, PostConnection, CounselNode, CounselChatConnection
 from .subscription import MessageSent
 
@@ -245,6 +245,36 @@ class UserProfileImgSet(relay.ClientIDMutation):
 		except Exception as err:
 			raise GraphQLError("UserProfileImgSet err : ", err)
 
+class UserInfoUpdate(relay.ClientIDMutation):
+	user = Field(UserNode)
+	class Input:
+		nickname = String()
+		bio = String()
+		careers = String()
+		rank = String()
+		division = String()
+	
+	@classmethod
+	@login_required
+	def mutate(cls, root, info, input):
+		try:
+			_user = info.context.user
+			careers=input.careers
+
+			_user.career_set.all().delete()
+			careers=careers.split(';')
+			for car in careers:
+				_car=Career(user=_user, title=car)
+				_car.save()
+
+			for key in input:
+				if key !=  "careers":
+					setattr(_user, key, getattr(input, key))
+			_user.save()
+			return UserInfoUpdate(user=_user)
+		except Exception as err:
+			raise err
+			
 class ChatSend(relay.ClientIDMutation):
 	chat_edge = Field(CounselChatConnection.Edge)
 	class Input:
@@ -311,6 +341,7 @@ class CounselStatusUpdate(relay.ClientIDMutation):
 class Mutation(AbstractType):
 	user_create = UserCreate.Field()
 	user_profile_img_set = UserProfileImgSet.Field()
+	user_info_update = UserInfoUpdate.Field()
 	post_create = PostCreate.Field()
 	post_update = PostUpdate.Field()
 	post_delete = PostDelete.Field()
