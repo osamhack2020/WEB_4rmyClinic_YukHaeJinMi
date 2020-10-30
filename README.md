@@ -2,15 +2,15 @@
 
 # 두軍두軍 상담소
 
-TODO
-![Logo](https://logosbynick.com/wp-content/uploads/2018/03/final-logo-example.png)
+![license](https://img.shields.io/bower/l/react)
+![Logo](/Users/iseongbin/workspace/OSAM/readme/logo.png)
 
-팀명 텍스트 및 팀명 로고 이미지 **(택1)**
+
 
 <br/>
 
-## 팀소개 및 프로잭트 설명 동영상
-TODO
+## 팀소개 및 프로젝트 설명 동영상
+
 
 <br/>
 
@@ -24,13 +24,12 @@ TODO
 
 <br/>
 
-## 컴퓨터 구성 / 필수 조건 안내 (Prerequisites)
-* ECMAScript 6 지원 브라우저 사용
-* 권장: Google Chrome 버젼 77 이상
+## 컴퓨터 구성 / 필수 조건 안내
+
 
 <br/>
 
-## 기술 스택 (Technique Used)
+## 기술 스택
 ### Back-end
  -  [Django](https://www.djangoproject.com/)
  - [Graphene](https://graphene-python.org/)
@@ -49,7 +48,7 @@ TODO
 
 * [Docker](https://www.docker.com/)
 * [Google Cloud Run](https://cloud.google.com/run)
-* [Golang](https://golang.org/)
+* [Nginx](https://www.nginx.com/)
 
 <br/>
 
