@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'graphql_jwt.refresh_token.apps.RefreshTokenConfig',
     'channels',
     'channels_redis',
-    'channels_graphql_ws'
+    'channels_graphql_ws',
+    'django_extensions',
 ]
 
 ASGI_APPLICATION = "clinic.routing.application"
@@ -186,3 +187,7 @@ CORS_ALLOWED_ORIGINS = [
 CORS_ALLOWED_ORIGIN_REGEXES = [
     r'^https:\/\/.*\.online\.visualstudio\.com'
 ]
+GRAPH_MODELS = {
+  'all_applications': True,
+  'group_models': True,
+}
