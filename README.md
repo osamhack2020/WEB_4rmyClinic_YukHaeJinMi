@@ -1,17 +1,17 @@
-# 두軍두軍 상담소 ![license](https://img.shields.io/bower/l/react)
+# <img src="https://4rmy.app/static/media/consideringlogo.44b2b8fa.png" width=30 /> 두軍두軍 상담소
 
 ![Logo](./readme/logo.png)
 
 <br/>
 
-## 프로젝트 시연 동영상
+## <img src="https://i.pinimg.com/564x/31/23/9a/31239a2f70e4f8e4e3263fafb00ace1c.jpg" width=30/> 프로젝트 시연 동영상
 [![Thumbnail](./readme/video.png)]("https://youtu.be/TA9kBvD3mos")
 
 > 이미지를 클릭하시면 이동합니다.
 
 <br/>
 
-## 프로젝트 설계 과정
+## <img src="https://www.globalreach.com/media/cms/illustration_C72C5CC42DDF9.svg" width=30 /> 프로젝트 설계 과정
 
 ### <a href="https://www.notion.so/OSAM-66aec75349664b6693f56ad80575f903"><img src="https://cdn.icon-icons.com/icons2/2389/PNG/512/notion_logo_icon_145025.png" width=30/></a> Notion
 
@@ -29,7 +29,7 @@
 
 <br/>
 
-### Figma 사용하여 디자인 작업 진행
+### <img src="https://i.pinimg.com/564x/a5/58/b4/a558b426cb8973523f37bbed94cf0f09.jpg" width=30/> Figma 사용하여 디자인 작업 진행
 
 > 정해진 스토리를 기반으로 디자인 작업 진행
 
@@ -37,7 +37,7 @@
 
 <br/>
 
-### <img src="https://cdn2.iconfinder.com/data/icons/computer-science-butterscotch-vol-1/512/ERD-512.png" width=50 /> ERD 작성
+### <img src="https://cdn2.iconfinder.com/data/icons/computer-science-butterscotch-vol-1/512/ERD-512.png" width=30 /> ERD 작성
 
 > 두군두군 상담소 서비스에 필요한 데이터베이스 구조를 잡기위해 ERD 작성
 
@@ -99,14 +99,14 @@ type Subscription {
 
 <br/>
 
-## 기술 스택
+## <img src="https://icon-library.com/images/layer-icon/layer-icon-2.jpg" width=30/> 기술 스택
 ![tech-stack](./readme/tech.png)
 
 > [모든 dependency 보기](https://github.com/osamhack2020/WEB_4rmyClinic_YukHaeJinMi/network/dependencies)
 
 <br/>
 
-## 설치 안내 (Installation Process)
+## <img src="http://www.myiconfinder.com/uploads/iconsets/256-256-5fbc60a4335d01cd9c35dcf8fae02410.png" width=30/> 설치 안내 (Installation Process)
 
 * **Python(3.8.5)**, **Node.JS LTS(12.19.0)** 이상이 설치되어 있어야합니다.
 
@@ -138,7 +138,7 @@ npm run dev
 
 <br/>
 
-## 팀 정보
+## <img src="./readme/team.png" width=30/> 팀 정보
 - 이성빈 (lee@sungbin.dev), Github: [@leesungbin](https://github.com/leesungbin)
 - 홍유준 (hyjhyj0901@gmail.com), Github: [@Kick-snare](https://github.com/kick-snare)
 - 이준영 (rubinstory@naver.com), Github: [@rubinstory](https://github.com/rubinstory)
@@ -146,5 +146,6 @@ npm run dev
 
 <br/>
 
-## License
- * [MIT](https://github.com/osam2020-WEB/Sample-ProjectName-TeamName/blob/master/license.md)
+## <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Git_icon.svg/194px-Git_icon.svg.png" width=30/> License
+![license](https://img.shields.io/bower/l/react)
+
