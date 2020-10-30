@@ -47,7 +47,7 @@
 
 ### <img src="https://d29fhpw069ctt2.cloudfront.net/icon/image/38568/preview.svg" width=30/> [GraphQL Schema](https://api.4rmy.app/playground) 작성
 
-> 서버, 클라이언트 개발자가 [Schema 파일](https://github.com/osamhack2020/web_4rmyclinic_yukhaejinmi/client/react/schema/graphql)을 공유함으로써 수정 현황에 대한 협업 상태를 유지하기에 편리함.
+> 서버, 클라이언트 개발자가 [Schema 파일](https://github.com/osamhack2020/WEB_4rmyClinic_YukHaeJinMi/blob/master/client/react/schema.graphql)을 공유함으로써 수정 현황에 대한 협업 상태를 유지하기에 편리함.
 
 ```graphql
 schema {
