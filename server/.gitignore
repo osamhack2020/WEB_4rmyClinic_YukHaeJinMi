@@ -1,5 +1,5 @@
-docker-compose.yaml
-deploy.sh
+# docker-compose.yaml
+# deploy.sh
 deploy.env
 .python-version
 **/.python-version

@@ -1,26 +1,103 @@
+# 두軍두軍 상담소 ![license](https://img.shields.io/bower/l/react)
 
-
-# 두軍두軍 상담소
-
-![license](https://img.shields.io/bower/l/react)
-![Logo](/Users/iseongbin/workspace/OSAM/readme/logo.png)
-
-
+![Logo](./readme/logo.png)
 
 <br/>
 
-## 팀소개 및 프로젝트 설명 동영상
+## 프로젝트 시연 동영상
+[![Thumbnail](./readme/video.png)]("https://youtu.be/TA9kBvD3mos")
 
+> 이미지를 클릭하시면 이동합니다.
 
 <br/>
 
-## 기능 설계
+## 프로젝트 설계 과정
 
-TODO
+### <a href="https://www.notion.so/OSAM-66aec75349664b6693f56ad80575f903"><img src="https://cdn.icon-icons.com/icons2/2389/PNG/512/notion_logo_icon_145025.png" width=30/></a> Notion
 
- - Notion
- - BeeCanvas
- - Figma
+> 팀원 간 프로젝트 진행과 관련된 이슈 공유 및 임무 분담
+
+![Notion](./readme/notion.png)
+
+<br/>
+
+### <a href="https://beecanvas.com/s/61Hk2QZQV8gctG3M10Z3leIbGCS0DalxOeH_aWvhZrVXu7dzfXvxE-SvwGon8Rwr"><img src="https://image.winudf.com/v2/image1/Y29tLmpva2VycGFja2luYy5iZWVjYW52YXNfaWNvbl8xNTUzOTQ1MDM1XzA1NA/icon.png?w=340&fakeurl=1" width=30/></a> BeeCanvas - 사용자 스토리 작성
+
+> 팀원 간 대면하여 소통하기에 제한이 있으므로 공유된 이해를 갖기 위해 스토리 작성을 진행하며 회의 진행
+
+![Story](./readme/story.png)
+
+<br/>
+
+### Figma 사용하여 디자인 작업 진행
+
+> 정해진 스토리를 기반으로 디자인 작업 진행
+
+![design](./readme/figma.png)
+
+<br/>
+
+### <img src="https://cdn2.iconfinder.com/data/icons/computer-science-butterscotch-vol-1/512/ERD-512.png" width=50 /> ERD 작성
+
+> 두군두군 상담소 서비스에 필요한 데이터베이스 구조를 잡기위해 ERD 작성
+
+![erd](./readme/erd_final.png)
+
+<br/>
+
+### <img src="https://d29fhpw069ctt2.cloudfront.net/icon/image/38568/preview.svg" width=30/> [GraphQL Schema](https://api.4rmy.app/playground) 작성
+
+> 서버, 클라이언트 개발자가 [Schema 파일](https://github.com/osamhack2020/WEB_4rmyClinic_YukHaeJinMi/blob/master/client/react/schema.graphql)을 공유함으로써 수정 현황에 대한 협업 상태를 유지하기에 편리함.
+
+```graphql
+schema {
+  query: Query
+  mutation: Mutation
+  subscription: Subscription
+}
+
+type Mutation {
+  userCreate(input: UserCreateInput!): UserCreatePayload
+  userProfileImgSet(input: UserProfileImgSetInput!): UserProfileImgSetPayload
+  userInfoUpdate(input: UserInfoUpdateInput!): UserInfoUpdatePayload
+  postCreate(input: PostCreateInput!): PostCreatePayload
+  postUpdate(input: PostUpdateInput!): PostUpdatePayload
+  postDelete(input: PostDeleteInput!): PostDeletePayload
+  likeToggle(input: LikeToggleInput!): LikeTogglePayload
+  commentCreate(input: CommentCreateInput!): CommentCreatePayload
+  commentDelete(input: CommentDeleteInput!): CommentDeletePayload
+  authToken(input: ObtainJSONWebTokenInput!): ObtainJSONWebTokenPayload
+  verifyToken(input: VerifyInput!): VerifyPayload
+  refreshToken(input: RefreshInput!): RefreshPayload
+  revokeToken(input: RevokeInput!): RevokePayload
+  deleteTokenCookie(input: DeleteJSONWebTokenCookieInput!): DeleteJSONWebTokenCookiePayload
+  deleteRefreshTokenCookie(input: DeleteRefreshTokenCookieInput!): DeleteRefreshTokenCookiePayload
+  chatSend(input: ChatSendInput!): ChatSendPayload
+  counselStart(input: CounselStartInput!): CounselStartPayload
+  counselStatusUpdate(input: CounselStatusUpdateInput!): CounselStatusUpdatePayload
+}
+
+type Query {
+  node(id: ID!): Node
+  user(id: ID!): UserNode
+  post(id: ID!): PostNode
+  tag(id: ID!): TagNode
+  counsel(id: ID!): CounselNode
+  chat(id: ID!): ChatNode
+  career(id: ID!): CareerNode
+  users(before: String, after: String, first: Int, last: Int, email_Icontains: String, division_Icontains: String, rank_Icontains: String, isCounselor: Boolean): UserNodeConnection
+  tags(name_Icontains: String, before: String, after: String, first: Int, last: Int): TagConnection
+  posts(before: String, after: String, first: Int, last: Int): PostConnection
+  counselors(before: String, after: String, first: Int, last: Int): CounselorConnection
+  getUserFromEmail(email: String!): UserNode
+}
+
+type Subscription {
+  messageSent(counselId: ID!): MessageSent
+}
+```
+
+
 
 <br/>
 
