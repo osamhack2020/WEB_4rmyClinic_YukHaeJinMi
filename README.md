@@ -100,25 +100,7 @@ type Subscription {
 <br/>
 
 ## 기술 스택
-### Back-end
- -  [Django](https://www.djangoproject.com/)
- - [Graphene](https://graphene-python.org/)
- - [Django GraphQL JWT](https://django-graphql-jwt.domake.io/en/latest/)
-
-<br/>
-
-### Front-end
- -  [React.js](https://reactjs.org/)
- -  [Typescript](https://www.typescriptlang.org/)
- - [GraphQL Relay](https://relay.dev/)
-
-<br/>
-
-### Deploy
-
-* [Docker](https://www.docker.com/)
-* [Google Cloud Run](https://cloud.google.com/run)
-* [Nginx](https://www.nginx.com/)
+![tech-stack](./readme/tech.png)
 
 <br/>
 
